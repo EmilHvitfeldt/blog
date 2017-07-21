@@ -6,10 +6,20 @@
     <description>Recent content in R on Hvitfeldt&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 05 Jun 2017 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 20 Jul 2017 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/categories/r/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Analysing useR!2017 schedule data</title>
+      <link>/2017/07/20/analysing-user-2017-schedule-data/</link>
+      <pubDate>Thu, 20 Jul 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/2017/07/20/analysing-user-2017-schedule-data/</guid>
+      <description>After attending useR!2017 for the first time, which great pleasure and new connections made. I decided to see if I could extract some of the information available in the public schedule. So as with my last post I’ll do a bit of scraping followed by a few visualizations.
+Packages library(tidyverse) library(stringr) library(utils) library(plotly) library(ltm) require(visNetwork)  Web scraping I found this task easiest with the help of purrr:map().</description>
+    </item>
     
     <item>
       <title>Repetition in musicals with tidytext</title>
