@@ -6,10 +6,21 @@
     <description>Recent content in Tidyverse on Hvitfeldt&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 20 Jul 2017 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 03 Dec 2017 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/tags/tidyverse/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Is Left-Center-right a loaded game?</title>
+      <link>/2017/12/03/is-left-center-right-a-loaded-game/</link>
+      <pubDate>Sun, 03 Dec 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/2017/12/03/is-left-center-right-a-loaded-game/</guid>
+      <description>Lately we have been playing the dice game Left Center Right and since it is entirely a game of chance, I figured it wouldn’t hurt to run some simulations to figure out a little bit more about the nature of the game.
+For those of you that doesn’t know the game here is a brief explanation:
+ If a player has fewer than three chips left, he is still in the game but his number of chips is the number of dice he rolls on his turn, rather than rolling all three.</description>
+    </item>
     
     <item>
       <title>Analysing useR!2017 schedule data</title>
