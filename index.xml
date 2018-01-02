@@ -6,10 +6,20 @@
     <description>Recent content on Hvitfeldt&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 03 Dec 2017 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 01 Jan 2018 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Recreate - Sunshine Report</title>
+      <link>/2018/01/01/recreate-sunshine-report/</link>
+      <pubDate>Mon, 01 Jan 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/2018/01/01/recreate-sunshine-report/</guid>
+      <description>Hello again! I this mini-series (of in-determined length) will I try as best as I can to recreate great visualizations in tidyverse. The recreation may be exact in terms of data, or using data of a similar style.
+The goal - An annual sunshine record report I have recently read The Visual Display of Quantitative Information by Edward R Tufte, which I highly recommend. In the book the following chart was displayed which showed the sunshine record for each day day of the year.</description>
+    </item>
     
     <item>
       <title>Is Left-Center-right a loaded game?</title>
