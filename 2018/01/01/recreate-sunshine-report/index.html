@@ -73,7 +73,8 @@
 <div id="the-goal---an-annual-sunshine-record-report" class="section level2">
 <h2>The goal - An annual sunshine record report</h2>
 <p>I have recently read <a href="https://www.edwardtufte.com/tufte/books_vdqi">The Visual Display of Quantitative Information</a> by Edward R Tufte, which I highly recommend. In the book the following chart was displayed which showed the sunshine record for each day day of the year.</p>
-<p><img src="../../../../img/2018-01-01-13.53scan.jpg" /> F.J. Monkhouse and H.R. Wilkinson, <em>Maps and Diagrams</em> (London, third edition 1971), 242-243.</p>
+<p><img src="../../../../img/2018-01-01-13.53scan.jpg" width="100%" /></p>
+<p>F.J. Monkhouse and H.R. Wilkinson, <em>Maps and Diagrams</em> (London, third edition 1971), 242-243.</p>
 <p>The goal for the rest of this post is to create something similar. Since we don’t have direct access to the data, we will scrape some data for ourselves. All code will be shown together in the end of the post and in this <a href="www.gigst.sdg">gist</a></p>
 </div>
 <div id="r-packages" class="section level2">
@@ -131,7 +132,7 @@ head(dates)</code></pre>
 }
 
 weather_data_html &lt;- purrr::safely(weather_data_html)</code></pre>
-<p>For this codethough will we be using airport code KCQT, which is placed in Los Angeles Downtown, CA.</p>
+<p>For this code-though will we be using airport code KCQT, which is placed in Los Angeles Downtown, CA.</p>
 <p>We add some ‘crawl-delay’ of 5 seconds and let it run. Please remember that this will take over 30 minutes to run with a delay in place but we do it to be nice.</p>
 <pre class="r"><code>airport_code &lt;- &quot;KCQT&quot;
 
@@ -197,7 +198,7 @@ full_data &lt;- map(dates, ~{
            sun_up = day_minutes &gt; (rise_minutes + 90) &amp; 
                     day_minutes &lt; (set_minutes - 30))
 }</code></pre>
-<p>In this function we apitraly decide that the sun is up, if it is 90 minutes after sun rise and 30 minutes before sun set. This is done because out future visualization is being made with rectangles and the <code>lag</code> function, and to ensure that all the sunshine hours are within sun set and sun rise we have to put in some restrains.</p>
+<p>In this function we arbitrarily decide that the sun is up, if it is 90 minutes after sun rise and 30 minutes before sun set. This is done because out future visualization is being made with rectangles and the <code>lag</code> function, and to ensure that all the sunshine hours are within sun set and sun rise we have to put in some restrains.</p>
 <p>It seems that the 30th of October doesn’t have hourly history data available so we will exclude it in the following:</p>
 <pre class="r"><code>full_data2 &lt;- map2_df(full_data[-303], dates[-303], ~ .x$result %&gt;%
                       data_wrangling(.y))</code></pre>
@@ -235,11 +236,11 @@ names(y_axis) &lt;- str_c(c(12, rep(1:12, 2, length.out = 23)),
   scale_x_continuous(breaks = x_axis, position = &quot;right&quot;) +
   scale_y_continuous(breaks = y_axis, limits = c(0, 24 * 60)) +
   labs(x = NULL, y = NULL, title = &quot;Sunshine report of Los Angeles 2017&quot;)</code></pre>
-<p><img src="../../../../post/2018-01-01-recreate-sunshine-report_files/figure-html/unnamed-chunk-16-1.png" width="100%" style="display: block; margin: auto;" /></p>
+<p><img src="../../../../post/2018-01-01-recreate-sunshine-report_files/figure-html/unnamed-chunk-17-1.png" width="100%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="extra" class="section level2">
 <h2>Extra</h2>
-<p><img src="../../../../post/2018-01-01-recreate-sunshine-report_files/figure-html/unnamed-chunk-17-1.png" width="100%" style="display: block; margin: auto;" /></p>
+<p><img src="../../../../post/2018-01-01-recreate-sunshine-report_files/figure-html/unnamed-chunk-18-1.png" width="100%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="code" class="section level2">
 <h2>Code</h2>
