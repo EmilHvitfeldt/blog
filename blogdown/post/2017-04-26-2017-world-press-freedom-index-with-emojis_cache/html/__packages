@@ -1,0 +1,13 @@
+base
+hrbrthemes
+tidyverse
+ggplot2
+tibble
+tidyr
+readr
+purrr
+dplyr
+stringr
+emo
+bindrcpp
+gdtools
