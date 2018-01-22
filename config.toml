@@ -1,4 +1,4 @@
-baseurl = "/"
+baseurl = "https://www.hvitfeldt.me/"
 relativeurls = true
 languageCode = "en-us"
 title = "Hvitfeldt's blog"
