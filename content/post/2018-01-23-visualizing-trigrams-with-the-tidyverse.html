@@ -23,11 +23,13 @@ Trying something new! Visualizing top trigrams in Jane Austen's Emma using <a hr
 — Emil Hvitfeldt (<span class="citation">@Emil_Hvitfeldt</span>) <a href="https://twitter.com/Emil_Hvitfeldt/status/955675169422327808?ref_src=twsrc%5Etfw">23. januar 2018</a>
 </blockquote>
 <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-<p>&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD ## What am I looking at? ======= !# What am I looking at? &gt;&gt;&gt;&gt;&gt;&gt;&gt; ddfab22dd775210abc08e08cf08d8438e960625f</p>
+<div id="what-am-i-looking-at" class="section level2">
+<h2>What am I looking at?</h2>
 <p>So for this particular data-viz I took novel Emma by Jane Austen, extracted all the trigrams (sentences of length 3), took the 150 most frequent ones and visualized those.</p>
 <p>This visualization is layered horizontal tree graph where the 3 levels (vertical columns of words) correspond words that appear at the nth place in the trigrams, e.g. first column have the first words of the trigram, second column have middle words of trigrams etc. Up to 20 words in each column are kept and they are ordered and sized according to occurrence in the data.</p>
 <p>The curves represent how often two words co-occur, with the color representing starting word and transparency related to frequency.</p>
 <p>All code is presented in the following <a href="https://gist.github.com/EmilHvitfeldt/f69a65436915ff8b0406cdd27a194e28">gist</a>.</p>
+</div>
 <div id="packages-and-parameters" class="section level2">
 <h2>Packages and parameters</h2>
 <p>We will be using the following packages:</p>
