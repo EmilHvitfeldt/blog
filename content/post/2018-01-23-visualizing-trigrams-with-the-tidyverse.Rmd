@@ -22,7 +22,11 @@ In this post I'll go though how I created the data visualization I posted yester
 <blockquote class="twitter-tweet" data-lang="da"><p lang="en" dir="ltr">Trying something new! Visualizing top trigrams in Jane Austen&#39;s Emma using <a href="https://twitter.com/hashtag/tidytext?src=hash&amp;ref_src=twsrc%5Etfw">#tidytext</a> and <a href="https://twitter.com/hashtag/tidyverse?src=hash&amp;ref_src=twsrc%5Etfw">#tidyverse</a>! Blogpost coming soon! 🤗 <a href="https://twitter.com/hashtag/rstats?src=hash&amp;ref_src=twsrc%5Etfw">#rstats</a> <a href="https://twitter.com/hashtag/dataviz?src=hash&amp;ref_src=twsrc%5Etfw">#dataviz</a> <a href="https://t.co/Sy1fQJB5Ih">pic.twitter.com/Sy1fQJB5Ih</a></p>&mdash; Emil Hvitfeldt (@Emil_Hvitfeldt) <a href="https://twitter.com/Emil_Hvitfeldt/status/955675169422327808?ref_src=twsrc%5Etfw">23. januar 2018</a></blockquote>
 <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
+<<<<<<< HEAD
 ## What am I looking at?
+=======
+!# What am I looking at?
+>>>>>>> ddfab22dd775210abc08e08cf08d8438e960625f
 
 So for this particular data-viz I took novel Emma by Jane Austen, extracted all the trigrams (sentences of length 3), took the 150 most frequent ones and visualized those.
 
