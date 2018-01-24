@@ -1,0 +1,7 @@
+## vizualisating trigrams
+
+![](/img/viz-trigram-1.png)
+![](/img/viz-trigram-2.png)
+![](/img/viz-trigram-3.png)
+
+[Blogpost w/ code](https://www.hvitfeldt.me/2018/01/visualizing-trigrams-with-the-tidyverse/)

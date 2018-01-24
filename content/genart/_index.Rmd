@@ -1,0 +1,7 @@
+## Polygon splitting genViz
+
+![](/img/Polygon-splitting-genViz_1.png)
+![](/img/Polygon-splitting-genViz_2.png)
+![](/img/Polygon-splitting-genViz_3.png)
+
+[Reference material w/ code](https://github.com/EmilHvitfeldt/Polygon-splitting-genViz)
