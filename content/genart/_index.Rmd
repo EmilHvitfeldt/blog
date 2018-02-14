@@ -1,3 +1,4 @@
+<!--Text comment--> 
 ## Polygon splitting genViz
 
 ![](/img/Polygon-splitting-genViz_1.png)
@@ -5,3 +6,11 @@
 ![](/img/Polygon-splitting-genViz_3.png)
 
 [Reference material w/ code](https://github.com/EmilHvitfeldt/Polygon-splitting-genViz)
+
+## TreeViz
+
+![](/img/treeViz-1.png)
+![](/img/treeViz-2.png)
+![](/img/treeViz-3.png)
+
+[Reference material w/ code](https://github.com/EmilHvitfeldt/Tree-GenViz)
