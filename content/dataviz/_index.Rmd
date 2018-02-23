@@ -5,3 +5,9 @@
 ![](/img/viz-trigram-3.png)
 
 [Blogpost w/ code](https://www.hvitfeldt.me/2018/01/visualizing-trigrams-with-the-tidyverse/)
+
+## Les Miserable Co Occurrence
+
+![](/img/les-mis-cooc.png)
+
+[Blogpost w/ code](https://www.hvitfeldt.me/2018/02/co-occurrence-of-characters-in-les-miserable)
