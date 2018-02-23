@@ -1,0 +1,28 @@
+---
+title: Co Occurrence of Characters in Les Miserable
+author: Emil Hvitfeldt
+date: '2018-02-23'
+slug: co-occurrence-of-characters-in-les-miserable
+categories:
+  - R
+tags:
+  - NLP
+  - cleanNLP
+  - tidyverse
+  - ggplot2
+---
+
+
+
+<div id="what-are-we-doing" class="section level2">
+<h2>What are we doing?</h2>
+<p>The inspiration for this post is <a href="https://bost.ocks.org/mike/miserables/">this beutiful vizualization</a> from <a href="https://bost.ocks.org/mike/">Mike Bostock</a>. It nicely vizualizes the co-occurence of characters (when two characters appear in the same chapter) in the novel <a href="https://en.wikipedia.org/wiki/Les_Mis%C3%A9rables">Les Misérables</a> by <a href="https://en.wikipedia.org/wiki/Victor_Hugo">Victor Hugo</a> using the data collected by <a href="https://en.wikipedia.org/wiki/Jacques_Bertin">Jacques Bertin</a> (and his assistants).</p>
+<p>The way this post will differentiate itself from this is that we are going to collect the data ourselves using <a href="https://en.wikipedia.org/wiki/Named-entity_recognition">named entity recognition</a>. Named entity recognition is the dicipline of location and classifying named entities in text. Furthermore will we also try to cluster the characters according to their appearence in the novel.</p>
+</div>
+<div id="loading-package" class="section level2">
+<h2>Loading package</h2>
+<p>for this we will need <code>tidyverse</code> for general data science tasks, <code>cleanNLP</code> for the named entity recognition and <code>igraph</code> for some graph related transformation.</p>
+<pre class="r"><code>library(tidyverse)
+library(cleanNLP)
+library(igraph)</code></pre>
+</div>
