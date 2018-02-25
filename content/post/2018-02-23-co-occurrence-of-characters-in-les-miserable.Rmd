@@ -13,7 +13,10 @@ tags:
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE, cache = TRUE)
+library(knitr)
+opts_chunk$set(echo = TRUE, cache = TRUE)
+knit_hooks$set(optipng = hook_optipng)
+opts_chunk$set("optipng" = "-o5")
 ```
 
 ## What are we doing?
