@@ -27,7 +27,9 @@ In this excellent article [Extensive Data Shows Punishing
 Reach of Racism for Black Boys](  
 https://www.nytimes.com/interactive/2018/03/19/upshot/race-class-white-and-black-men.html) by NYTimes includes a lot of very nice charts, both in motion and still. The chart that got biggest reception is the following:
 
-![My picture](img/nytimes-sankey.png)
+```{r echo=FALSE, out.width='100%'}
+knitr::include_graphics("/img/nytimes-sankey.png")
+```
 
 (see article for moving picture) We see a animated flow chart that follow the style of the classical Sankey chart. This chart will be the goal in this blog post, with 2 changes for brevity. firstly will I use randomly simulated data for my visualization and secondly will I not include the counters on the right-hand side of the chart and only show the creation of the counter on the left-hand as they are created in much the same fashion. 
 

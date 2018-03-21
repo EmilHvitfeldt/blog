@@ -18,10 +18,7 @@ tags:
 <div id="the-goal---a-flowing-sankey-chart-from-nytimes" class="section level2">
 <h2>The goal - A flowing sankey chart from nytimes</h2>
 <p>In this excellent article <a href="https://www.nytimes.com/interactive/2018/03/19/upshot/race-class-white-and-black-men.html">Extensive Data Shows Punishing Reach of Racism for Black Boys</a> by NYTimes includes a lot of very nice charts, both in motion and still. The chart that got biggest reception is the following:</p>
-<div class="figure">
-<img src="img/nytimes-sankey.png" alt="My picture" />
-<p class="caption">My picture</p>
-</div>
+<p><img src="/img/nytimes-sankey.png" width="100%" /></p>
 <p>(see article for moving picture) We see a animated flow chart that follow the style of the classical Sankey chart. This chart will be the goal in this blog post, with 2 changes for brevity. firstly will I use randomly simulated data for my visualization and secondly will I not include the counters on the right-hand side of the chart and only show the creation of the counter on the left-hand as they are created in much the same fashion.</p>
 </div>
 <div id="r-packages" class="section level2">
@@ -51,7 +48,7 @@ data &lt;- tibble(from = rep(4, n_points),
         n = 100, scale = 10) %&gt;%
   ggplot(aes(x, y)) +
   geom_point()</code></pre>
-<p><img src="/post/2018-03-20-recreate-sankey-flow-chart_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
+<p><img src="/post/2018-03-20-recreate-sankey-flow-chart_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
 <p>To set this in motion we will employ <code>gganimate</code>, for this we will add a <code>time</code> column to act as the frame.</p>
 <pre class="r"><code>p &lt;- sigmoid(0, 1, as.numeric(data[2, 1]), as.numeric(data[2, 2]),
              n = 100, scale = 10) %&gt;%
@@ -60,7 +57,7 @@ data &lt;- tibble(from = rep(4, n_points),
   geom_point()
 
 gganimate(p)</code></pre>
-<p><img src="/post/2018-03-20-recreate-sankey-flow-chart_files/figure-html/unnamed-chunk-5.gif" width="672" /></p>
+<p><img src="/post/2018-03-20-recreate-sankey-flow-chart_files/figure-html/unnamed-chunk-6.gif" width="672" /></p>
 <p>Which looks very nice so far. Next step is to have multiple points flowing towards different locations.</p>
 </div>
 <div id="multiple-points" class="section level2">
@@ -74,7 +71,7 @@ gganimate(p)</code></pre>
   geom_point() 
 
 gganimate(p)</code></pre>
-<p><img src="/post/2018-03-20-recreate-sankey-flow-chart_files/figure-html/unnamed-chunk-6.gif" width="672" /></p>
+<p><img src="/post/2018-03-20-recreate-sankey-flow-chart_files/figure-html/unnamed-chunk-7.gif" width="672" /></p>
 <p>Everything looks good so far, however the points all look the same, so we will do a little bit of beautification now rather then later. In addition to that will we save the data for the different components in different objects.</p>
 <p>the following <code>point_data</code> have the modification with <code>bind_cols</code> that binds the information from the <code>data</code> data.frame to the final object. We include the color and removing all themes and guides.</p>
 <pre class="r"><code>point_data &lt;- map_df(seq_len(nrow(data)), 
@@ -90,7 +87,7 @@ p &lt;- ggplot(point_data, aes(x, y, color = color, frame = time)) +
   guides(color = &quot;none&quot;)
 
 gganimate(p, title_frame = FALSE)</code></pre>
-<p><img src="/post/2018-03-20-recreate-sankey-flow-chart_files/figure-html/unnamed-chunk-7.gif" width="672" /></p>
+<p><img src="/post/2018-03-20-recreate-sankey-flow-chart_files/figure-html/unnamed-chunk-8.gif" width="672" /></p>
 <p>Which already looks way better. Next up to include animated counter on the left hand side that indicates how many points that have been introduced in the animation. This is simply done by counting how many have started their paths and afterwards padding to fill the length of the animation.</p>
 <pre class="r"><code>start_data_no_end &lt;- point_data %&gt;%
   group_by(id) %&gt;%
@@ -120,7 +117,7 @@ start_data &lt;- start_data_no_end %&gt;%
   guides(color = &quot;none&quot;)
 
 gganimate(p, title_frame = FALSE)</code></pre>
-<p><img src="/post/2018-03-20-recreate-sankey-flow-chart_files/figure-html/unnamed-chunk-9.gif" width="672" /></p>
+<p><img src="/post/2018-03-20-recreate-sankey-flow-chart_files/figure-html/unnamed-chunk-10.gif" width="672" /></p>
 </div>
 <div id="ending-boxes" class="section level2">
 <h2>Ending boxes</h2>
@@ -144,7 +141,7 @@ gganimate(p, title_frame = FALSE)</code></pre>
   guides(color = &quot;none&quot;)
 
 gganimate(p, title_frame = FALSE)</code></pre>
-<p><img src="/post/2018-03-20-recreate-sankey-flow-chart_files/figure-html/unnamed-chunk-11.gif" width="672" /></p>
+<p><img src="/post/2018-03-20-recreate-sankey-flow-chart_files/figure-html/unnamed-chunk-12.gif" width="672" /></p>
 </div>
 <div id="filling-the-box" class="section level2">
 <h2>Filling the box</h2>
@@ -177,6 +174,6 @@ end_lines &lt;- map_df(end_points$id,
          fill = &quot;none&quot;)
 
 gganimate(p, title_frame = FALSE)</code></pre>
-<p><img src="/post/2018-03-20-recreate-sankey-flow-chart_files/figure-html/unnamed-chunk-13.gif" width="672" /></p>
+<p><img src="/post/2018-03-20-recreate-sankey-flow-chart_files/figure-html/unnamed-chunk-14.gif" width="672" /></p>
 <p>And this is what I have for you for now. Counters on the right hand side could be done in much the same way as we have seen here, but wouldn’t add much value to showcase that here.</p>
 </div>
