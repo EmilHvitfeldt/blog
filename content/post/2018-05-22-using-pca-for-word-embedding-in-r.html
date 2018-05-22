@@ -139,7 +139,7 @@ tidied_pca %&gt;%
          y = &quot;Relative importance in principle component&quot;,
          title = &quot;PC1&quot;)</code></pre>
 <p><img src="/post/2018-05-22-using-pca-for-word-embedding-in-r_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
-<p>We would like to see some sensible separation between the positive words and the negative words (with regard to contribution). However I haven’t been able to come up with a meaning full grouping for the first 3 components. The fourth on the other hand have all the negative influencing words containing numbers in one way or another.</p>
+<p>We would like to see some sensible separation between the positive words and the negative words (with regard to contribution). However I haven’t been able to come up with a meaning full grouping for the first 3 components. The fourth on the other hand have all the positive influencing words containing numbers in one way or another.</p>
 <pre class="r"><code>map_df(c(-1, 1) * 20,
     ~ tidied_pca %&gt;%
         filter(PC == &quot;PC4&quot;) %&gt;% 

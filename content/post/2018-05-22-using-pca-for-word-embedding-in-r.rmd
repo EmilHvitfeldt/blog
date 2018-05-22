@@ -191,7 +191,7 @@ map_df(c(-1, 1) * 20,
          title = "PC1")
 ```
 
-We would like to see some sensible separation between the positive words and the negative words (with regard to contribution). However I haven't been able to come up with a meaning full grouping for the first 3 components. The fourth on the other hand have all the negative influencing words containing numbers in one way or another.
+We would like to see some sensible separation between the positive words and the negative words (with regard to contribution). However I haven't been able to come up with a meaning full grouping for the first 3 components. The fourth on the other hand have all the positive influencing words containing numbers in one way or another.
 
 ```{r}
 map_df(c(-1, 1) * 20,
