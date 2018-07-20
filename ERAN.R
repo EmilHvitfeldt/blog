@@ -1,0 +1,15 @@
+library(craneur)
+emil <- craneur:::Craneur$new("Emil")
+emil$add_package(path = "../cookiemonster_0.1.0.tar.gz", name = "cookiemonster")
+emil$add_package(path = "../ehlib_0.2.7.tar.gz", name = "ehlib")
+emil$add_package(path = "../ggpage_0.2.2.tar.gz", name = "ggpage")
+emil$add_package(path = "../ggtetris_0.1.0.tar.gz", name = "ggtetris")
+emil$add_package(path = "../hcandersenr_0.1.3.tar.gz", name = "hcandersenr")
+emil$add_package(path = "../offensiveR_0.1.3.tar.gz", name = "offensiveR")
+emil$add_package(path = "../paletteer_0.1.0.9000.tar.gz", name = "paletteer")
+emil$add_package(path = "../quickpalette_0.1.2.tar.gz", name = "quickpalette")
+emil$add_package(path = "../tilemapr_0.1.001.tar.gz", name = "tilemapr")
+emil$add_package(path = "../walmartAPI_0.1.5.9000.tar.gz", name = "walmartAPI")
+emil
+
+emil$write(path = "./content")
