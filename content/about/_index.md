@@ -15,8 +15,8 @@ I'm currently looking for a job in LA/Orange County.
 
 ### Contact me
 
-Email: [emilhhvitfeldt@gmail.com](mailto:emilhhvitfeldt@gmail.com)
-Github: [EmilHvitfeldt](https://github.com/EmilHvitfeldt)
+Email: [emilhhvitfeldt@gmail.com](mailto:emilhhvitfeldt@gmail.com)  
+Github: [EmilHvitfeldt](https://github.com/EmilHvitfeldt)  
 Twitter: [Emil_Hvitfeldt](https://twitter.com/Emil_Hvitfeldt)
 
 ### Resume
