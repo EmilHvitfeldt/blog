@@ -2,7 +2,7 @@
 title: "About"
 ---
 
-Hello, my name is Emil Hvitfeldt. I love to develop and make things in R. Working on vizulisation styles, modeling techniques and general workflow problems. Statistics graduate student of University of Copenhagen.
+Hello, my name is Emil Hvitfeldt. I love to develop and make things in R. Working on visualization styles, modeling techniques and general workflow problems. Statistics graduate student of University of Copenhagen.
 
 I'm currently looking for a job in LA/Orange County.
 
