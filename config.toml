@@ -5,7 +5,7 @@ title = "Hvitfeldt's blog"
 theme = "hugo-theme-cactus-plus"
 googleAnalytics = "UA-98238582-1"
 disqusShortname = "https-emilhvitfeldt-github-io"
-ignoreFiles = ["\\.Rmd$", "_files$", "_cache$"]
+ignoreFiles = ["\\.Rmd$", "_files$", "_cache$", "_files$"]
 
 [permalinks]
     post = "/:year/:month/:slug/"

@@ -179,7 +179,7 @@ p <- plot_data_v2 %>%
   scale_color_paletteer_c(viridis, viridis) +
   guides(color = "none", size = "none")
 
-ggplotly(p, width = 800, height = 800, displayModeBar = FALSE,
+ggplotly(p, width = 700, height = 700, displayModeBar = FALSE,
          tooltip = "text") %>% 
   config(displayModeBar = F)
 ```
