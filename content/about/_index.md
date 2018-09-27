@@ -22,3 +22,8 @@ Twitter: [Emil_Hvitfeldt](https://twitter.com/Emil_Hvitfeldt)
 ### Resume
 
 [Google docs](https://docs.google.com/document/d/1w5P3aufcWqDtB2LArvUdwUP8aM4gxbXHEXcZMryuGYM/edit?usp=sharing)
+
+### Speaking
+
+**Similarity measure in the space of color palettes**  
+September 2018 [Slides](https://github.com/EmilHvitfeldt/OCRUG-color-talk)
