@@ -13,12 +13,14 @@ googleAnalytics = "UA-98238582-1"
 [permalinks]
   post = "/:year/:month/:slug/"
 
+  ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_files$", "_cache$"]
+
 [params]
   # Style options: default (pink), blue, green, pink, red, sea, violet
   # Use custom.css for your custom styling
   style = "green"
   description = "My R adventures"
-  copyright = "&copy;2017 Emil Hvitfeldt"
+  copyright = "&copy;2019 Emil Hvitfeldt"
   sidebarAbout = [
     "I love to develop and make things in R. Working on visualization styles, modeling techniques and general workflow problems."
   ]
