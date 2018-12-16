@@ -4,6 +4,5 @@
 .Ruserdata
 .blog.Rproj
 public/*
-archetypes/
 blogdown/*
 .DS_Store
