@@ -1,0 +1,36 @@
+---
+title: Tree GenViz
+author: Emil Hvitfeldt
+date: '2018-01-21'
+slug: tree-genviz
+categories: []
+tags: []
+type: "genart"
+showonlyimage: true
+weight: 1
+image: "/img/genart/tree-genviz/treeViz-1.png"
+description: " "
+output:
+  blogdown::html_page:
+    toc: true
+---
+
+```{r setup, include=FALSE}
+library(knitr)
+opts_chunk$set(
+  echo = TRUE, 
+  cache = TRUE,
+  fig.width = 7, 
+  fig.align = 'center',
+  fig.asp = 0.618, # 1 / phi
+  out.width = "700px")
+knit_hooks$set(optipng = hook_optipng)
+opts_chunk$set("optipng" = "-o5")
+```
+
+![](/img/genart/tree-genviz/treeViz-1.png)  
+![](/img/genart/tree-genviz/treeViz-2.png)  
+![](/img/genart/tree-genviz/treeViz-3.png)  
+
+[Reference material w/ code](https://github.com/EmilHvitfeldt/Tree-GenViz
+

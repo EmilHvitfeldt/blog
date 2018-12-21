@@ -1,0 +1,36 @@
+---
+title: Polygon Splitting
+author: Emil Hvitfeldt
+date: '2018-01-21'
+slug: polygon-splitting
+categories: []
+tags: []
+type: "genart"
+showonlyimage: true
+weight: 1
+image: "/img/genart/polygon-splitting/Polygon-splitting-genViz_2.png"
+description: " "
+output:
+  blogdown::html_page:
+    toc: true
+---
+
+```{r setup, include=FALSE}
+library(knitr)
+opts_chunk$set(
+  echo = TRUE, 
+  cache = TRUE,
+  fig.width = 7, 
+  fig.align = 'center',
+  fig.asp = 0.618, # 1 / phi
+  out.width = "700px")
+knit_hooks$set(optipng = hook_optipng)
+opts_chunk$set("optipng" = "-o5")
+```
+
+![](/img/genart/polygon-splitting/Polygon-splitting-genViz_1.png)  
+![](/img/genart/polygon-splitting/Polygon-splitting-genViz_2.png)  
+![](/img/genart/polygon-splitting/Polygon-splitting-genViz_3.png)  
+
+[Reference material w/ code](https://github.com/EmilHvitfeldt/Polygon-splitting-genViz)
+
