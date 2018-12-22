@@ -18,24 +18,15 @@ output:
 
 <div id="TOC">
 <ul>
-<li><a href="#new---using-tidymodels">New - Using tidymodels</a></li>
-<li><a href="#old">Old</a><ul>
 <li><a href="#overview">Overview</a></li>
 <li><a href="#the-federalist-papers">The Federalist Papers</a></li>
 <li><a href="#libraries">Libraries</a></li>
 <li><a href="#data">Data</a></li>
 <li><a href="#predictive-modeling">Predictive modeling</a></li>
 <li><a href="#working-showcase">Working showcase</a></li>
-</ul></li>
 </ul>
 </div>
 
-<p><em>This code have been revised to make sure it works as of 2018-12-19. With the advent of tidymodels, have I redone analysis with the new set of tools. Old code is followed after tidymodels showcase.</em></p>
-<div id="new---using-tidymodels" class="section level1">
-<h1>New - Using tidymodels</h1>
-</div>
-<div id="old" class="section level1">
-<h1>Old</h1>
 <div id="overview" class="section level2">
 <h2>Overview</h2>
 <p>In this post we will</p>
@@ -197,5 +188,4 @@ model &lt;- cv.glmnet(predictor, response, family = &quot;binomial&quot;, alpha 
   geom_vline(aes(xintercept = 16.5), color = &quot;red&quot;)</code></pre>
 <p><img src="/blog/2018-01-30-predicting-authorship-in-the-federalist-papers-tidytext_files/figure-html/old-plot2-1.png" width="700px" style="display: block; margin: auto;" /></p>
 <p>So we see that while it isn’t as crystal clear what what the test set predictions are giving us, they still give a pretty good indication.</p>
-</div>
 </div>

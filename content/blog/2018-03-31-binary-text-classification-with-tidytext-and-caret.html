@@ -18,8 +18,6 @@ output:
 
 <div id="TOC">
 <ul>
-<li><a href="#new---using-tidymodels">New - Using tidymodels</a></li>
-<li><a href="#old">Old</a><ul>
 <li><a href="#packages">Packages</a></li>
 <li><a href="#data">Data</a></li>
 <li><a href="#missing-tweets">Missing tweets</a></li>
@@ -31,16 +29,9 @@ output:
 <li><a href="#nnet">nnet</a></li>
 <li><a href="#comparing-models">Comparing models</a></li>
 <li><a href="#tuning-hyperparameters">Tuning hyperparameters</a></li>
-</ul></li>
 </ul>
 </div>
 
-<p><em>This post has received an update to utilize the tidymodels as of 2018-12-19. Old post is included in the end.</em></p>
-<div id="new---using-tidymodels" class="section level1">
-<h1>New - Using tidymodels</h1>
-</div>
-<div id="old" class="section level1">
-<h1>Old</h1>
 <p>the scope of this blog post is to show how to do binary text classification using standard tools such as <code>tidytext</code> and <code>caret</code> packages. One of if not the most common binary text classification task is the spam detection (spam vs non-spam) that happens in most email services but has many other application such as language identification (English vs non-English).</p>
 <p>In this post I’ll showcase 5 different classification methods to see how they compare with this data. The methods all land on the less complex side of the spectrum and thus does not include creating complex deep neural networks.</p>
 <p>An expansion of this subject is multiclass text classification which I might write about in the future.</p>
@@ -252,5 +243,4 @@ nnet_cm</code></pre>
 <p>And we see that it appear to be just around 1. It is important to search multiple parameters at the SAME TIME as it can not be assumed that the parameters are independent of each others. Only reason I didn’t do that here was to same the time.</p>
 <p>I will leave to you the reader to find out which of the models have the highest accuracy after doing parameter tuning.</p>
 <p>I hope you have enjoyed this overview of binary text classification.</p>
-</div>
 </div>

@@ -28,12 +28,6 @@ knit_hooks$set(optipng = hook_optipng)
 opts_chunk$set("optipng" = "-o5")
 ```
 
-*This code have been revised to make sure it works as of 2018-12-19. With the advent of tidymodels, have I redone analysis with the new set of tools. Old code is followed after tidymodels showcase.*  
-
-# New - Using tidymodels
-
-# Old
-
 ## Overview
 
 In this post we will

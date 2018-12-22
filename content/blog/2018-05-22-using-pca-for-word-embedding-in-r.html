@@ -18,20 +18,11 @@ output:
 
 <div id="TOC">
 <ul>
-<li><a href="#new---using-tidymodels">New - Using tidymodels</a></li>
-<li><a href="#old">Old</a><ul>
 <li><a href="#data-prepossessing">Data prepossessing</a></li>
 <li><a href="#data-viz">Data viz</a></li>
-</ul></li>
 </ul>
 </div>
 
-<p><em>This code have been revised to make sure it works as of 2018-12-20. With the advent of tidymodels, have I redone analysis with the new set of tools. Old code is followed after tidymodels showcase.</em></p>
-<div id="new---using-tidymodels" class="section level1">
-<h1>New - Using tidymodels</h1>
-</div>
-<div id="old" class="section level1">
-<h1>Old</h1>
 <p>In my earlier post on <a href="https://www.hvitfeldt.me/2018/03/binary-text-classification-with-tidytext-and-caret/">binary text classification</a> was one of the problems that occurred was the sheer size of the data when trying to fit a model. The bag of words method of having each column describe the occurrence of a specific word in each document (row) is appealing from a mathematical perspective, but gives rise for large sparse matrices which aren’t handled well by some models in R. This leads to slow running code at best and crashing at worst.</p>
 <p>We will try to combat this problem by using something called <a href="https://en.wikipedia.org/wiki/Word_embedding">word embedding</a> which is a general term for the process of mapping textural information to a lower dimensional space. This is a special case of dimensionality reduction, and we will use the simple well known method <a href="https://en.wikipedia.org/wiki/Principal_component_analysis">Principal component analysis</a> for our word embedding today. We are essentially trying to squeeze as much information into as little space as possible such that our models can run in a reasonable time.</p>
 <p>We will use the same data as in the earlier post, and the PCA procedure is very inspired by Julia Silge recent post <a href="https://juliasilge.com/blog/stack-overflow-pca/">Understanding PCA using Stack Overflow data</a> which you should read if you haven’t already!!</p>
@@ -168,5 +159,4 @@ y_pred &lt;- predict(model,
          title = &quot;PC4&quot;)</code></pre>
 <p><img src="/blog/2018-05-22-using-pca-for-word-embedding-in-r_files/figure-html/unnamed-chunk-13-1.png" width="700px" style="display: block; margin: auto;" /></p>
 <p>This is all I have for this time. Hope you enjoyed it!</p>
-</div>
 </div>
