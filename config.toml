@@ -18,9 +18,9 @@ googleAnalytics = "UA-98238582-1"
 [params]
   # Style options: default (pink), blue, green, pink, red, sea, violet
   # Use custom.css for your custom styling
-  style = "green"
-  description = "My R adventures"
-  copyright = "&copy;2019 Emil Hvitfeldt"
+  style = "blue"
+  description = "My R adventures."
+  copyright = "&copy;2019 Emil Hvitfeldt @Emil_Hvitfeldt"
   sidebarAbout = [
     "I love to develop and make things in R. Working on visualization styles, modeling techniques and general workflow problems."
   ]
@@ -55,10 +55,6 @@ googleAnalytics = "UA-98238582-1"
   [[params.navlinks]]
   name = "ERAN"
   url = "src/contrib/"
-
-  [[params.navlinks]]
-  name = "Get in touch"
-  url = "contact/"
 
   [params.social]
   email        = "emilhhvitfeldt@gmail.com"
