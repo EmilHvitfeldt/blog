@@ -213,7 +213,7 @@ This is the part of the workflow where one should do hyperparameter optimization
 
 ## Evaluation
 
-Now that we have fitted the data based on the training data we can evaluate based on the testing data set. Here we will use the parsnip functions `predict_class()` and `predict_classprob()` to give us the predicted class and predicted probabilities for the two models. Neatly collecting the whole thing in 1onetibble.
+Now that we have fitted the data based on the training data we can evaluate based on the testing data set. Here we will use the parsnip functions `predict_class()` and `predict_classprob()` to give us the predicted class and predicted probabilities for the two models. Neatly collecting the whole thing in one tibble.
 
 ```{r, warning=FALSE}
 eval_tibble <- stopword_test_data %>%
@@ -228,14 +228,14 @@ eval_tibble <- stopword_test_data %>%
 eval_tibble
 ```
 
-Tidymodels includes the pyardstick](https://github.com/tidymodels/yardstick) wpackage hich makes evaluation calculations much easier and tidy. It can allow us to calculate the accuracy by calling the `accuracy()` function
+Tidymodels includes the [yardstick](https://github.com/tidymodels/yardstick) package which makes evaluation calculations much easier and tidy. It can allow us to calculate the accuracy by calling the `accuracy()` function
 
 ```{r}
 accuracy(eval_tibble, truth = title, estimate = class_stopword)
 accuracy(eval_tibble, truth = title, estimate = class_julia)
 ```
 
-WAnd we see that the stop words model eats the naive model (one that always picks the majority class), while lacking behind the word count model.
+And we see that the stop words model beats the naive model (one that always picks the majority class), while lacking behind the word count model.
 
 ```{r}
 test_data %>%
@@ -245,7 +245,7 @@ test_data %>%
 
 We are also able to plot the ROC curve using `roc_curve()`(notice how we are using the predicted probabilities instead of class) and `autoplot()`  
 
-```{r}
+```{r, fig.asp = 1}
 eval_tibble %>%
   roc_curve(title, prop_stopword) %>%
   autoplot()
@@ -253,7 +253,7 @@ eval_tibble %>%
 
 To superimpose both ROC curve we are going to tidyr our data a little bit.
 
-```{r}
+```{r, fig.asp = 1}
 eval_tibble %>%
   rename(`Word Count` = prop_julia, `Stopwords` = prop_stopword) %>%
   gather("Stopwords", "Word Count", key = "Model", value = "Prop") %>%
@@ -269,4 +269,4 @@ eval_tibble %>%
 
 I'm not going to tell you that you should run a "all stop words only" model every-time you want to do text classification. But I hope this exercise shows you that stop words which are assumed to have no information does indeed have some degree on information. Please always look at your stop word list, check if you even need to remove them, some studies [shows that removal of stop words might not provide the benefit you thought](http://www.cs.cornell.edu/~xanda/stopwords2017.pdf).  
 
-TFurthermore I hope to have showed the power of tidymodels. idymodels is still growing, so if you have any feedback/bug reports/suggests please go to the respective repositories, we would highly appreciate it!
+Furthermore I hope to have showed the power of tidymodels. Tidymodels is still growing, so if you have any feedback/bug reports/suggests please go to the respective repositories, we would highly appreciate it!

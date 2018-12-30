@@ -292,7 +292,7 @@ julia_model &lt;- glmnet_model %&gt;%
 </div>
 <div id="evaluation" class="section level2">
 <h2>Evaluation</h2>
-<p>Now that we have fitted the data based on the training data we can evaluate based on the testing data set. Here we will use the parsnip functions <code>predict_class()</code> and <code>predict_classprob()</code> to give us the predicted class and predicted probabilities for the two models. Neatly collecting the whole thing in 1onetibble.</p>
+<p>Now that we have fitted the data based on the training data we can evaluate based on the testing data set. Here we will use the parsnip functions <code>predict_class()</code> and <code>predict_classprob()</code> to give us the predicted class and predicted probabilities for the two models. Neatly collecting the whole thing in one tibble.</p>
 <pre class="r"><code>eval_tibble &lt;- stopword_test_data %&gt;%
   select(title) %&gt;%
   mutate(
@@ -317,7 +317,7 @@ eval_tibble</code></pre>
 ##  9 The War of t… Pride and Prejud… The War of the…        0.0737     0.550 
 ## 10 The War of t… The War of the W… The War of the…        0.842      1.000 
 ## # ... with 4,048 more rows</code></pre>
-<p>Tidymodels includes the pyardstick](<a href="https://github.com/tidymodels/yardstick" class="uri">https://github.com/tidymodels/yardstick</a>) wpackage hich makes evaluation calculations much easier and tidy. It can allow us to calculate the accuracy by calling the <code>accuracy()</code> function</p>
+<p>Tidymodels includes the <a href="https://github.com/tidymodels/yardstick">yardstick</a> package which makes evaluation calculations much easier and tidy. It can allow us to calculate the accuracy by calling the <code>accuracy()</code> function</p>
 <pre class="r"><code>accuracy(eval_tibble, truth = title, estimate = class_stopword)</code></pre>
 <pre><code>## # A tibble: 1 x 3
 ##   .metric  .estimator .estimate
@@ -328,7 +328,7 @@ eval_tibble</code></pre>
 ##   .metric  .estimator .estimate
 ##   &lt;chr&gt;    &lt;chr&gt;          &lt;dbl&gt;
 ## 1 accuracy binary         0.898</code></pre>
-<p>WAnd we see that the stop words model eats the naive model (one that always picks the majority class), while lacking behind the word count model.</p>
+<p>And we see that the stop words model beats the naive model (one that always picks the majority class), while lacking behind the word count model.</p>
 <pre class="r"><code>test_data %&gt;%
   filter(text != &quot;&quot;) %&gt;%
   summarise(mean(title == &quot;Pride and Prejudice&quot;))</code></pre>
@@ -356,5 +356,5 @@ eval_tibble</code></pre>
 <div id="conclusion" class="section level2">
 <h2>Conclusion</h2>
 <p>I’m not going to tell you that you should run a “all stop words only” model every-time you want to do text classification. But I hope this exercise shows you that stop words which are assumed to have no information does indeed have some degree on information. Please always look at your stop word list, check if you even need to remove them, some studies <a href="http://www.cs.cornell.edu/~xanda/stopwords2017.pdf">shows that removal of stop words might not provide the benefit you thought</a>.</p>
-<p>TFurthermore I hope to have showed the power of tidymodels. idymodels is still growing, so if you have any feedback/bug reports/suggests please go to the respective repositories, we would highly appreciate it!</p>
+<p>Furthermore I hope to have showed the power of tidymodels. Tidymodels is still growing, so if you have any feedback/bug reports/suggests please go to the respective repositories, we would highly appreciate it!</p>
 </div>
