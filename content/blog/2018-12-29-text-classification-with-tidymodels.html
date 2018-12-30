@@ -129,25 +129,33 @@ stopwords(language = &quot;en&quot;, source = &quot;snowball&quot;) %&gt;% sort(
 <pre class="r"><code>library(tokenizers)
 tokenize_ngrams(sentence, n = 3)</code></pre>
 <pre><code>## [[1]]
-##  [1] &quot;this a sample&quot;        &quot;a sample sentence&quot;    &quot;sample sentence that&quot;
-##  [4] &quot;sentence that is&quot;     &quot;that is used&quot;         &quot;is used to&quot;          
-##  [7] &quot;used to explain&quot;      &quot;to explain the&quot;       &quot;explain the concept&quot; 
-## [10] &quot;the concept of&quot;       &quot;concept of ngrams&quot;</code></pre>
+##  [1] &quot;this an example&quot;       &quot;an example sentence&quot;  
+##  [3] &quot;example sentence that&quot; &quot;sentence that is&quot;     
+##  [5] &quot;that is used&quot;          &quot;is used to&quot;           
+##  [7] &quot;used to explain&quot;       &quot;to explain the&quot;       
+##  [9] &quot;explain the concept&quot;   &quot;the concept of&quot;       
+## [11] &quot;concept of ngrams&quot;</code></pre>
 <p>however we would also like to the singular word counts (unigrams) and bigrams (ngrams of length 2). This can easily be done by setting the <code>n_min</code> argument.</p>
 <pre class="r"><code>tokenize_ngrams(sentence, n = 3, n_min = 1)</code></pre>
 <pre><code>## [[1]]
-##  [1] &quot;this&quot;                 &quot;this a&quot;               &quot;this a sample&quot;       
-##  [4] &quot;a&quot;                    &quot;a sample&quot;             &quot;a sample sentence&quot;   
-##  [7] &quot;sample&quot;               &quot;sample sentence&quot;      &quot;sample sentence that&quot;
-## [10] &quot;sentence&quot;             &quot;sentence that&quot;        &quot;sentence that is&quot;    
-## [13] &quot;that&quot;                 &quot;that is&quot;              &quot;that is used&quot;        
-## [16] &quot;is&quot;                   &quot;is used&quot;              &quot;is used to&quot;          
-## [19] &quot;used&quot;                 &quot;used to&quot;              &quot;used to explain&quot;     
-## [22] &quot;to&quot;                   &quot;to explain&quot;           &quot;to explain the&quot;      
-## [25] &quot;explain&quot;              &quot;explain the&quot;          &quot;explain the concept&quot; 
-## [28] &quot;the&quot;                  &quot;the concept&quot;          &quot;the concept of&quot;      
-## [31] &quot;concept&quot;              &quot;concept of&quot;           &quot;concept of ngrams&quot;   
-## [34] &quot;of&quot;                   &quot;of ngrams&quot;            &quot;ngrams&quot;</code></pre>
+##  [1] &quot;this&quot;                  &quot;this an&quot;              
+##  [3] &quot;this an example&quot;       &quot;an&quot;                   
+##  [5] &quot;an example&quot;            &quot;an example sentence&quot;  
+##  [7] &quot;example&quot;               &quot;example sentence&quot;     
+##  [9] &quot;example sentence that&quot; &quot;sentence&quot;             
+## [11] &quot;sentence that&quot;         &quot;sentence that is&quot;     
+## [13] &quot;that&quot;                  &quot;that is&quot;              
+## [15] &quot;that is used&quot;          &quot;is&quot;                   
+## [17] &quot;is used&quot;               &quot;is used to&quot;           
+## [19] &quot;used&quot;                  &quot;used to&quot;              
+## [21] &quot;used to explain&quot;       &quot;to&quot;                   
+## [23] &quot;to explain&quot;            &quot;to explain the&quot;       
+## [25] &quot;explain&quot;               &quot;explain the&quot;          
+## [27] &quot;explain the concept&quot;   &quot;the&quot;                  
+## [29] &quot;the concept&quot;           &quot;the concept of&quot;       
+## [31] &quot;concept&quot;               &quot;concept of&quot;           
+## [33] &quot;concept of ngrams&quot;     &quot;of&quot;                   
+## [35] &quot;of ngrams&quot;             &quot;ngrams&quot;</code></pre>
 <p>Now we get unigrams, bigrams and trigrams in one. But wait, we wanted to limit our focus to stop words. Here is how the end result will look once we exclude all non-stop words and perform the ngram operation.</p>
 <pre class="r"><code>tokenize_words(sentence) %&gt;%
   unlist() %&gt;%
@@ -155,12 +163,13 @@ tokenize_ngrams(sentence, n = 3)</code></pre>
   paste(collapse = &quot; &quot;) %&gt;%
   print() %&gt;%
   tokenize_ngrams(n = 3, n_min = 1)</code></pre>
-<pre><code>## [1] &quot;this a that is to the of&quot;</code></pre>
+<pre><code>## [1] &quot;this an that is to the of&quot;</code></pre>
 <pre><code>## [[1]]
-##  [1] &quot;this&quot;        &quot;this a&quot;      &quot;this a that&quot; &quot;a&quot;           &quot;a that&quot;     
-##  [6] &quot;a that is&quot;   &quot;that&quot;        &quot;that is&quot;     &quot;that is to&quot;  &quot;is&quot;         
-## [11] &quot;is to&quot;       &quot;is to the&quot;   &quot;to&quot;          &quot;to the&quot;      &quot;to the of&quot;  
-## [16] &quot;the&quot;         &quot;the of&quot;      &quot;of&quot;</code></pre>
+##  [1] &quot;this&quot;         &quot;this an&quot;      &quot;this an that&quot; &quot;an&quot;          
+##  [5] &quot;an that&quot;      &quot;an that is&quot;   &quot;that&quot;         &quot;that is&quot;     
+##  [9] &quot;that is to&quot;   &quot;is&quot;           &quot;is to&quot;        &quot;is to the&quot;   
+## [13] &quot;to&quot;           &quot;to the&quot;       &quot;to the of&quot;    &quot;the&quot;         
+## [17] &quot;the of&quot;       &quot;of&quot;</code></pre>
 <p>We have quite a reduction in ngrams then the full sentence, but hopefully there is some information within.</p>
 </div>
 <div id="training-testing-split" class="section level2">
@@ -273,7 +282,7 @@ str(stopword_train_data, list.len = 10)</code></pre>
 <h2>Modeling</h2>
 <p>For modeling we will be using the <a href="https://github.com/tidymodels/parsnip">parsnip</a> package from tidymodels. First we start by defining a model specification. This defines the intent of our model, what we want to do, not what we want to do it on. Meaning we don’t include the data yet, just the kind of model, its hyperparameters and the engine (the package that will do the work). We will be be using glmnet package here so we will specify a logistic regression model</p>
 <pre class="r"><code>glmnet_model &lt;- logistic_reg(mixture = 0, penalty = 0.1) %&gt;%
-  set_engine(&quot;glm&quot;)
+  set_engine(&quot;glmnet&quot;)
 glmnet_model</code></pre>
 <pre><code>## Logistic Regression Model Specification (classification)
 ## 
@@ -281,8 +290,8 @@ glmnet_model</code></pre>
 ##   penalty = 0.1
 ##   mixture = 0
 ## 
-## Computational engine: glm</code></pre>
-<p>Here we will fit the models using both our training data, first using the stop words, then using the simple would count approach. This will take a while as we are dealing with over 1000 features in both cases.</p>
+## Computational engine: glmnet</code></pre>
+<p>Here we will fit the models using both our training data, first using the stop words, then using the simple would count approach.</p>
 <pre class="r"><code>stopword_model &lt;- glmnet_model %&gt;%
   fit(title ~ ., data = stopword_train_data)
 
@@ -306,28 +315,28 @@ eval_tibble</code></pre>
 <pre><code>## # A tibble: 4,058 x 5
 ##    title         class_stopword    class_julia     prop_stopword prop_julia
 ##    &lt;fct&gt;         &lt;fct&gt;             &lt;fct&gt;                   &lt;dbl&gt;      &lt;dbl&gt;
-##  1 The War of t… Pride and Prejud… Pride and Prej…        0.0493     0.0228
-##  2 The War of t… Pride and Prejud… The War of the…        0.365      0.852 
-##  3 The War of t… The War of the W… The War of the…        0.816      1.000 
-##  4 The War of t… The War of the W… The War of the…        0.686      0.958 
-##  5 The War of t… Pride and Prejud… The War of the…        0.480      0.907 
-##  6 The War of t… The War of the W… The War of the…        0.709      0.996 
-##  7 The War of t… The War of the W… The War of the…        0.928      0.743 
-##  8 The War of t… The War of the W… The War of the…        0.915      1.000 
-##  9 The War of t… Pride and Prejud… The War of the…        0.0737     0.550 
-## 10 The War of t… The War of the W… The War of the…        0.842      1.000 
+##  1 The War of t… Pride and Prejud… Pride and Prej…         0.332      0.195
+##  2 The War of t… Pride and Prejud… Pride and Prej…         0.376      0.452
+##  3 The War of t… The War of the W… The War of the…         0.613      0.836
+##  4 The War of t… The War of the W… The War of the…         0.535      0.515
+##  5 The War of t… Pride and Prejud… The War of the…         0.361      0.591
+##  6 The War of t… Pride and Prejud… The War of the…         0.475      0.643
+##  7 The War of t… The War of the W… Pride and Prej…         0.646      0.412
+##  8 The War of t… The War of the W… The War of the…         0.619      0.579
+##  9 The War of t… Pride and Prejud… Pride and Prej…         0.265      0.427
+## 10 The War of t… The War of the W… The War of the…         0.697      0.894
 ## # ... with 4,048 more rows</code></pre>
 <p>Tidymodels includes the <a href="https://github.com/tidymodels/yardstick">yardstick</a> package which makes evaluation calculations much easier and tidy. It can allow us to calculate the accuracy by calling the <code>accuracy()</code> function</p>
 <pre class="r"><code>accuracy(eval_tibble, truth = title, estimate = class_stopword)</code></pre>
 <pre><code>## # A tibble: 1 x 3
 ##   .metric  .estimator .estimate
 ##   &lt;chr&gt;    &lt;chr&gt;          &lt;dbl&gt;
-## 1 accuracy binary         0.791</code></pre>
+## 1 accuracy binary         0.800</code></pre>
 <pre class="r"><code>accuracy(eval_tibble, truth = title, estimate = class_julia)</code></pre>
 <pre><code>## # A tibble: 1 x 3
 ##   .metric  .estimator .estimate
 ##   &lt;chr&gt;    &lt;chr&gt;          &lt;dbl&gt;
-## 1 accuracy binary         0.898</code></pre>
+## 1 accuracy binary         0.911</code></pre>
 <p>And we see that the stop words model beats the naive model (one that always picks the majority class), while lacking behind the word count model.</p>
 <pre class="r"><code>test_data %&gt;%
   filter(text != &quot;&quot;) %&gt;%

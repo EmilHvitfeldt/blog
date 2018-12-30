@@ -195,11 +195,11 @@ For modeling we will be using the [parsnip](https://github.com/tidymodels/parsni
 
 ```{r model-spec}
 glmnet_model <- logistic_reg(mixture = 0, penalty = 0.1) %>%
-  set_engine("glm")
+  set_engine("glmnet")
 glmnet_model
 ```
 
-Here we will fit the models using both our training data, first using the stop words, then using the simple would count approach. This will take a while as we are dealing with over 1000 features in both cases.
+Here we will fit the models using both our training data, first using the stop words, then using the simple would count approach.
 
 ```{r model-fit, warning=FALSE}
 stopword_model <- glmnet_model %>%
