@@ -19,7 +19,7 @@ output:
 library(knitr)
 opts_chunk$set(
   echo = TRUE, 
-  cache = TRUE,
+  cache = FALSE,
   fig.width = 7, 
   fig.align = 'center',
   fig.asp = 0.618, # 1 / phi
@@ -270,3 +270,29 @@ eval_tibble %>%
 I'm not going to tell you that you should run a "all stop words only" model every-time you want to do text classification. But I hope this exercise shows you that stop words which are assumed to have no information does indeed have some degree on information. Please always look at your stop word list, check if you even need to remove them, some studies [shows that removal of stop words might not provide the benefit you thought](http://www.cs.cornell.edu/~xanda/stopwords2017.pdf).  
 
 Furthermore I hope to have showed the power of tidymodels. Tidymodels is still growing, so if you have any feedback/bug reports/suggests please go to the respective repositories, we would highly appreciate it!
+
+## Comments
+
+This plot was suggested in the comments, Thanks Isaiah!
+
+```{r}
+stopword_model$fit %>% 
+  tidy() %>%
+  mutate(term = str_replace(term, "tf_text_", "")) %>%
+  group_by(estimate > 0) %>%
+  top_n(10, abs(estimate)) %>%
+  ungroup() %>%
+  ggplot(aes(fct_reorder(term, estimate), estimate, fill = estimate > 0)) +
+  geom_col(alpha = 0.8, show.legend = FALSE) +
+  coord_flip() +
+  theme_minimal() +
+  labs(x = NULL,
+  title = "Coefficients that increase/decrease probability the most",
+  subtitle = "Stopwords only")
+```
+
+And Isaiah notes that
+
+> Whereas Julia's analysis using non stop words showed that Elizabeth is the opposite of a Martian, stop words shows that Pride and Prejudice talks of men and women, and War of the Worlds makes declarations about existence.
+
+Which I would like to say looks pretty spot on.

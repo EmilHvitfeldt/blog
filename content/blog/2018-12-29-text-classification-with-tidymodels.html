@@ -26,6 +26,7 @@ output:
 <li><a href="#modeling">Modeling</a></li>
 <li><a href="#evaluation">Evaluation</a></li>
 <li><a href="#conclusion">Conclusion</a></li>
+<li><a href="#comments">Comments</a></li>
 </ul>
 </div>
 
@@ -366,4 +367,27 @@ eval_tibble</code></pre>
 <h2>Conclusion</h2>
 <p>I’m not going to tell you that you should run a “all stop words only” model every-time you want to do text classification. But I hope this exercise shows you that stop words which are assumed to have no information does indeed have some degree on information. Please always look at your stop word list, check if you even need to remove them, some studies <a href="http://www.cs.cornell.edu/~xanda/stopwords2017.pdf">shows that removal of stop words might not provide the benefit you thought</a>.</p>
 <p>Furthermore I hope to have showed the power of tidymodels. Tidymodels is still growing, so if you have any feedback/bug reports/suggests please go to the respective repositories, we would highly appreciate it!</p>
+</div>
+<div id="comments" class="section level2">
+<h2>Comments</h2>
+<p>This plot was suggested in the comments, Thanks Isaiah!</p>
+<pre class="r"><code>stopword_model$fit %&gt;% 
+  tidy() %&gt;%
+  mutate(term = str_replace(term, &quot;tf_text_&quot;, &quot;&quot;)) %&gt;%
+  group_by(estimate &gt; 0) %&gt;%
+  top_n(10, abs(estimate)) %&gt;%
+  ungroup() %&gt;%
+  ggplot(aes(fct_reorder(term, estimate), estimate, fill = estimate &gt; 0)) +
+  geom_col(alpha = 0.8, show.legend = FALSE) +
+  coord_flip() +
+  theme_minimal() +
+  labs(x = NULL,
+  title = &quot;Coefficients that increase/decrease probability the most&quot;,
+  subtitle = &quot;Stopwords only&quot;)</code></pre>
+<p><img src="/blog/2018-12-29-text-classification-with-tidymodels_files/figure-html/unnamed-chunk-6-1.png" width="700px" style="display: block; margin: auto;" /></p>
+<p>And Isaiah notes that</p>
+<blockquote>
+<p>Whereas Julia’s analysis using non stop words showed that Elizabeth is the opposite of a Martian, stop words shows that Pride and Prejudice talks of men and women, and War of the Worlds makes declarations about existence.</p>
+</blockquote>
+<p>Which I would like to say looks pretty spot on.</p>
 </div>
