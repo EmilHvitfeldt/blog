@@ -2,7 +2,7 @@
 title: "About Me"
 ---
 
-Hello, my name is Emil Hvitfeldt. I love to develop and make things in R. Working on natural language processing, visualization styles, modeling techniques and general workflow problems. M.S. in Statistics from University of Copenhagen.
+Hello, my name is Emil Hvitfeldt. I'm a Research Programmer at University of Southern California. I love to develop and make things in R. Working on natural language processing, visualization styles, modeling techniques and general workflow problems. M.S. in Statistics from University of Copenhagen.
 
 ### Software
 
@@ -27,10 +27,10 @@ Twitter: [Emil_Hvitfeldt](https://twitter.com/Emil_Hvitfeldt)
 #### 2018
 
 **Text Analysis in R - Special Christmas Edition**  
-December [Github](https://github.com/EmilHvitfeldt/laerug-Text-Mining-2018) [slides](https://htmlpreview.github.io/?https://github.com/EmilHvitfeldt/laerug-Text-Mining-2018/blob/master/slides.html)
+December [Github](https://github.com/EmilHvitfeldt/laerug-Text-Mining-2018) [slides](https://rawcdn.githack.com/EmilHvitfeldt/laerug-Text-Mining-2018/29f1b3b2f96c0a2f23fbfea9620e404adc3c85af/slides.html)
 
 **Best Practices in R**  
-October [Github](https://github.com/EmilHvitfeldt/oRganized-talk) [slides](https://htmlpreview.github.io/?https://github.com/EmilHvitfeldt/oRganized-talk/blob/master/2018-10-29_getting-organized-with-r.html)
+October [Github](https://github.com/EmilHvitfeldt/oRganized-talk) [slides](https://rawcdn.githack.com/EmilHvitfeldt/oRganized-talk/209977121efa5d3a97d4fb86090b9c6dfcd9f6b0/2018-10-29_getting-organized-with-r.html)
 
 **Similarity measure in the space of color palettes**  
 September [Github](https://github.com/EmilHvitfeldt/OCRUG-color-talk) [pdf](https://github.com/EmilHvitfeldt/OCRUG-color-talk/blob/master/color-talk.pdf)
