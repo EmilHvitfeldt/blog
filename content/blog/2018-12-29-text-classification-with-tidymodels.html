@@ -15,6 +15,8 @@ output:
     toc: true
 ---
 
+<link href="/rmarkdown-libs/font-awesome/css/all.css" rel="stylesheet" />
+<link href="/rmarkdown-libs/font-awesome/css/v4-shims.css" rel="stylesheet" />
 
 <div id="TOC">
 <ul>
@@ -39,8 +41,9 @@ output:
 <div id="data" class="section level2">
 <h2>Data</h2>
 <p>The data we will be using is the text from <em>Pride and Prejudice</em> and text from <em>The War of the Worlds</em>. These texts can we get from <a href="https://www.gutenberg.org/">Project Gutenberg</a> using the <a href="https://github.com/ropensci/gutenbergr">gutenbergr</a> package.</p>
-<pre class="r"><code>library(tidyverse)
-library(gutenbergr)
+<pre class="r"><code>library(tidyverse)</code></pre>
+<pre><code>## Warning: package &#39;tibble&#39; was built under R version 3.5.2</code></pre>
+<pre class="r"><code>library(gutenbergr)
 
 titles &lt;- c(
   &quot;The War of the Worlds&quot;,
@@ -65,7 +68,7 @@ books</code></pre>
 ##  8 &quot;     World? .  .  .  And how are all things made fo… The War of the Wo…
 ##  9 &quot;          KEPLER (quoted in The Anatomy of Melancho… The War of the Wo…
 ## 10 &quot;&quot;                                                    The War of the Wo…
-## # ... with 19,494 more rows</code></pre>
+## # … with 19,494 more rows</code></pre>
 <p>(deviating from Julia, will we drop the <code>gutenberg_id</code> variable as it is redundant, remove the <code>document</code> variable as it isn’t needed in the tidymodels framework and set the <code>title</code> variable as a factor as it works better with tidymodels used later on.)</p>
 <p>I’m going to quote Julia to explain the modeling problem we are facing;</p>
 <blockquote>
@@ -176,8 +179,9 @@ tokenize_ngrams(sentence, n = 3)</code></pre>
 <div id="training-testing-split" class="section level2">
 <h2>Training &amp; testing split</h2>
 <p>Before we start modeling we need to split our data into a testing and training set. This is easily done using the <a href="https://github.com/tidymodels/rsample">rsample</a> package from tidymodels.</p>
-<pre class="r"><code>library(tidymodels)
-set.seed(1234) 
+<pre class="r"><code>library(tidymodels)</code></pre>
+<pre><code>## Warning: package &#39;rsample&#39; was built under R version 3.5.2</code></pre>
+<pre class="r"><code>set.seed(1234) 
 
 books_split &lt;- initial_split(books, strata = &quot;title&quot;, p = 0.75)
 train_data &lt;- training(books_split)
@@ -326,7 +330,7 @@ eval_tibble</code></pre>
 ##  8 The War of t… The War of the W… The War of the…         0.619      0.579
 ##  9 The War of t… Pride and Prejud… Pride and Prej…         0.265      0.427
 ## 10 The War of t… The War of the W… The War of the…         0.697      0.894
-## # ... with 4,048 more rows</code></pre>
+## # … with 4,048 more rows</code></pre>
 <p>Tidymodels includes the <a href="https://github.com/tidymodels/yardstick">yardstick</a> package which makes evaluation calculations much easier and tidy. It can allow us to calculate the accuracy by calling the <code>accuracy()</code> function</p>
 <pre class="r"><code>accuracy(eval_tibble, truth = title, estimate = class_stopword)</code></pre>
 <pre><code>## # A tibble: 1 x 3
@@ -350,7 +354,7 @@ eval_tibble</code></pre>
 <pre class="r"><code>eval_tibble %&gt;%
   roc_curve(title, prop_stopword) %&gt;%
   autoplot()</code></pre>
-<p><img src="/blog/2018-12-29-text-classification-with-tidymodels_files/figure-html/unnamed-chunk-4-1.png" width="700px" style="display: block; margin: auto;" /></p>
+<p><img src="/blog/2018-12-29-text-classification-with-tidymodels_files/figure-html/unnamed-chunk-5-1.png" width="700px" style="display: block; margin: auto;" /></p>
 <p>To superimpose both ROC curve we are going to tidyr our data a little bit.</p>
 <pre class="r"><code>eval_tibble %&gt;%
   rename(`Word Count` = prop_julia, `Stopwords` = prop_stopword) %&gt;%
@@ -361,7 +365,7 @@ eval_tibble</code></pre>
   labs(title = &quot;ROC curve for text classification using word count or stopwords&quot;,
        subtitle = &quot;Predicting whether text was written by Jane Austen or H.G. Wells&quot;) +
   paletteer::scale_color_paletteer_d(ggsci, category10_d3)</code></pre>
-<p><img src="/blog/2018-12-29-text-classification-with-tidymodels_files/figure-html/unnamed-chunk-5-1.png" width="700px" style="display: block; margin: auto;" /></p>
+<p><img src="/blog/2018-12-29-text-classification-with-tidymodels_files/figure-html/unnamed-chunk-6-1.png" width="700px" style="display: block; margin: auto;" /></p>
 </div>
 <div id="conclusion" class="section level2">
 <h2>Conclusion</h2>
@@ -384,7 +388,7 @@ eval_tibble</code></pre>
   labs(x = NULL,
   title = &quot;Coefficients that increase/decrease probability the most&quot;,
   subtitle = &quot;Stopwords only&quot;)</code></pre>
-<p><img src="/blog/2018-12-29-text-classification-with-tidymodels_files/figure-html/unnamed-chunk-6-1.png" width="700px" style="display: block; margin: auto;" /></p>
+<p><img src="/blog/2018-12-29-text-classification-with-tidymodels_files/figure-html/unnamed-chunk-7-1.png" width="700px" style="display: block; margin: auto;" /></p>
 <p>And Isaiah notes that</p>
 <blockquote>
 <p>Whereas Julia’s analysis using non stop words showed that Elizabeth is the opposite of a Martian, stop words shows that Pride and Prejudice talks of men and women, and War of the Worlds makes declarations about existence.</p>
