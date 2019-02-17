@@ -50,7 +50,7 @@ Twitter: [Emil_Hvitfeldt](https://twitter.com/Emil_Hvitfeldt)
 January  
 [Github](https://github.com/USCbiostats/software-dev/tree/master/happy_scientist/seminars/2019-01_rstudio-and-r) [Speakerdeck](https://speakerdeck.com/emilhvitfeldt/rstudio-and-r-resources)
 
-**Working with tidymodels**
+**Working with tidymodels**  
 January  
 [Github](https://github.com/EmilHvitfeldt/2019-ocrug-tidymodels) [Speakerdeck](https://speakerdeck.com/emilhvitfeldt/working-with-tidymodels)
 
