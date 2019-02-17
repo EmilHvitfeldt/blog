@@ -46,20 +46,25 @@ Twitter: [Emil_Hvitfeldt](https://twitter.com/Emil_Hvitfeldt)
 
 #### 2019
 
-**Rstudio and R Resources**
-January [Github](https://github.com/USCbiostats/software-dev/tree/master/happy_scientist/seminars/2019-01_rstudio-and-r) [Speakerdeck](https://speakerdeck.com/emilhvitfeldt/rstudio-and-r-resources)
+**Rstudio and R Resources**  
+January  
+[Github](https://github.com/USCbiostats/software-dev/tree/master/happy_scientist/seminars/2019-01_rstudio-and-r) [Speakerdeck](https://speakerdeck.com/emilhvitfeldt/rstudio-and-r-resources)
 
 **Working with tidymodels**
-January [Github](https://github.com/EmilHvitfeldt/2019-ocrug-tidymodels) [Speakerdeck](https://speakerdeck.com/emilhvitfeldt/working-with-tidymodels)
+January  
+[Github](https://github.com/EmilHvitfeldt/2019-ocrug-tidymodels) [Speakerdeck](https://speakerdeck.com/emilhvitfeldt/working-with-tidymodels)
 
 #### 2018
 
 **Text Analysis in R - Special Christmas Edition**  
-December [Github](https://github.com/EmilHvitfeldt/laerug-Text-Mining-2018) [slides](https://rawcdn.githack.com/EmilHvitfeldt/laerug-Text-Mining-2018/29f1b3b2f96c0a2f23fbfea9620e404adc3c85af/slides.html)
+December  
+[Github](https://github.com/EmilHvitfeldt/laerug-Text-Mining-2018) [slides](https://rawcdn.githack.com/EmilHvitfeldt/laerug-Text-Mining-2018/29f1b3b2f96c0a2f23fbfea9620e404adc3c85af/slides.html)
 
 **Best Practices in R**  
-October [Github](https://github.com/EmilHvitfeldt/oRganized-talk) [slides](https://rawcdn.githack.com/EmilHvitfeldt/oRganized-talk/209977121efa5d3a97d4fb86090b9c6dfcd9f6b0/2018-10-29_getting-organized-with-r.html)
+October  
+[Github](https://github.com/EmilHvitfeldt/oRganized-talk) [slides](https://rawcdn.githack.com/EmilHvitfeldt/oRganized-talk/209977121efa5d3a97d4fb86090b9c6dfcd9f6b0/2018-10-29_getting-organized-with-r.html)
 
 **Similarity measure in the space of color palettes**  
-September [Github](https://github.com/EmilHvitfeldt/OCRUG-color-talk) [pdf](https://github.com/EmilHvitfeldt/OCRUG-color-talk/blob/master/color-talk.pdf)
+September  
+[Github](https://github.com/EmilHvitfeldt/OCRUG-color-talk) [pdf](https://github.com/EmilHvitfeldt/OCRUG-color-talk/blob/master/color-talk.pdf)
 
