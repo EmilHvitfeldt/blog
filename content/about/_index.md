@@ -44,6 +44,11 @@ Twitter: [Emil_Hvitfeldt](https://twitter.com/Emil_Hvitfeldt)
 
 ### Speaking
 
+#### 2019
+
+**Working with tidymodels**
+January [Github](https://github.com/EmilHvitfeldt/2019-ocrug-tidymodels) [Speakerdeck](https://speakerdeck.com/emilhvitfeldt/working-with-tidymodels)
+
 #### 2018
 
 **Text Analysis in R - Special Christmas Edition**  
