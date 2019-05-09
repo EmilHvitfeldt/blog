@@ -20,9 +20,8 @@ output:
 <ul>
 <li><a href="#why-are-we-here">Why are we here?</a></li>
 <li><a href="#loading-packages">Loading packages</a></li>
-<li><a href="#first-run">First run</a><ul>
+<li><a href="#first-run">First run</a></li>
 <li><a href="#one-function-plotting">One function plotting</a></li>
-</ul></li>
 </ul>
 </div>
 
@@ -131,8 +130,9 @@ plot(all_polygons)</code></pre>
 <li>coloring patterns</li>
 <li>circle arrangement (rectangle, circle, buffer)</li>
 </ul>
-<div id="one-function-plotting" class="section level2">
-<h2>One function plotting</h2>
+</div>
+<div id="one-function-plotting" class="section level1">
+<h1>One function plotting</h1>
 <p>Everything from before is not wrapper up nice and tight in this function.</p>
 <pre class="r"><code>circle_heart &lt;- function(n, center_sf, outside_sf, outside_filter = &quot;None&quot;, plotting_margin = 5, ...) {
   
@@ -209,5 +209,4 @@ p6 &lt;- circle_heart(500, heart_fun(100), heart_fun(100) / 20,
 
 p1 + p2 + p3 + p4 + p5 + p6 + plot_layout(ncol = 3)</code></pre>
 <p><img src="/blog/2019-05-08-circle-love-making-hearts-with-circles_files/figure-html/unnamed-chunk-17-1.png" width="700px" style="display: block; margin: auto;" /></p>
-</div>
 </div>

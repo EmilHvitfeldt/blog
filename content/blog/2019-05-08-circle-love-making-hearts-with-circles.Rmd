@@ -180,7 +180,7 @@ And we are done! It looks nice and pretty, now there is a bunch of things we can
 - coloring patterns
 - circle arrangement (rectangle, circle, buffer)
 
-## One function plotting
+# One function plotting
 
 Everything from before is not wrapper up nice and tight in this function.
 
