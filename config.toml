@@ -9,6 +9,8 @@ pluralizeListTitles = false
 disqusShortname = "https-emilhvitfeldt-github-io"
 # Enable Google Analytics by entering your tracking code
 googleAnalytics = "UA-98238582-1"
+# Rss limit
+rssLimit = 10
 
 [permalinks]
   post = "/:year/:month/:slug/"
