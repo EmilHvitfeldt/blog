@@ -187,3 +187,72 @@ prof_procentage_plot(
   pattern = "pca_threshold"
 )
 ```
+
+## The follow-up
+
+After my initial announcement of this post I got a helpful tweet from [Hadley Wickham](https://twitter.com/hadleywickham/status/1132737794760237059) about the `profvis::parse_rprof()`. In essence it will help you parse the file you write with `Rprof` to help you get to your answer faster and safer.
+
+So some output like
+
+```{r echo=FALSE}
+tmp <- c("sample.interval=20000", "\"aperm.default\" \"aperm\" \"apply\" \"scale.default\" \"scale\" \"prcomp.default\" \"prcomp\" \"pca_threshold\" \"pca_kmeans\" ", 
+"\"is.na\" \"FUN\" \"apply\" \"scale.default\" \"scale\" \"prcomp.default\" \"prcomp\" \"pca_threshold\" \"pca_kmeans\" ", 
+"\"is.na\" \"FUN\" \"apply\" \"scale.default\" \"scale\" \"prcomp.default\" \"prcomp\" \"pca_threshold\" \"pca_kmeans\" ", 
+"\"is.na\" \"FUN\" \"apply\" \"scale.default\" \"scale\" \"prcomp.default\" \"prcomp\" \"pca_threshold\" \"pca_kmeans\" ", 
+"\"is.na\" \"FUN\" \"apply\" \"scale.default\" \"scale\" \"prcomp.default\" \"prcomp\" \"pca_threshold\" \"pca_kmeans\" "
+)
+tmp
+```
+
+Will be transformed to a nice data.frame with `profvis::parse_rprof()`
+
+```{r echo=FALSE}
+list(prof = structure(list(time = c(1L, 1L, 1L, 1L, 1L, 1L, 1L, 
+1L, 1L, 2L, 2L, 2L, 2L, 2L, 2L, 2L, 2L, 2L, 3L, 3L, 3L, 3L, 3L, 
+3L, 3L, 3L, 3L, 4L, 4L, 4L, 4L, 4L, 4L, 4L, 4L, 4L, 5L, 5L, 5L, 
+5L, 5L, 5L, 5L, 5L, 5L), depth = c(9L, 8L, 7L, 6L, 5L, 4L, 3L, 
+2L, 1L, 9L, 8L, 7L, 6L, 5L, 4L, 3L, 2L, 1L, 9L, 8L, 7L, 6L, 5L, 
+4L, 3L, 2L, 1L, 9L, 8L, 7L, 6L, 5L, 4L, 3L, 2L, 1L, 9L, 8L, 7L, 
+6L, 5L, 4L, 3L, 2L, 1L), label = c("aperm.default", "aperm", 
+"apply", "scale.default", "scale", "prcomp.default", "prcomp", 
+"pca_threshold", "pca_kmeans", "is.na", "FUN", "apply", "scale.default", 
+"scale", "prcomp.default", "prcomp", "pca_threshold", "pca_kmeans", 
+"is.na", "FUN", "apply", "scale.default", "scale", "prcomp.default", 
+"prcomp", "pca_threshold", "pca_kmeans", "is.na", "FUN", "apply", 
+"scale.default", "scale", "prcomp.default", "prcomp", "pca_threshold", 
+"pca_kmeans", "is.na", "FUN", "apply", "scale.default", "scale", 
+"prcomp.default", "prcomp", "pca_threshold", "pca_kmeans"), filenum = c(NA_integer_, 
+NA_integer_, NA_integer_, NA_integer_, NA_integer_, NA_integer_, 
+NA_integer_, NA_integer_, NA_integer_, NA_integer_, NA_integer_, 
+NA_integer_, NA_integer_, NA_integer_, NA_integer_, NA_integer_, 
+NA_integer_, NA_integer_, NA_integer_, NA_integer_, NA_integer_, 
+NA_integer_, NA_integer_, NA_integer_, NA_integer_, NA_integer_, 
+NA_integer_, NA_integer_, NA_integer_, NA_integer_, NA_integer_, 
+NA_integer_, NA_integer_, NA_integer_, NA_integer_, NA_integer_, 
+NA_integer_, NA_integer_, NA_integer_, NA_integer_, NA_integer_, 
+NA_integer_, NA_integer_, NA_integer_, NA_integer_), linenum = c(NA_integer_, 
+NA_integer_, NA_integer_, NA_integer_, NA_integer_, NA_integer_, 
+NA_integer_, NA_integer_, NA_integer_, NA_integer_, NA_integer_, 
+NA_integer_, NA_integer_, NA_integer_, NA_integer_, NA_integer_, 
+NA_integer_, NA_integer_, NA_integer_, NA_integer_, NA_integer_, 
+NA_integer_, NA_integer_, NA_integer_, NA_integer_, NA_integer_, 
+NA_integer_, NA_integer_, NA_integer_, NA_integer_, NA_integer_, 
+NA_integer_, NA_integer_, NA_integer_, NA_integer_, NA_integer_, 
+NA_integer_, NA_integer_, NA_integer_, NA_integer_, NA_integer_, 
+NA_integer_, NA_integer_, NA_integer_, NA_integer_), memalloc = c(0, 
+0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+0, 0), meminc = c(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+0, 0, 0, 0, 0, 0, 0, 0, 0), filename = c(NA_character_, NA_character_, 
+NA_character_, NA_character_, NA_character_, NA_character_, NA_character_, 
+NA_character_, NA_character_, NA_character_, NA_character_, NA_character_, 
+NA_character_, NA_character_, NA_character_, NA_character_, NA_character_, 
+NA_character_, NA_character_, NA_character_, NA_character_, NA_character_, 
+NA_character_, NA_character_, NA_character_, NA_character_, NA_character_, 
+NA_character_, NA_character_, NA_character_, NA_character_, NA_character_, 
+NA_character_, NA_character_, NA_character_, NA_character_, NA_character_, 
+NA_character_, NA_character_, NA_character_, NA_character_, NA_character_, 
+NA_character_, NA_character_, NA_character_)), row.names = c(NA, 
+45L), class = "data.frame"), interval = 20, files = list())$prof
+```

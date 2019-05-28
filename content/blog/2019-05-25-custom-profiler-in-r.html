@@ -24,6 +24,7 @@ output:
 <li><a href="#the-idea">The Idea</a></li>
 <li><a href="#the-solution">The Solution</a></li>
 <li><a href="#the-extensions">the Extensions</a></li>
+<li><a href="#the-follow-up">The follow-up</a></li>
 </ul>
 </div>
 
@@ -139,4 +140,62 @@ prof_procentage_plot(
   pattern = &quot;pca_threshold&quot;
 )</code></pre>
 <p><img src="/blog/2019-05-25-custom-profiler-in-r_files/figure-html/unnamed-chunk-11-1.png" width="700px" style="display: block; margin: auto;" /></p>
+</div>
+<div id="the-follow-up" class="section level2">
+<h2>The follow-up</h2>
+<p>After my initial announcement of this post I got a helpful tweet from <a href="https://twitter.com/hadleywickham/status/1132737794760237059">Hadley Wickham</a> about the <code>profvis::parse_rprof()</code>. In essence it will help you parse the file you write with <code>Rprof</code> to help you get to your answer faster and safer.</p>
+<p>So some output like</p>
+<pre><code>## [1] &quot;sample.interval=20000&quot;                                                                                                            
+## [2] &quot;\&quot;aperm.default\&quot; \&quot;aperm\&quot; \&quot;apply\&quot; \&quot;scale.default\&quot; \&quot;scale\&quot; \&quot;prcomp.default\&quot; \&quot;prcomp\&quot; \&quot;pca_threshold\&quot; \&quot;pca_kmeans\&quot; &quot;
+## [3] &quot;\&quot;is.na\&quot; \&quot;FUN\&quot; \&quot;apply\&quot; \&quot;scale.default\&quot; \&quot;scale\&quot; \&quot;prcomp.default\&quot; \&quot;prcomp\&quot; \&quot;pca_threshold\&quot; \&quot;pca_kmeans\&quot; &quot;          
+## [4] &quot;\&quot;is.na\&quot; \&quot;FUN\&quot; \&quot;apply\&quot; \&quot;scale.default\&quot; \&quot;scale\&quot; \&quot;prcomp.default\&quot; \&quot;prcomp\&quot; \&quot;pca_threshold\&quot; \&quot;pca_kmeans\&quot; &quot;          
+## [5] &quot;\&quot;is.na\&quot; \&quot;FUN\&quot; \&quot;apply\&quot; \&quot;scale.default\&quot; \&quot;scale\&quot; \&quot;prcomp.default\&quot; \&quot;prcomp\&quot; \&quot;pca_threshold\&quot; \&quot;pca_kmeans\&quot; &quot;          
+## [6] &quot;\&quot;is.na\&quot; \&quot;FUN\&quot; \&quot;apply\&quot; \&quot;scale.default\&quot; \&quot;scale\&quot; \&quot;prcomp.default\&quot; \&quot;prcomp\&quot; \&quot;pca_threshold\&quot; \&quot;pca_kmeans\&quot; &quot;</code></pre>
+<p>Will be transformed to a nice data.frame with <code>profvis::parse_rprof()</code></p>
+<pre><code>##    time depth          label filenum linenum memalloc meminc filename
+## 1     1     9  aperm.default      NA      NA        0      0     &lt;NA&gt;
+## 2     1     8          aperm      NA      NA        0      0     &lt;NA&gt;
+## 3     1     7          apply      NA      NA        0      0     &lt;NA&gt;
+## 4     1     6  scale.default      NA      NA        0      0     &lt;NA&gt;
+## 5     1     5          scale      NA      NA        0      0     &lt;NA&gt;
+## 6     1     4 prcomp.default      NA      NA        0      0     &lt;NA&gt;
+## 7     1     3         prcomp      NA      NA        0      0     &lt;NA&gt;
+## 8     1     2  pca_threshold      NA      NA        0      0     &lt;NA&gt;
+## 9     1     1     pca_kmeans      NA      NA        0      0     &lt;NA&gt;
+## 10    2     9          is.na      NA      NA        0      0     &lt;NA&gt;
+## 11    2     8            FUN      NA      NA        0      0     &lt;NA&gt;
+## 12    2     7          apply      NA      NA        0      0     &lt;NA&gt;
+## 13    2     6  scale.default      NA      NA        0      0     &lt;NA&gt;
+## 14    2     5          scale      NA      NA        0      0     &lt;NA&gt;
+## 15    2     4 prcomp.default      NA      NA        0      0     &lt;NA&gt;
+## 16    2     3         prcomp      NA      NA        0      0     &lt;NA&gt;
+## 17    2     2  pca_threshold      NA      NA        0      0     &lt;NA&gt;
+## 18    2     1     pca_kmeans      NA      NA        0      0     &lt;NA&gt;
+## 19    3     9          is.na      NA      NA        0      0     &lt;NA&gt;
+## 20    3     8            FUN      NA      NA        0      0     &lt;NA&gt;
+## 21    3     7          apply      NA      NA        0      0     &lt;NA&gt;
+## 22    3     6  scale.default      NA      NA        0      0     &lt;NA&gt;
+## 23    3     5          scale      NA      NA        0      0     &lt;NA&gt;
+## 24    3     4 prcomp.default      NA      NA        0      0     &lt;NA&gt;
+## 25    3     3         prcomp      NA      NA        0      0     &lt;NA&gt;
+## 26    3     2  pca_threshold      NA      NA        0      0     &lt;NA&gt;
+## 27    3     1     pca_kmeans      NA      NA        0      0     &lt;NA&gt;
+## 28    4     9          is.na      NA      NA        0      0     &lt;NA&gt;
+## 29    4     8            FUN      NA      NA        0      0     &lt;NA&gt;
+## 30    4     7          apply      NA      NA        0      0     &lt;NA&gt;
+## 31    4     6  scale.default      NA      NA        0      0     &lt;NA&gt;
+## 32    4     5          scale      NA      NA        0      0     &lt;NA&gt;
+## 33    4     4 prcomp.default      NA      NA        0      0     &lt;NA&gt;
+## 34    4     3         prcomp      NA      NA        0      0     &lt;NA&gt;
+## 35    4     2  pca_threshold      NA      NA        0      0     &lt;NA&gt;
+## 36    4     1     pca_kmeans      NA      NA        0      0     &lt;NA&gt;
+## 37    5     9          is.na      NA      NA        0      0     &lt;NA&gt;
+## 38    5     8            FUN      NA      NA        0      0     &lt;NA&gt;
+## 39    5     7          apply      NA      NA        0      0     &lt;NA&gt;
+## 40    5     6  scale.default      NA      NA        0      0     &lt;NA&gt;
+## 41    5     5          scale      NA      NA        0      0     &lt;NA&gt;
+## 42    5     4 prcomp.default      NA      NA        0      0     &lt;NA&gt;
+## 43    5     3         prcomp      NA      NA        0      0     &lt;NA&gt;
+## 44    5     2  pca_threshold      NA      NA        0      0     &lt;NA&gt;
+## 45    5     1     pca_kmeans      NA      NA        0      0     &lt;NA&gt;</code></pre>
 </div>
