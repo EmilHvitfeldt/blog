@@ -1,0 +1,292 @@
+---
+title: Authorship classification with tidymodels and textrecipes
+author: Emil Hvitfeldt
+date: '2019-08-09'
+slug: authorship-classification-with-tidymodels-and-textrecipes
+categories: []
+tags: []
+type: "blog"
+showonlyimage: false
+weight: 1
+image: "/img/blog/authorship-classification-with-tidymodels-and-textrecipes/cover.png"
+description: "Author classification with tidymodels, textrecipes and furrr"
+output:
+  blogdown::html_page:
+    toc: true
+---
+
+
+<div id="TOC">
+<ul>
+<li><a href="#loading-packages">Loading Packages</a></li>
+<li><a href="#fetching-the-data">Fetching the Data</a></li>
+<li><a href="#shaping-data">shaping data</a></li>
+<li><a href="#class-balance">Class Balance</a></li>
+<li><a href="#splitting-the-data">Splitting the Data</a></li>
+<li><a href="#specifying-data-preprocessing">specifying data preprocessing</a></li>
+<li><a href="#apply-preprocessing">Apply Preprocessing</a></li>
+<li><a href="#fitting-the-models">Fitting the Models</a></li>
+<li><a href="#predicting-the-unknown-papers">Predicting the unknown papers</a></li>
+<li><a href="#conclusion">Conclusion</a></li>
+</ul>
+</div>
+
+<p>In this post we will revisit on of my earlier <a href="https://www.hvitfeldt.me/blog/predicting-authorship-in-the-federalist-papers-with-tidytext/">blogposts</a> where I tried to use tidytext and glmnet to predict the authorship of the anonymous Federalist Papers. If you want more information regarding the data, please read the old post. In the post we will try to achieve the same goal, but use the <a href="https://www.tidyverse.org/articles/2018/08/tidymodels-0-0-1/">tidymodels</a> framework.</p>
+<div id="loading-packages" class="section level2">
+<h2>Loading Packages</h2>
+<pre class="r"><code>library(tidymodels) # Modeling framework</code></pre>
+<pre><code>## Registered S3 method overwritten by &#39;xts&#39;:
+##   method     from
+##   as.zoo.xts zoo</code></pre>
+<pre><code>## ── Attaching packages ───────────────────────────── tidymodels 0.0.2 ──</code></pre>
+<pre><code>## ✔ broom     0.5.2       ✔ purrr     0.3.2  
+## ✔ dials     0.0.2       ✔ recipes   0.1.6  
+## ✔ dplyr     0.8.3       ✔ rsample   0.0.5  
+## ✔ ggplot2   3.2.0       ✔ tibble    2.1.3  
+## ✔ infer     0.4.0.1     ✔ yardstick 0.0.3  
+## ✔ parsnip   0.0.3.1</code></pre>
+<pre><code>## ── Conflicts ──────────────────────────────── tidymodels_conflicts() ──
+## ✖ purrr::discard() masks scales::discard()
+## ✖ dplyr::filter()  masks stats::filter()
+## ✖ dplyr::lag()     masks stats::lag()
+## ✖ recipes::step()  masks stats::step()</code></pre>
+<pre class="r"><code>library(textrecipes) # extension to preprocessing engine to handle text
+library(stringr) # String modification</code></pre>
+<pre><code>## 
+## Attaching package: &#39;stringr&#39;</code></pre>
+<pre><code>## The following object is masked from &#39;package:recipes&#39;:
+## 
+##     fixed</code></pre>
+<pre class="r"><code>library(gutenbergr) # Portal to download the Federalist Papers
+library(tokenizers) # Tokenization engine
+library(furrr) # to be able to fit the models in parallel</code></pre>
+<pre><code>## Loading required package: future</code></pre>
+</div>
+<div id="fetching-the-data" class="section level2">
+<h2>Fetching the Data</h2>
+<p>The text is provided from the <a href="https://www.gutenberg.org/wiki/Main_Page">Gutenberg Project</a>. A simple search reveals that the Federalist Papers have the id of 1404.</p>
+<pre class="r"><code>papers &lt;- gutenberg_download(1404)</code></pre>
+<pre><code>## Determining mirror for Project Gutenberg from http://www.gutenberg.org/robot/harvest</code></pre>
+<pre><code>## Using mirror http://aleph.gutenberg.org</code></pre>
+<pre class="r"><code>papers</code></pre>
+<pre><code>## # A tibble: 19,359 x 2
+##    gutenberg_id text                                              
+##           &lt;int&gt; &lt;chr&gt;                                             
+##  1         1404 THE FEDERALIST PAPERS                             
+##  2         1404 &quot;&quot;                                                
+##  3         1404 By Alexander Hamilton, John Jay, and James Madison
+##  4         1404 &quot;&quot;                                                
+##  5         1404 &quot;&quot;                                                
+##  6         1404 &quot;&quot;                                                
+##  7         1404 &quot;&quot;                                                
+##  8         1404 FEDERALIST No. 1                                  
+##  9         1404 &quot;&quot;                                                
+## 10         1404 General Introduction                              
+## # … with 19,349 more rows</code></pre>
+</div>
+<div id="shaping-data" class="section level2">
+<h2>shaping data</h2>
+<p>This is the first we will deviate from the original post in that we will divide the text into paragraphs instead of sentences as we did in the last post. Hopefully this will strike a good balance between size of each observation and the number of observations.</p>
+<p>In the following pipe we:
+- <code>pull()</code> out the text vector
+- paste together the strings with <code>\n</code> to denote line-breaks
+- tokenize into paragraphs
+- put it in a tibble
+- create a variable <code>no</code> to denote which paper the paragraph is in
+- add <code>author</code> variable to denote author
+- remove preamble text</p>
+<pre class="r"><code># attribution numbers
+hamilton &lt;- c(1, 6:9, 11:13, 15:17, 21:36, 59:61, 65:85)
+madison &lt;- c(10, 14, 18:20, 37:48)
+jay &lt;- c(2:5, 64)
+unknown &lt;- c(49:58, 62:63)
+
+papers_paragraphs &lt;- papers %&gt;%
+  pull(text) %&gt;%
+  str_c(collapse = &quot;\n&quot;) %&gt;%
+  tokenize_paragraphs() %&gt;%
+  unlist() %&gt;%
+  tibble(text = .) %&gt;%
+  mutate(no = cumsum(str_detect(text, regex(&quot;FEDERALIST No&quot;,
+                                            ignore_case = TRUE)))) %&gt;%
+  mutate(author = case_when(no %in% hamilton ~ &quot;hamilton&quot;,
+                            no %in% madison ~ &quot;madison&quot;,
+                            no %in% jay ~ &quot;jay&quot;,
+                            no %in% unknown ~ &quot;unknown&quot;)) %&gt;%
+  filter(no &gt; 0)</code></pre>
+</div>
+<div id="class-balance" class="section level2">
+<h2>Class Balance</h2>
+<p>There is quite a bit inbalence between the classes. For the remaining of the analysis will we exclude all the papers written by <code>Jay</code>, partly because it is a small class, but more importantly because he isn’t suspected to be the mystery author.</p>
+<pre class="r"><code>papers_paragraphs %&gt;%
+  count(author) %&gt;%
+  ggplot(aes(author, n)) +
+  geom_col()</code></pre>
+<p><img src="/blog/2019-08-09-authorship-classification-with-tidymodels-and-textrecipes_files/figure-html/unnamed-chunk-4-1.png" width="700px" style="display: block; margin: auto;" /></p>
+<p>It is wroth remembering that we don’t have the true answer, much more like in real world problems.</p>
+</div>
+<div id="splitting-the-data" class="section level2">
+<h2>Splitting the Data</h2>
+<p>Here we will use the <code>rsample</code> package to split the data into a testing, validation and training dataset. We will let the testing dataset be all the paragraphs where <code>author == "unknown"</code> and the training and validation datasets being the paragraphs written by Hamilton and Madison. <code>intial_split()</code> will insure that each dataset with have the same proportions with respect to the <code>author</code> column.</p>
+<pre class="r"><code>data_split &lt;- papers_paragraphs %&gt;%
+  filter(author %in% c(&quot;hamilton&quot;, &quot;madison&quot;)) %&gt;%
+  initial_split(strata = author)
+
+training_data &lt;- training(data_split)
+
+validation_data &lt;- testing(data_split)
+
+testing_data &lt;- papers_paragraphs %&gt;%
+  filter(author == &quot;unknown&quot;)</code></pre>
+</div>
+<div id="specifying-data-preprocessing" class="section level2">
+<h2>specifying data preprocessing</h2>
+<p>We will go with a rather simple preprocessing. start by specifying a recipe where <code>author</code> is to be predicted, and we only want to use the <code>text</code> data. Here we make sure to use the training dataset. We then</p>
+<ul>
+<li>tokenize according to (n-grams)[<a href="https://www.tidytextmining.com/ngrams.html" class="uri">https://www.tidytextmining.com/ngrams.html</a>]</li>
+<li>only keep the 250 most frequent tokens</li>
+<li>calculate the (term frequency–inverse document frequency)[<a href="https://en.wikipedia.org/wiki/Tf%E2%80%93idf" class="uri">https://en.wikipedia.org/wiki/Tf%E2%80%93idf</a>]</li>
+<li>up-sample the observation to achieve class balance</li>
+</ul>
+<p>and finally prep the recipe.</p>
+<pre class="r"><code>rec &lt;- recipe(author ~ text, data = training_data) %&gt;%
+  step_tokenize(text, token = &quot;ngrams&quot;, options = list(n = 3)) %&gt;%
+  step_tokenfilter(text, max_tokens = 250) %&gt;%
+  step_tfidf(text) %&gt;%
+  step_upsample(author) %&gt;%
+  prep()</code></pre>
+</div>
+<div id="apply-preprocessing" class="section level2">
+<h2>Apply Preprocessing</h2>
+<p>Now we apply the prepped recipe to get back the processed datasets. Note that I have used shorter names for processed datasets (<code>train_data</code> vs <code>training_data</code>).</p>
+<pre class="r"><code>train_data &lt;- juice(rec)
+val_data &lt;- bake(rec, new_data = validation_data)
+test_data &lt;- bake(rec, new_data = testing_data)</code></pre>
+</div>
+<div id="fitting-the-models" class="section level2">
+<h2>Fitting the Models</h2>
+<p>This time I’m going to try to run some (random forests)[<a href="https://en.wikipedia.org/wiki/Random_forest" class="uri">https://en.wikipedia.org/wiki/Random_forest</a>]. And that would be fairly easy to use. First we specify the the model type (<code>rand_forest</code>) the type (<code>classification</code>) and the engine (<code>randomForest</code>). Next we fit the model to the training dataset, predict it on the validation datasets, add the true value and calculate the accuracy</p>
+<pre class="r"><code>rand_forest(&quot;classification&quot;) %&gt;%
+  set_engine(&quot;randomForest&quot;) %&gt;%
+  fit(author ~ ., data = train_data) %&gt;%
+  predict(new_data = val_data) %&gt;%
+  mutate(truth = val_data$author) %&gt;%
+  accuracy(truth, .pred_class)</code></pre>
+<pre><code>## # A tibble: 1 x 3
+##   .metric  .estimator .estimate
+##   &lt;chr&gt;    &lt;chr&gt;          &lt;dbl&gt;
+## 1 accuracy binary         0.712</code></pre>
+<p>However we want to try some different hyper-parameter values to make sure we are using the best we can. The <code>dials</code> allows us to do hyper-parameter searching in a fairly easy way. First we will create a parameter_grid, where we will vary the number of trees in our forest (<code>trees</code>) and the number of predictors to be randomly sampled. We give it some reasonable ranges, and say that we want 5 levels for each parameter, resulting in <code>5 * 5 = 25</code> parameter pairs.</p>
+<pre class="r"><code>param_grid &lt;- grid_regular(range_set(trees, c(50, 250)), 
+                           range_set(mtry, c(1, 15)), levels = 5)</code></pre>
+<p>Next we create a model specification where we use <code>varying()</code> to denote that these parameters are to be varying.
+Then we <code>merge()</code> the model specification into the parameter grid such that we have a tibble of model specifications</p>
+<pre class="r"><code>rf_spec &lt;- rand_forest(&quot;classification&quot;, mtry = varying(), trees = varying()) %&gt;%
+  set_engine(&quot;randomForest&quot;)
+
+param_grid &lt;- param_grid %&gt;%
+  mutate(specs = merge(., rf_spec))
+
+param_grid</code></pre>
+<pre><code>## # A tibble: 25 x 3
+##    trees  mtry specs    
+##  * &lt;int&gt; &lt;int&gt; &lt;list&gt;   
+##  1    50     1 &lt;spec[+]&gt;
+##  2   100     1 &lt;spec[+]&gt;
+##  3   150     1 &lt;spec[+]&gt;
+##  4   200     1 &lt;spec[+]&gt;
+##  5   250     1 &lt;spec[+]&gt;
+##  6    50     4 &lt;spec[+]&gt;
+##  7   100     4 &lt;spec[+]&gt;
+##  8   150     4 &lt;spec[+]&gt;
+##  9   200     4 &lt;spec[+]&gt;
+## 10   250     4 &lt;spec[+]&gt;
+## # … with 15 more rows</code></pre>
+<p>Next we want to iterate through the model specification. We will here create a function that will take a model specification, fit it to the training data, predict according to the validation data, calculate the accuracy and return it as a single number. Create this function makes it so we can use <code>map()</code> over all the model specifications.</p>
+<pre class="r"><code>fit_one_spec &lt;- function(model) {
+  model %&gt;%
+    fit(author ~ ., data = train_data) %&gt;%
+    predict(new_data = val_data) %&gt;%
+    mutate(truth = val_data$author) %&gt;%
+    accuracy(truth, .pred_class) %&gt;%
+    pull(.estimate)
+}</code></pre>
+<p>While this is a fairly small dataset, I’ll showcase how we can parallize the calculations. Since we have a framework where are we <code>map()</code>’ing over the specification it is a obvious case for the <code>furrr</code> package. (if you don’t want or isn’t able to to run your models on multiple cores, simply delete <code>plan(multicore)</code> and turn <code>future_map_dbl()</code> to <code>map_dbl()</code>).</p>
+<pre class="r"><code>plan(multicore)
+final &lt;- param_grid %&gt;%
+  mutate(accuracy = future_map_dbl(specs, fit_one_spec))</code></pre>
+<p>Now we can try to visualize the optimal hyper-parameters</p>
+<pre class="r"><code>final %&gt;%
+  mutate_at(vars(trees:mtry), factor) %&gt;%
+  ggplot(aes(mtry, trees, fill = accuracy)) +
+  geom_tile() +
+  scale_fill_viridis_c()</code></pre>
+<p><img src="/blog/2019-08-09-authorship-classification-with-tidymodels-and-textrecipes_files/figure-html/unnamed-chunk-13-1.png" width="700px" style="display: block; margin: auto;" /></p>
+<p>and we clearly see that only having 1 predictor to split with it sub-optimal, but otherwise having a low number of predictors are to be preferred. We can use <code>arrange()</code> to look at the top parameter pairs</p>
+<pre class="r"><code>arrange(final, desc(accuracy)) %&gt;%
+  slice(1:5)</code></pre>
+<pre><code>## # A tibble: 5 x 4
+##   trees  mtry specs     accuracy
+## * &lt;int&gt; &lt;int&gt; &lt;list&gt;       &lt;dbl&gt;
+## 1   150    15 &lt;spec[+]&gt;    0.728
+## 2   150     4 &lt;spec[+]&gt;    0.717
+## 3   100     8 &lt;spec[+]&gt;    0.717
+## 4   250     8 &lt;spec[+]&gt;    0.717
+## 5   200     8 &lt;spec[+]&gt;    0.714</code></pre>
+<p>and we pick <code>trees == 100</code> and <code>mtry == 4</code> as our hyper-parameters. And we use these to fit our final model</p>
+<pre class="r"><code>final_model &lt;- rf_spec %&gt;%
+  update(trees = 100, mtry = 4) %&gt;%
+  fit(author ~ ., data = train_data)</code></pre>
+</div>
+<div id="predicting-the-unknown-papers" class="section level2">
+<h2>Predicting the unknown papers</h2>
+<p>Lastly we predict on the unknown papers.</p>
+<pre class="r"><code>final_predict &lt;- testing_data %&gt;% 
+  bind_cols(predict(final_model, new_data = test_data)) </code></pre>
+<p>We can’t calculate an accuracy or any other metric, as we don’t know the true value. However we can see how the the different paragraphs have been classified within each paper.</p>
+<pre class="r"><code>final_predict %&gt;%
+  count(no, .pred_class) %&gt;%
+  mutate(no = factor(no)) %&gt;%
+  group_by(no) %&gt;%
+  mutate(highest = n == max(n))</code></pre>
+<pre><code>## # A tibble: 24 x 4
+## # Groups:   no [12]
+##    no    .pred_class     n highest
+##    &lt;fct&gt; &lt;fct&gt;       &lt;int&gt; &lt;lgl&gt;  
+##  1 49    hamilton       13 TRUE   
+##  2 49    madison         4 FALSE  
+##  3 50    hamilton       12 TRUE   
+##  4 50    madison         5 FALSE  
+##  5 51    hamilton        8 TRUE   
+##  6 51    madison         8 TRUE   
+##  7 52    hamilton       10 TRUE   
+##  8 52    madison         5 FALSE  
+##  9 53    hamilton       16 TRUE   
+## 10 53    madison         1 FALSE  
+## # … with 14 more rows</code></pre>
+<p>Now we can visualize the results, and it looks like from this limited analysis that Hamilton is the author of mysterious papers.</p>
+<pre class="r"><code>final_predict %&gt;%
+  count(no, .pred_class) %&gt;%
+  mutate(no = factor(no),
+         .pred_class = factor(.pred_class, 
+                              levels = c(&quot;hamilton&quot;, &quot;madison&quot;), 
+                              labels = c(&quot;Hamilton&quot;, &quot;Madison&quot;))) %&gt;%
+  group_by(no) %&gt;%
+  mutate(highest = n == max(n)) %&gt;%
+  ggplot(aes(no, n, fill = .pred_class, alpha = highest)) +
+  scale_alpha_ordinal(range = c(0.5, 1)) +
+  geom_col(position = &quot;dodge&quot;, color = &quot;black&quot;) +
+  theme_minimal() +
+  scale_fill_manual(values = c(&quot;#304890&quot;, &quot;#6A7E50&quot;)) +
+  guides(alpha = &quot;none&quot;) +
+  theme(legend.position = &quot;top&quot;) +
+  labs(x = &quot;Federalist Paper Number&quot;,
+       y = &quot;Number of paragraphs&quot;,
+       fill = &quot;Author&quot;,
+       title = &quot;Hamilton were predicted more often to be the author then\nMadison in all but 1 Paper&quot;)</code></pre>
+<p><img src="/blog/2019-08-09-authorship-classification-with-tidymodels-and-textrecipes_files/figure-html/unnamed-chunk-18-1.png" width="700px" style="display: block; margin: auto;" /></p>
+</div>
+<div id="conclusion" class="section level2">
+<h2>Conclusion</h2>
+<p>In this post we have touched a lot of different topics; tidymodels, text preprocessing, parallel computing etc. Since we have covered so many topics have left each section not covered it a lot of detail. In a more proper analysis you would want to try some different models and different ways to do the preprocessing.</p>
+</div>
