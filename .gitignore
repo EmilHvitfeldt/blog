@@ -5,4 +5,4 @@
 .blog.Rproj
 public/*
 blogdown/*
-*.DS_Store
+.DS_Store
