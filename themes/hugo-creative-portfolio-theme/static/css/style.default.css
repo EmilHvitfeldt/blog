@@ -10,6 +10,28 @@ Startup Template By Bootstrapious.com
 GENERAL
 =====================
 */
+
+/* Reset */
+pre {
+    border: 0;
+    font-size: 12px;
+    font: inherit;
+    vertical-align: baseline;
+    margin: 0;
+    padding: 0;
+    border-radius: 0
+}
+
+pre code {
+  display: block;
+  background: #2d2d2d;
+  color: #eaeaea;
+  font-family: Menlo, Monaco, Consolas, monospace;
+  line-height: 1.5;
+  border: none;
+  padding: 10px;
+}
+
 html,
 body {
   overflow-x: hidden;

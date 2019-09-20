@@ -66,7 +66,7 @@ rssLimit = 10
 
     highlightjsVersion = "9.11.0"
     highlightjsCDN = "//cdn.bootcss.com"
-    highlightjsLang = ["r", "yaml", "python", "sql"]
+    highlightjsLang = []
     highlightjsTheme = "github"
 
     MathJaxCDN = "//cdn.bootcss.com"
