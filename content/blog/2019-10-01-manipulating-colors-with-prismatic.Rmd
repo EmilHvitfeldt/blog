@@ -252,13 +252,13 @@ terrain.colors(10) %>%
 ```{r echo=FALSE}
 swatchplot(
   list(
-    saturate = rbind("0" = clr_rotate(terrain.colors(10),  0),
+    terrain = rbind("0" = clr_rotate(terrain.colors(10),  0),
                      "60" = clr_rotate(terrain.colors(10),  60),
                      "120" = clr_rotate(terrain.colors(10),  120),
                      "180" = clr_rotate(terrain.colors(10),  180),
                      "240" = clr_rotate(terrain.colors(10),  240),
                      "300" = clr_rotate(terrain.colors(10),  300)),
-    desaturate = rbind("0" = clr_rotate(hcl.colors(10),  0),
+    viridis = rbind("0" = clr_rotate(hcl.colors(10),  0),
                        "60" = clr_rotate(hcl.colors(10),  60),
                        "120" = clr_rotate(hcl.colors(10),  120),
                        "180" = clr_rotate(hcl.colors(10),  180),
