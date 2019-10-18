@@ -20,6 +20,7 @@ library(knitr)
 opts_chunk$set(
   echo = TRUE, 
   cache = TRUE,
+  collapse = TRUE,
   fig.width = 7, 
   fig.align = 'center',
   fig.asp = 0.618, # 1 / phi
@@ -49,7 +50,7 @@ The data we will be using for this demonstration will be some [social media disa
 It consist of a number of tweets regarding accidents mixed in with a selection control tweets (not about accidents). We start by loading in the data.
 
 ```{r data_import, message=FALSE} 
-data <- read_csv("https://github.com/EmilHvitfeldt/blog/raw/master/data/socialmedia-disaster-tweets-DFE.csv")
+data <- read_csv("https://raw.githubusercontent.com/EmilHvitfeldt/blog/750dc28aa8d514e2c0b8b418ade584df8f4a8c92/data/socialmedia-disaster-tweets-DFE.csv")
 ```
 
 And for this exercise we will only look at the body of the text. Furthermore a handful of the tweets weren't classified, marked `"Can't Decide"` so we are removing those as well. Since we are working with tweet data we have the constraint that most of tweets don't actually have that much information in them as they are limited in characters and some only contain a couple of words.  

@@ -34,42 +34,21 @@ output:
 <p>In this post we will revisit on of my earlier <a href="https://www.hvitfeldt.me/blog/predicting-authorship-in-the-federalist-papers-with-tidytext/">blogposts</a> where I tried to use tidytext and glmnet to predict the authorship of the anonymous Federalist Papers. If you want more information regarding the data, please read the old post. In the post we will try to achieve the same goal, but use the <a href="https://www.tidyverse.org/articles/2018/08/tidymodels-0-0-1/">tidymodels</a> framework.</p>
 <div id="loading-packages" class="section level2">
 <h2>Loading Packages</h2>
-<pre class="r"><code>library(tidymodels) # Modeling framework</code></pre>
-<pre><code>## Registered S3 method overwritten by &#39;xts&#39;:
-##   method     from
-##   as.zoo.xts zoo</code></pre>
-<pre><code>## ── Attaching packages ───────────────────────────── tidymodels 0.0.2 ──</code></pre>
-<pre><code>## ✔ broom     0.5.2       ✔ purrr     0.3.2  
-## ✔ dials     0.0.2       ✔ recipes   0.1.6  
-## ✔ dplyr     0.8.3       ✔ rsample   0.0.5  
-## ✔ ggplot2   3.2.0       ✔ tibble    2.1.3  
-## ✔ infer     0.4.0.1     ✔ yardstick 0.0.3  
-## ✔ parsnip   0.0.3.1</code></pre>
-<pre><code>## ── Conflicts ──────────────────────────────── tidymodels_conflicts() ──
-## ✖ purrr::discard() masks scales::discard()
-## ✖ dplyr::filter()  masks stats::filter()
-## ✖ dplyr::lag()     masks stats::lag()
-## ✖ recipes::step()  masks stats::step()</code></pre>
-<pre class="r"><code>library(textrecipes) # extension to preprocessing engine to handle text
-library(stringr) # String modification</code></pre>
-<pre><code>## 
-## Attaching package: &#39;stringr&#39;</code></pre>
-<pre><code>## The following object is masked from &#39;package:recipes&#39;:
-## 
-##     fixed</code></pre>
-<pre class="r"><code>library(gutenbergr) # Portal to download the Federalist Papers
+<pre class="r"><code>library(tidymodels) # Modeling framework
+library(textrecipes) # extension to preprocessing engine to handle text
+library(stringr) # String modification
+library(gutenbergr) # Portal to download the Federalist Papers
 library(tokenizers) # Tokenization engine
 library(furrr) # to be able to fit the models in parallel</code></pre>
-<pre><code>## Loading required package: future</code></pre>
 </div>
 <div id="fetching-the-data" class="section level2">
 <h2>Fetching the Data</h2>
 <p>The text is provided from the <a href="https://www.gutenberg.org/wiki/Main_Page">Gutenberg Project</a>. A simple search reveals that the Federalist Papers have the id of 1404.</p>
-<pre class="r"><code>papers &lt;- gutenberg_download(1404)</code></pre>
-<pre><code>## Determining mirror for Project Gutenberg from http://www.gutenberg.org/robot/harvest</code></pre>
-<pre><code>## Using mirror http://aleph.gutenberg.org</code></pre>
-<pre class="r"><code>papers</code></pre>
-<pre><code>## # A tibble: 19,359 x 2
+<pre class="r"><code>papers &lt;- gutenberg_download(1404)
+## Determining mirror for Project Gutenberg from http://www.gutenberg.org/robot/harvest
+## Using mirror http://aleph.gutenberg.org
+papers
+## # A tibble: 19,359 x 2
 ##    gutenberg_id text                                              
 ##           &lt;int&gt; &lt;chr&gt;                                             
 ##  1         1404 THE FEDERALIST PAPERS                             
@@ -171,11 +150,11 @@ test_data &lt;- bake(rec, new_data = testing_data)</code></pre>
   fit(author ~ ., data = train_data) %&gt;%
   predict(new_data = val_data) %&gt;%
   mutate(truth = val_data$author) %&gt;%
-  accuracy(truth, .pred_class)</code></pre>
-<pre><code>## # A tibble: 1 x 3
+  accuracy(truth, .pred_class)
+## # A tibble: 1 x 3
 ##   .metric  .estimator .estimate
 ##   &lt;chr&gt;    &lt;chr&gt;          &lt;dbl&gt;
-## 1 accuracy binary         0.712</code></pre>
+## 1 accuracy binary         0.563</code></pre>
 <p>However we want to try some different hyper-parameter values to make sure we are using the best we can. The <code>dials</code> allows us to do hyper-parameter searching in a fairly easy way. First we will create a parameter_grid, where we will vary the number of trees in our forest (<code>trees</code>) and the number of predictors to be randomly sampled. We give it some reasonable ranges, and say that we want 5 levels for each parameter, resulting in <code>5 * 5 = 25</code> parameter pairs.</p>
 <pre class="r"><code>param_grid &lt;- grid_regular(range_set(trees, c(50, 250)), 
                            range_set(mtry, c(1, 15)), levels = 5)</code></pre>
@@ -187,8 +166,8 @@ Then we <code>merge()</code> the model specification into the parameter grid suc
 param_grid &lt;- param_grid %&gt;%
   mutate(specs = merge(., rf_spec))
 
-param_grid</code></pre>
-<pre><code>## # A tibble: 25 x 3
+param_grid
+## # A tibble: 25 x 3
 ##    trees  mtry specs    
 ##  * &lt;int&gt; &lt;int&gt; &lt;list&gt;   
 ##  1    50     1 &lt;spec[+]&gt;
@@ -224,15 +203,15 @@ final &lt;- param_grid %&gt;%
 <p><img src="/blog/2019-08-09-authorship-classification-with-tidymodels-and-textrecipes_files/figure-html/unnamed-chunk-13-1.png" width="700px" style="display: block; margin: auto;" /></p>
 <p>and we clearly see that only having 1 predictor to split with it sub-optimal, but otherwise having a low number of predictors are to be preferred. We can use <code>arrange()</code> to look at the top parameter pairs</p>
 <pre class="r"><code>arrange(final, desc(accuracy)) %&gt;%
-  slice(1:5)</code></pre>
-<pre><code>## # A tibble: 5 x 4
+  slice(1:5)
+## # A tibble: 5 x 4
 ##   trees  mtry specs     accuracy
 ## * &lt;int&gt; &lt;int&gt; &lt;list&gt;       &lt;dbl&gt;
-## 1   150    15 &lt;spec[+]&gt;    0.728
-## 2   150     4 &lt;spec[+]&gt;    0.717
-## 3   100     8 &lt;spec[+]&gt;    0.717
-## 4   250     8 &lt;spec[+]&gt;    0.717
-## 5   200     8 &lt;spec[+]&gt;    0.714</code></pre>
+## 1    50    15 &lt;spec[+]&gt;    0.571
+## 2   100    15 &lt;spec[+]&gt;    0.566
+## 3    50    11 &lt;spec[+]&gt;    0.563
+## 4   250    15 &lt;spec[+]&gt;    0.563
+## 5   100     8 &lt;spec[+]&gt;    0.560</code></pre>
 <p>and we pick <code>trees == 100</code> and <code>mtry == 4</code> as our hyper-parameters. And we use these to fit our final model</p>
 <pre class="r"><code>final_model &lt;- rf_spec %&gt;%
   update(trees = 100, mtry = 4) %&gt;%
@@ -248,21 +227,21 @@ final &lt;- param_grid %&gt;%
   count(no, .pred_class) %&gt;%
   mutate(no = factor(no)) %&gt;%
   group_by(no) %&gt;%
-  mutate(highest = n == max(n))</code></pre>
-<pre><code>## # A tibble: 24 x 4
+  mutate(highest = n == max(n))
+## # A tibble: 24 x 4
 ## # Groups:   no [12]
 ##    no    .pred_class     n highest
 ##    &lt;fct&gt; &lt;fct&gt;       &lt;int&gt; &lt;lgl&gt;  
-##  1 49    hamilton       13 TRUE   
-##  2 49    madison         4 FALSE  
-##  3 50    hamilton       12 TRUE   
-##  4 50    madison         5 FALSE  
-##  5 51    hamilton        8 TRUE   
-##  6 51    madison         8 TRUE   
-##  7 52    hamilton       10 TRUE   
-##  8 52    madison         5 FALSE  
-##  9 53    hamilton       16 TRUE   
-## 10 53    madison         1 FALSE  
+##  1 49    hamilton        4 FALSE  
+##  2 49    madison        13 TRUE   
+##  3 50    hamilton        4 FALSE  
+##  4 50    madison        13 TRUE   
+##  5 51    hamilton        3 FALSE  
+##  6 51    madison        13 TRUE   
+##  7 52    hamilton        2 FALSE  
+##  8 52    madison        13 TRUE   
+##  9 53    hamilton        4 FALSE  
+## 10 53    madison        13 TRUE   
 ## # … with 14 more rows</code></pre>
 <p>Now we can visualize the results, and it looks like from this limited analysis that Hamilton is the author of mysterious papers.</p>
 <pre class="r"><code>final_predict %&gt;%

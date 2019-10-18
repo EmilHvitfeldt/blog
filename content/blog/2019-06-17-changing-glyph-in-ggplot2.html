@@ -46,8 +46,8 @@ ggplot(economics_long, aes(date, value01, colour = variable)) +
 <div id="custom-glyph-key" class="section level1">
 <h1>Custom glyph key</h1>
 <p>Since the <code>draw_key_*</code> function just return a grob, you can use spend some time and create your own custom glyphs! Taking inspiration from <code>draw_key_boxplot</code></p>
-<pre class="r"><code>draw_key_boxplot</code></pre>
-<pre><code>## function (data, params, size) 
+<pre class="r"><code>draw_key_boxplot
+## function (data, params, size) 
 ## {
 ##     grobTree(linesGrob(0.5, c(0.1, 0.25)), linesGrob(0.5, c(0.75, 
 ##         0.9)), rectGrob(height = 0.5, width = 0.75), linesGrob(c(0.125, 
@@ -55,7 +55,7 @@ ggplot(economics_long, aes(date, value01, colour = variable)) +
 ##         fill = alpha(data$fill %||% &quot;white&quot;, data$alpha), lwd = (data$size %||% 
 ##             0.5) * .pt, lty = data$linetype %||% 1))
 ## }
-## &lt;bytecode: 0x7fa7a2983380&gt;
+## &lt;bytecode: 0x7ffe31b7da80&gt;
 ## &lt;environment: namespace:ggplot2&gt;</code></pre>
 <p>will I try to make a glyph by myself using both points and lines.</p>
 <pre class="r"><code>library(grid)

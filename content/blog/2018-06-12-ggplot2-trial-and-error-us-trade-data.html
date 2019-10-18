@@ -36,7 +36,7 @@ library(httr)</code></pre>
 </div>
 <div id="getting-the-data" class="section level2">
 <h2>Getting the data</h2>
-<p>This project started when I found the following link <a href="https://www.census.gov/foreign-trade/balance/c4099.html" class="uri">https://www.census.gov/foreign-trade/balance/c4099.html</a>. It include a month by month breakdown of U.S. trade in goods with Denmark from 1985 till the present. Unfortunately the data is given in yearly tables, so we have a little bit of munching to do. First we notice that the last part of the url include <code>c4099</code>, which after some googling reveals that 4099 is the country code for Denmark. The fill list of country trade codes are given on the following page <a href="https://www.census.gov/foreign-trade/schedules/c/countrycode.html" class="uri">https://www.census.gov/foreign-trade/schedules/c/countrycode.html</a> which also include a <code>.txt</code> file so we don’t have to scrape. We will remove the first entry and last 6 since US doesn’t trade with itself.</p>
+<p>This project started when I found the following link <a href="https://www.census.gov/foreign-trade/balance/c4099.html">https://www.census.gov/foreign-trade/balance/c4099.html</a>. It include a month by month breakdown of U.S. trade in goods with Denmark from 1985 till the present. Unfortunately the data is given in yearly tables, so we have a little bit of munching to do. First we notice that the last part of the url include <code>c4099</code>, which after some googling reveals that 4099 is the country code for Denmark. The fill list of country trade codes are given on the following page <a href="https://www.census.gov/foreign-trade/schedules/c/countrycode.html">https://www.census.gov/foreign-trade/schedules/c/countrycode.html</a> which also include a <code>.txt</code> file so we don’t have to scrape. We will remove the first entry and last 6 since US doesn’t trade with itself.</p>
 <pre class="r"><code>continent_df &lt;- tibble(number = as.character(1:7),
                        continent = c(&quot;North America&quot;, &quot;Central America&quot;, 
                                      &quot;South America&quot;, &quot;Europe&quot;, &quot;Asia&quot;, 
@@ -89,19 +89,19 @@ full_data &lt;- map2_df(good_responses, code_df$code, wrangle)</code></pre>
          Year = lubridate::year(Date)) %&gt;%
   left_join(code_df, by = c(&quot;Country&quot; = &quot;code&quot;))</code></pre>
 <p>Giving us this data to work with:</p>
-<pre class="r"><code>glimpse(trade_data)</code></pre>
-<pre><code>## Observations: 75,379
+<pre class="r"><code>glimpse(trade_data)
+## Observations: 75,379
 ## Variables: 10
-## $ Month     &lt;dbl&gt; 1, 2, 3, 4, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 1...
-## $ Exports   &lt;dbl&gt; 0.1, 0.4, 1.8, 0.2, 0.1, 1.3, 3.2, 0.6, 0.3, 0.6, 0....
-## $ Imports   &lt;dbl&gt; 1.0, 2.4, 2.2, 0.8, 0.2, 0.5, 0.8, 0.9, 0.4, 2.4, 0....
-## $ Balance   &lt;dbl&gt; -0.8, -2.0, -0.4, -0.6, -0.1, 0.7, 2.4, -0.3, -0.1, ...
-## $ Country   &lt;dbl&gt; 1010, 1010, 1010, 1010, 1010, 1010, 1010, 1010, 1010...
-## $ Date      &lt;date&gt; 2018-01-01, 2018-02-01, 2018-03-01, 2018-04-01, 201...
-## $ Year      &lt;dbl&gt; 2018, 2018, 2018, 2018, 2017, 2017, 2017, 2017, 2017...
-## $ name      &lt;chr&gt; &quot;Greenland&quot;, &quot;Greenland&quot;, &quot;Greenland&quot;, &quot;Greenland&quot;, ...
-## $ iso       &lt;chr&gt; &quot;GL&quot;, &quot;GL&quot;, &quot;GL&quot;, &quot;GL&quot;, &quot;GL&quot;, &quot;GL&quot;, &quot;GL&quot;, &quot;GL&quot;, &quot;GL&quot;...
-## $ continent &lt;chr&gt; &quot;North America&quot;, &quot;North America&quot;, &quot;North America&quot;, &quot;...</code></pre>
+## $ Month     &lt;dbl&gt; 1, 2, 3, 4, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 1, …
+## $ Exports   &lt;dbl&gt; 0.1, 0.4, 1.8, 0.2, 0.1, 1.3, 3.2, 0.6, 0.3, 0.6, 0.7,…
+## $ Imports   &lt;dbl&gt; 1.0, 2.4, 2.2, 0.8, 0.2, 0.5, 0.8, 0.9, 0.4, 2.4, 0.5,…
+## $ Balance   &lt;dbl&gt; -0.8, -2.0, -0.4, -0.6, -0.1, 0.7, 2.4, -0.3, -0.1, -1…
+## $ Country   &lt;dbl&gt; 1010, 1010, 1010, 1010, 1010, 1010, 1010, 1010, 1010, …
+## $ Date      &lt;date&gt; 2018-01-01, 2018-02-01, 2018-03-01, 2018-04-01, 2017-…
+## $ Year      &lt;dbl&gt; 2018, 2018, 2018, 2018, 2017, 2017, 2017, 2017, 2017, …
+## $ name      &lt;chr&gt; &quot;Greenland&quot;, &quot;Greenland&quot;, &quot;Greenland&quot;, &quot;Greenland&quot;, &quot;G…
+## $ iso       &lt;chr&gt; &quot;GL&quot;, &quot;GL&quot;, &quot;GL&quot;, &quot;GL&quot;, &quot;GL&quot;, &quot;GL&quot;, &quot;GL&quot;, &quot;GL&quot;, &quot;GL&quot;, …
+## $ continent &lt;chr&gt; &quot;North America&quot;, &quot;North America&quot;, &quot;North America&quot;, &quot;No…</code></pre>
 </div>
 <div id="lets-get-vizualising" class="section level2">
 <h2>Lets get vizualising!</h2>
@@ -123,15 +123,15 @@ full_data &lt;- map2_df(good_responses, code_df$code, wrangle)</code></pre>
 <p><img src="/blog/2018-06-12-ggplot2-trial-and-error-us-trade-data_files/figure-html/unnamed-chunk-10-1.png" width="700px" style="display: block; margin: auto;" /></p>
 <p>it sure it quite jagged! Lets take a loot at the 4 biggest spiked to see if it is a indication of a trend</p>
 <pre class="r"><code>trade_data %&gt;% 
-  filter(name == &quot;Greenland&quot;, Balance &gt; 5)</code></pre>
-<pre><code>## # A tibble: 4 x 10
+  filter(name == &quot;Greenland&quot;, Balance &gt; 5)
+## # A tibble: 4 x 10
 ##   Month Exports Imports Balance Country Date        Year name  iso  
 ##   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt; &lt;date&gt;     &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;
 ## 1     3     7.9     0.5     7.4    1010 2014-03-01  2014 Gree… GL   
 ## 2     3    10.4     1       9.4    1010 2013-03-01  2013 Gree… GL   
 ## 3     3    10.5     0.6     9.9    1010 2012-03-01  2012 Gree… GL   
 ## 4     9    20       1.3    18.8    1010 2008-09-01  2008 Gree… GL   
-## # ... with 1 more variable: continent &lt;chr&gt;</code></pre>
+## # … with 1 more variable: continent &lt;chr&gt;</code></pre>
 <p>Which didn’t give us much, 3 of the spikes happened in March and the last one a random September. It was worth a try, back to plotting! Lets see how a smooth curve would look overlaid the line chart</p>
 <pre class="r"><code>trade_data %&gt;% 
   filter(name == &quot;Greenland&quot;) %&gt;%
@@ -162,10 +162,10 @@ full_data &lt;- map2_df(good_responses, code_df$code, wrangle)</code></pre>
   geom_line() + 
   scale_y_sqrt() +
   labs(title = &quot;United States Trade Balance in Goods with all countries&quot;,
-       subtitle = &quot;With square root transformation&quot;)</code></pre>
-<pre><code>## Warning in self$trans$transform(x): NaNs produced</code></pre>
-<pre><code>## Warning: Transformation introduced infinite values in continuous y-axis</code></pre>
-<pre><code>## Warning: Removed 11918 rows containing missing values (geom_path).</code></pre>
+       subtitle = &quot;With square root transformation&quot;)
+## Warning in self$trans$transform(x): NaNs produced
+## Warning: Transformation introduced infinite values in continuous y-axis
+## Warning: Removed 11918 rows containing missing values (geom_path).</code></pre>
 <p><img src="/blog/2018-06-12-ggplot2-trial-and-error-us-trade-data_files/figure-html/unnamed-chunk-15-1.png" width="700px" style="display: block; margin: auto;" /></p>
 <p>Oh no! We lost all the negative values. This happened because the normal square root operation only works with positive numbers. We fix this by using the <em>signed square root</em> which apply the square root to both the positive and negative as if they were positive and then signs them accordingly. for this we create a new transformation with the <code>scales</code> package.</p>
 <pre class="r"><code>S_sqrt &lt;- function(x) sign(x) * sqrt(abs(x))
@@ -276,8 +276,8 @@ trade_data %&gt;%
                      minor_breaks = NULL) +
   labs(title = &quot;United States Trade Balance in Goods with all countries&quot;,
        subtitle = &quot;With signed square root transformation faceted depending on continent&quot;) +
-  guides(color = &quot;none&quot;)</code></pre>
-<pre><code>## `geom_smooth()` using method = &#39;gam&#39; and formula &#39;y ~ s(x, bs = &quot;cs&quot;)&#39;</code></pre>
+  guides(color = &quot;none&quot;)
+## `geom_smooth()` using method = &#39;gam&#39; and formula &#39;y ~ s(x, bs = &quot;cs&quot;)&#39;</code></pre>
 <p><img src="/blog/2018-06-12-ggplot2-trial-and-error-us-trade-data_files/figure-html/unnamed-chunk-25-1.png" width="700px" style="display: block; margin: auto;" /></p>
 <p>Unfortunately doesn’t add too much information so lets remove it again. Lastly lets update the the labels to reflect the the unit.</p>
 <pre class="r"><code>trade_data %&gt;% 

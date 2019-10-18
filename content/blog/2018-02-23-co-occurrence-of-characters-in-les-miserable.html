@@ -60,29 +60,29 @@ library(igraph)</code></pre>
 <p>Now we are all ready to run the spacy parser which will only take a couple of minutes.</p>
 <pre class="r"><code>lesmis_obj &lt;- cnlp_annotate(lesmis)</code></pre>
 <p>the output we are given nothing more then a set of data.frames and a matrix which we can see the names for here</p>
-<pre class="r"><code>names(lesmis_obj)</code></pre>
-<pre><code>## [1] &quot;coreference&quot; &quot;dependency&quot;  &quot;document&quot;    &quot;entity&quot;      &quot;sentence&quot;   
+<pre class="r"><code>names(lesmis_obj)
+## [1] &quot;coreference&quot; &quot;dependency&quot;  &quot;document&quot;    &quot;entity&quot;      &quot;sentence&quot;   
 ## [6] &quot;token&quot;       &quot;vector&quot;</code></pre>
 <p>It includes a lot of awesome information but we are only interested in the <code>entity</code> part of it for this time. This is done using the <code>cnlp_get_entity</code> (from the <code>cnlp_get_OBJECT</code> family).</p>
 <pre class="r"><code>cnlp_get_entity(lesmis_obj) %&gt;%
-  head()</code></pre>
-<pre><code>## # A tibble: 6 x 6
-##   id      sid   tid tid_end entity_type entity                             
-##   &lt;chr&gt; &lt;int&gt; &lt;int&gt;   &lt;int&gt; &lt;chr&gt;       &lt;chr&gt;                              
-## 1 doc1      1     4       5 ORG         M. MYRIEL                          
-## 2 doc1      2     2       2 DATE        1815                               
-## 3 doc1      2     4      10 PERSON      M. Charles-François-Bienvenu Myriel
-## 4 doc1      2    14      14 ORG         D----                              
-## 5 doc1      3     7      11 CARDINAL    about seventy-five years           
-## 6 doc1      3    21      21 ORG         D----</code></pre>
+  head()
+## # A tibble: 6 x 6
+##   id      sid   tid tid_end entity_type entity           
+##   &lt;chr&gt; &lt;int&gt; &lt;int&gt;   &lt;int&gt; &lt;chr&gt;       &lt;chr&gt;            
+## 1 doc2      1    11      12 ORG         EXPLAINING A     
+## 2 doc2      1    13      13 NORP        &quot; &quot;              
+## 3 doc2      1    14      14 ORG         PHENOMENON       
+## 4 doc2      5     2       2 ORG         BEGINNING        
+## 5 doc4      2     1       2 PERSON      &quot;APPREHENSIONS  &quot;
+## 6 doc5      1     9       9 EVENT       TOUSSAINT</code></pre>
 <p>We see quite a few different <code>entity_type</code>s, in fact lets take a quick look at the different types that are in this text</p>
 <pre class="r"><code>cnlp_get_entity(lesmis_obj) %&gt;%
   pull(entity_type) %&gt;%
-  unique()</code></pre>
-<pre><code>##  [1] &quot;ORG&quot;         &quot;DATE&quot;        &quot;PERSON&quot;      &quot;CARDINAL&quot;    &quot;ORDINAL&quot;    
-##  [6] &quot;EVENT&quot;       &quot;GPE&quot;         &quot;NORP&quot;        &quot;LOC&quot;         &quot;WORK_OF_ART&quot;
-## [11] &quot;PRODUCT&quot;     &quot;FAC&quot;         &quot;TIME&quot;        &quot;LAW&quot;         &quot;MONEY&quot;      
-## [16] &quot;LANGUAGE&quot;    &quot;QUANTITY&quot;    &quot;PERCENT&quot;</code></pre>
+  unique()
+##  [1] &quot;ORG&quot;         &quot;NORP&quot;        &quot;PERSON&quot;      &quot;EVENT&quot;       &quot;CARDINAL&quot;   
+##  [6] &quot;LANGUAGE&quot;    &quot;DATE&quot;        &quot;GPE&quot;         &quot;WORK_OF_ART&quot; &quot;PRODUCT&quot;    
+## [11] &quot;TIME&quot;        &quot;ORDINAL&quot;     &quot;FAC&quot;         &quot;LOC&quot;         &quot;MONEY&quot;      
+## [16] &quot;QUANTITY&quot;    &quot;LAW&quot;         &quot;PERCENT&quot;</code></pre>
 <p>for a full list of explanations see the documentation for <code>?cnlp_get_entity</code>. After a bit of investigating I have decided that we only will look at “PERSON” and “ORG” (which is due in part to Napoleon being classified as a organisation.) Furthermore I will limit further analysis to about the 50 most mentioned characters. The rational behind this is that it hopefully would capture most of the important characters, with the weight that characters that are mentioned sparingly but consistently is more important then characters with high density in a few chapter. We will include a few more characters in case we have to exclude some of them after looking.</p>
 <pre class="r"><code>top_person_df &lt;- cnlp_get_entity(lesmis_obj) %&gt;%
   filter(entity_type %in% c(&quot;ORG&quot;, &quot;PERSON&quot;)) %&gt;%
@@ -90,38 +90,38 @@ library(igraph)</code></pre>
   slice(seq_len(60))
 
 top_person_vec &lt;- top_person_df %&gt;% pull(entity)
-top_person_vec</code></pre>
-<pre><code>##  [1] &quot;Marius&quot;                    &quot;Jean Valjean&quot;             
+top_person_vec
+##  [1] &quot;Marius&quot;                    &quot;Jean Valjean&quot;             
 ##  [3] &quot;Cosette&quot;                   &quot;Javert&quot;                   
 ##  [5] &quot;Thénardier&quot;                &quot;Gavroche&quot;                 
 ##  [7] &quot;Bishop&quot;                    &quot;Fantine&quot;                  
-##  [9] &quot; &quot;                         &quot;M. Madeleine&quot;             
-## [11] &quot;Jondrette&quot;                 &quot;M. Gillenormand&quot;          
+##  [9] &quot;M. Madeleine&quot;              &quot;Jondrette&quot;                
+## [11] &quot; &quot;                         &quot;M. Gillenormand&quot;          
 ## [13] &quot;_&quot;                         &quot;Napoleon&quot;                 
 ## [15] &quot;Waterloo&quot;                  &quot;M. Leblanc&quot;               
-## [17] &quot;Fauchelevent&quot;              &quot;Grantaire&quot;                
-## [19] &quot;Madeleine&quot;                 &quot;Jean Valjean&#39;s&quot;           
-## [21] &quot;Montparnasse&quot;              &quot;Éponine&quot;                  
-## [23] &quot;Bossuet&quot;                   &quot;Brujon&quot;                   
-## [25] &quot;D----&quot;                     &quot;Combeferre&quot;               
+## [17] &quot;  &quot;                        &quot;Madeleine&quot;                
+## [19] &quot;Grantaire&quot;                 &quot;Montparnasse&quot;             
+## [21] &quot;Fauchelevent&quot;              &quot;Jean Valjean’s&quot;           
+## [23] &quot;Éponine&quot;                   &quot;Bossuet&quot;                  
+## [25] &quot;Brujon&quot;                    &quot;Combeferre&quot;               
 ## [27] &quot;Monseigneur&quot;               &quot;M. Fauchelevent&quot;          
-## [29] &quot;CHAPTER IV&quot;                &quot;Pontmercy&quot;                
-## [31] &quot;Austerlitz&quot;                &quot;Champmathieu&quot;             
-## [33] &quot;M. Mabeuf&quot;                 &quot;Monsieur&quot;                 
-## [35] &quot;Joly&quot;                      &quot;Nicolette&quot;                
-## [37] &quot;Voltaire&quot;                  &quot;Louis Philippe&quot;           
-## [39] &quot;Mademoiselle Gillenormand&quot; &quot;Gillenormand&quot;             
-## [41] &quot;Cæsar&quot;                     &quot;CHAPTER VI&quot;               
-## [43] &quot;Lark&quot;                      &quot;Mayor&quot;                    
-## [45] &quot;Théodule&quot;                  &quot;Magnon&quot;                   
-## [47] &quot;Laigle&quot;                    &quot;Bahorel&quot;                  
-## [49] &quot;Louis XVIII&quot;               &quot;Blachevelle&quot;              
-## [51] &quot;Blücher&quot;                   &quot;Jean Prouvaire&quot;           
-## [53] &quot;Mademoiselle Baptistine&quot;   &quot;Monsieur le Maire&quot;        
-## [55] &quot;Bonaparte&quot;                 &quot;exclaimed:--&quot;             
-## [57] &quot;Gorbeau&quot;                   &quot;Mabeuf&quot;                   
-## [59] &quot;Madame Thénardier&quot;         &quot;Magloire&quot;</code></pre>
-<p>After looking we see a few things we would like to fix before moving on. Firstly is “CHAPTER IV” and “CHAPTER VI” wrongly both classified as “ORG”s. &quot; “,”-&quot; and “exclaimed:–” and “Monsieur” have also been misclassified. “Jean Valjean’s” have been classified differently then “Jean Valjean” which is also the case with “Fauchelevent” and “M. Fauchelevent”, “M. Madeleine” and “Madeleine”, “M. Gillenormand”, “Gillenormand” and “Mademoiselle Gillenormand”. We will remove the miss-classifications here, and create a list of all the characters with all of their names. The list is named with the character’s main name for later subsetting.</p>
+## [29] &quot;Austerlitz&quot;                &quot;Pontmercy&quot;                
+## [31] &quot;M. Mabeuf&quot;                 &quot;Champmathieu&quot;             
+## [33] &quot;Joly&quot;                      &quot;him:—&quot;                    
+## [35] &quot;Louis Philippe&quot;            &quot;Nicolette&quot;                
+## [37] &quot;Voltaire&quot;                  &quot;Cæsar&quot;                    
+## [39] &quot;Gillenormand&quot;              &quot;Mayor&quot;                    
+## [41] &quot;Monsieur&quot;                  &quot;Mademoiselle Gillenormand&quot;
+## [43] &quot;Lark&quot;                      &quot;Magnon&quot;                   
+## [45] &quot;Théodule&quot;                  &quot;Bahorel&quot;                  
+## [47] &quot;Louis XVIII&quot;               &quot;Mademoiselle Baptistine&quot;  
+## [49] &quot;Blachevelle&quot;               &quot;Blücher&quot;                  
+## [51] &quot;Bonaparte&quot;                 &quot;Gorbeau&quot;                  
+## [53] &quot;Jean Prouvaire&quot;            &quot;Laigle&quot;                   
+## [55] &quot;Restoration&quot;               &quot;Courfeyrac&quot;               
+## [57] &quot;Favourite&quot;                 &quot;Guelemer&quot;                 
+## [59] &quot;Mabeuf&quot;                    &quot;Madame Thénardier&quot;</code></pre>
+<p>After looking we see a few things we would like to fix before moving on. Firstly is “CHAPTER IV” and “CHAPTER VI” wrongly both classified as “ORG”s. " “,”-" and “exclaimed:–” and “Monsieur” have also been misclassified. “Jean Valjean’s” have been classified differently then “Jean Valjean” which is also the case with “Fauchelevent” and “M. Fauchelevent”, “M. Madeleine” and “Madeleine”, “M. Gillenormand”, “Gillenormand” and “Mademoiselle Gillenormand”. We will remove the miss-classifications here, and create a list of all the characters with all of their names. The list is named with the character’s main name for later subsetting.</p>
 <pre class="r"><code>top_person_vec_clean &lt;- top_person_vec[-c(9, 13, 29, 34, 42, 56)] 
 
 complications &lt;- list(c(&quot;Jean Valjean&quot;, &quot;Jean Valjean&#39;s&quot;),

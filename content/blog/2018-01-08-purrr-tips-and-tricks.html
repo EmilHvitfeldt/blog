@@ -48,7 +48,7 @@ library(repurrrsive) # datasets used in some of the examples.</code></pre>
 <p>Multiple files can be read and combined at once using <code>map_df</code> and <code>read_cvs</code>.</p>
 <pre class="r"><code>files &lt;- c(&quot;2015.cvs&quot;, &quot;2016.cvs&quot;, &quot;2017.cvs&quot;)
 map_df(files, read_csv)</code></pre>
-<p>Combine with <code>list.files</code> to create magic<a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a>.</p>
+<p>Combine with <code>list.files</code> to create magic<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a>.</p>
 <pre class="r"><code>files &lt;- list.files(&quot;../open-data/&quot;, pattern = &quot;^2017&quot;, full.names = TRUE)
 full &lt;- map_df(files, read_csv)</code></pre>
 </div>
@@ -64,7 +64,7 @@ X &lt;- bind_rows(X)</code></pre>
 <pre class="r"><code>map(got_chars, function(x) x[[&quot;name&quot;]]) 
 map(got_chars, ~ .x[[&quot;name&quot;]])
 map(got_chars, &quot;name&quot;)</code></pre>
-<p>works the same with indexes.<a href="#fn2" class="footnoteRef" id="fnref2"><sup>2</sup></a></p>
+<p>works the same with indexes.<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a></p>
 <pre class="r"><code>map(got_chars, function(x) x[[1]]) 
 map(got_chars, ~ .x[[1]])
 map(got_chars, 1)</code></pre>
@@ -83,7 +83,7 @@ map(got_chars, 1)</code></pre>
   cat(.x)
   .x
 })</code></pre>
-<p>This can be very handy if you want to be a responsible (websraping) pirate<a href="#fn3" class="footnoteRef" id="fnref3"><sup>3</sup></a>.</p>
+<p>This can be very handy if you want to be a responsible (websraping) pirate<a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a>.</p>
 <pre class="r"><code>library(httr)
 s_GET &lt;- safely(GET)
 
@@ -131,14 +131,14 @@ map(data, ~ safe_function(.x)) %&gt;%
 <pre class="r"><code>reduce(list(x1, x2, x3), f)
 f(f(x1, x2), x3)</code></pre>
 <p>equivalent.</p>
-<p>This example<a href="#fn4" class="footnoteRef" id="fnref4"><sup>4</sup></a> comes from Colin Fay shows how to use <code>reduce()</code>.</p>
+<p>This example<a href="#fn4" class="footnote-ref" id="fnref4"><sup>4</sup></a> comes from Colin Fay shows how to use <code>reduce()</code>.</p>
 <pre class="r"><code>regex_build &lt;- function(list){
     reduce(list, ~ paste(.x, .y, sep = &quot;|&quot;))
 }
 
-regex_build(letters[1:5])</code></pre>
-<pre><code>## [1] &quot;a|b|c|d|e&quot;</code></pre>
-<p>This example by Jason Becker<a href="#fn5" class="footnoteRef" id="fnref5"><sup>5</sup></a> shows how to easier label data using <code>reduce_right</code>.</p>
+regex_build(letters[1:5])
+## [1] &quot;a|b|c|d|e&quot;</code></pre>
+<p>This example by Jason Becker<a href="#fn5" class="footnote-ref" id="fnref5"><sup>5</sup></a> shows how to easier label data using <code>reduce_right</code>.</p>
 <pre class="r"><code># Load a directory of .csv files that has each of the lookup tables
 lookups &lt;- map(dir(&#39;data/lookups&#39;), read.csv, stringsAsFactors = FALSE)
 # Alternatively if you have a single lookup table with code_type as your
@@ -189,11 +189,11 @@ head_while(X, ~ .x &gt;= 10)</code></pre>
 dice1 &lt;- function(n) sample(size = n, x = 1:6, replace = TRUE)
 dice_rank &lt;- compose(names, sort, table, dice1)
 dice_rank(50)</code></pre>
-<p>A more informative is found here<a href="#fn6" class="footnoteRef" id="fnref6"><sup>6</sup></a>:</p>
+<p>A more informative is found here<a href="#fn6" class="footnote-ref" id="fnref6"><sup>6</sup></a>:</p>
 <pre class="r"><code>library(broom)
 tidy_lm &lt;- compose(tidy, lm)
-tidy_lm(Sepal.Length ~ Species, data = iris)</code></pre>
-<pre><code>## # A tibble: 3 x 5
+tidy_lm(Sepal.Length ~ Species, data = iris)
+## # A tibble: 3 x 5
 ##   term              estimate std.error statistic   p.value
 ##   &lt;chr&gt;                &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;
 ## 1 (Intercept)           5.01    0.0728     68.8  1.13e-113
@@ -231,11 +231,11 @@ tidy_lm(Sepal.Length ~ Species, data = iris)</code></pre>
 <div class="footnotes">
 <hr />
 <ol>
-<li id="fn1"><p><a href="https://gist.github.com/ColinFay/d74d331825868b181860212cd1577b69">ColinFay/df a list</a><a href="#fnref1">↩</a></p></li>
-<li id="fn2"><p><a href="https://jennybc.github.io/purrr-tutorial/ls01_map-name-position-shortcuts.html">jennybc.github.io - Introduction to map(): extract elements</a><a href="#fnref2">↩</a></p></li>
-<li id="fn3"><p><a href="https://rud.is/b/2017/09/19/pirating-web-content-responsibly-with-r/">Pirating Web Content Responsibly With R</a><a href="#fnref3">↩</a></p></li>
-<li id="fn4"><p><a href="http://colinfay.me/purrr-text-wrangling/">A Crazy Little Thing Called {purrr} - Part 2 : Text Wrangling</a><a href="#fnref4">↩</a></p></li>
-<li id="fn5"><p><a href="http://www.json.blog/2017/03/labeling-data-with-purrr/">Labeling Data with purrr</a><a href="#fnref5">↩</a></p></li>
-<li id="fn6"><p><a href="http://colinfay.me/purrr-code-optim/">A Crazy Little Thing Called {purrr} - Part 5: code optimization</a><a href="#fnref6">↩</a></p></li>
+<li id="fn1"><p><a href="https://gist.github.com/ColinFay/d74d331825868b181860212cd1577b69">ColinFay/df a list</a><a href="#fnref1" class="footnote-back">↩</a></p></li>
+<li id="fn2"><p><a href="https://jennybc.github.io/purrr-tutorial/ls01_map-name-position-shortcuts.html">jennybc.github.io - Introduction to map(): extract elements</a><a href="#fnref2" class="footnote-back">↩</a></p></li>
+<li id="fn3"><p><a href="https://rud.is/b/2017/09/19/pirating-web-content-responsibly-with-r/">Pirating Web Content Responsibly With R</a><a href="#fnref3" class="footnote-back">↩</a></p></li>
+<li id="fn4"><p><a href="http://colinfay.me/purrr-text-wrangling/">A Crazy Little Thing Called {purrr} - Part 2 : Text Wrangling</a><a href="#fnref4" class="footnote-back">↩</a></p></li>
+<li id="fn5"><p><a href="http://www.json.blog/2017/03/labeling-data-with-purrr/">Labeling Data with purrr</a><a href="#fnref5" class="footnote-back">↩</a></p></li>
+<li id="fn6"><p><a href="http://colinfay.me/purrr-code-optim/">A Crazy Little Thing Called {purrr} - Part 5: code optimization</a><a href="#fnref6" class="footnote-back">↩</a></p></li>
 </ol>
 </div>

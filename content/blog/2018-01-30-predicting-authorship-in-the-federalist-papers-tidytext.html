@@ -54,8 +54,8 @@ library(glmnet)</code></pre>
 <h2>Data</h2>
 <p>We are lucky today because all of The Federalist Papers happens to be on gutenberg</p>
 <pre class="r"><code>papers &lt;- gutenberg_download(1404)
-head(papers, n = 10)</code></pre>
-<pre><code>## # A tibble: 10 x 2
+head(papers, n = 10)
+## # A tibble: 10 x 2
 ##    gutenberg_id text                                              
 ##           &lt;int&gt; &lt;chr&gt;                                             
 ##  1         1404 THE FEDERALIST PAPERS                             
@@ -92,8 +92,8 @@ unknown &lt;- c(49:58, 62:63)</code></pre>
          id = paste(no, sentence, sep = &quot;-&quot;))</code></pre>
 <p>lets take a quick count before we move on</p>
 <pre class="r"><code>papers_words %&gt;%
-  count(author)</code></pre>
-<pre><code>## # A tibble: 4 x 2
+  count(author)
+## # A tibble: 4 x 2
 ##   author        n
 ##   &lt;chr&gt;     &lt;int&gt;
 ## 1 hamilton 114688
@@ -116,8 +116,8 @@ unknown &lt;- c(49:58, 62:63)</code></pre>
 <pre class="r"><code>meta &lt;- data.frame(id = dimnames(papers_dtm)[[1]]) %&gt;%
   left_join(papers_words[!duplicated(papers_words$id), ], by = &quot;id&quot;) %&gt;%
   mutate(y = as.numeric(author == &quot;hamilton&quot;),
-         train = author != &quot;unknown&quot;)</code></pre>
-<pre><code>## Warning: Column `id` joining factor and character vector, coercing into
+         train = author != &quot;unknown&quot;)
+## Warning: Column `id` joining factor and character vector, coercing into
 ## character vector</code></pre>
 <p>We will use cross-validation to obtain the best value of the models tuning parameter. This part takes a couple of minutes.</p>
 <pre class="r"><code>predictor &lt;- papers_dtm[meta$train, ] %&gt;% as.matrix()
@@ -140,7 +140,9 @@ model &lt;- cv.glmnet(predictor, response, family = &quot;binomial&quot;, alpha 
   scale_fill_manual(values = c(&quot;#304890&quot;, &quot;#6A7E50&quot;)) +
   theme(axis.text.x = element_text(angle = 90, hjust = 1))</code></pre>
 <p><img src="/blog/2018-01-30-predicting-authorship-in-the-federalist-papers-tidytext_files/figure-html/old-plot1-1.png" width="700px" style="display: block; margin: auto;" /></p>
-<p>The box plot of predicted probabilities, one value for each sentence, for the 68 papers by Alexander Hamilton and James Madison. The probability represents the extent to which the model believe the sentence was written by Alexander Hamilton.</p>
+<p>The box plot of predicted probabilities, one value for each sentence, for the 68 papers by
+Alexander Hamilton and James Madison. The probability represents the extent to which the
+model believe the sentence was written by Alexander Hamilton.</p>
 <p>Lets see if this model can settle the dispute of the 12 papers. We will plot the predicted probabilities of the unknown papers alongside the training set.</p>
 <pre class="r"><code>meta %&gt;%
   ggplot(aes(factor(no), pred)) + 
@@ -166,8 +168,8 @@ model &lt;- cv.glmnet(predictor, response, family = &quot;binomial&quot;, alpha 
 <pre class="r"><code>meta &lt;- data.frame(id = dimnames(papers_dtm)[[1]]) %&gt;%
   left_join(papers_words[!duplicated(papers_words$id), ], by = &quot;id&quot;) %&gt;%
   mutate(y = as.numeric(author == &quot;hamilton&quot;),
-         train = no &gt; 20)</code></pre>
-<pre><code>## Warning: Column `id` joining factor and character vector, coercing into
+         train = no &gt; 20)
+## Warning: Column `id` joining factor and character vector, coercing into
 ## character vector</code></pre>
 <pre class="r"><code>predictor &lt;- papers_dtm[meta$train, ] %&gt;% as.matrix()
 response &lt;- meta$y[meta$train]

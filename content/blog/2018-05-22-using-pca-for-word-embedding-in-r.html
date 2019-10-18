@@ -33,9 +33,10 @@ output:
 library(tidytext)
 library(broom)
 library(randomForest)</code></pre>
-<p>The data we will be using for this demonstration will be some <a href="https://data.world/crowdflower/disasters-on-social-media">social media disaster tweets</a> discussed in <a href="https://arxiv.org/pdf/1705.02009.pdf">this article</a>. It consist of a number of tweets regarding accidents mixed in with a selection control tweets (not about accidents). We start by loading in the data.</p>
-<pre class="r"><code>data &lt;- read_csv(&quot;https://github.com/EmilHvitfeldt/blog/raw/master/data/socialmedia-disaster-tweets-DFE.csv&quot;)</code></pre>
-<p>And for this exercise we will only look at the body of the text. Furthermore a handful of the tweets weren’t classified, marked <code>&quot;Can't Decide&quot;</code> so we are removing those as well. Since we are working with tweet data we have the constraint that most of tweets don’t actually have that much information in them as they are limited in characters and some only contain a couple of words.</p>
+<p>The data we will be using for this demonstration will be some <a href="https://data.world/crowdflower/disasters-on-social-media">social media disaster tweets</a> discussed in <a href="https://arxiv.org/pdf/1705.02009.pdf">this article</a>.
+It consist of a number of tweets regarding accidents mixed in with a selection control tweets (not about accidents). We start by loading in the data.</p>
+<pre class="r"><code>data &lt;- read_csv(&quot;https://raw.githubusercontent.com/EmilHvitfeldt/blog/750dc28aa8d514e2c0b8b418ade584df8f4a8c92/data/socialmedia-disaster-tweets-DFE.csv&quot;)</code></pre>
+<p>And for this exercise we will only look at the body of the text. Furthermore a handful of the tweets weren’t classified, marked <code>"Can't Decide"</code> so we are removing those as well. Since we are working with tweet data we have the constraint that most of tweets don’t actually have that much information in them as they are limited in characters and some only contain a couple of words.</p>
 <p>We will at this stage remove what appears to be urls using some regex and <code>str_replace_all</code>, and we will select the columns <code>id</code>, <code>disaster</code> and <code>text</code>.</p>
 <pre class="r"><code>data_clean &lt;- data %&gt;%
   filter(choose_one != &quot;Can&#39;t Decide&quot;) %&gt;%
@@ -61,8 +62,8 @@ library(randomForest)</code></pre>
 <pre class="r"><code>sparse_word_matrix &lt;- unnested_words %&gt;%
   cast_sparse(id, word, n)</code></pre>
 <p>In the last post we used this matrix for the modeling, but the size was quite obstacle.</p>
-<pre class="r"><code>dim(sparse_word_matrix)</code></pre>
-<pre><code>## [1] 10829 10000</code></pre>
+<pre class="r"><code>dim(sparse_word_matrix)
+## [1] 10829 10000</code></pre>
 <p>We have a row for each document and a row for each of the top 10000 words, but most of the elements are empty so each of the variables don’t contain much information. We will do word embedding by applying PCA to the sparse word count matrix. Like Julia Silge we will use the wonderful <a href="https://bwlewis.github.io/irlba/">irlba</a> package that facilities PCA on sparse matrices. First we scale the matrix and then we apply PCA where we request 64 columns.</p>
 <p>This stage will take some time, but that is the trade-off we will be making when using word embedding. We take some computation time up front in exchange for quick computation later down the line.</p>
 <pre class="r"><code>word_scaled &lt;- scale(sparse_word_matrix)
@@ -77,21 +78,23 @@ word_pca &lt;- irlba::prcomp_irlba(word_scaled, n = 64)</code></pre>
 <p>We now have a data frame with 64 explanatory variables instead of the 10000 we started with. This a huge reduction which hopefully should pay off. For this demonstration will we try using two kinds of models. Standard logistic regression and a random forest model. Logistic regression is a good baseline which should be blazing fast now since the reduction have taken place and the random forest model which generally was quite slow should be more manageable this time around.</p>
 <pre class="r"><code>model &lt;- glm(response ~ ., 
              data = filter(class_df, split == 1), 
-             family = binomial)</code></pre>
-<pre><code>## Warning: glm.fit: fitted probabilities numerically 0 or 1 occurred</code></pre>
-<pre class="r"><code>y_pred &lt;- predict(model, 
+             family = binomial)
+## Warning: glm.fit: fitted probabilities numerically 0 or 1 occurred
+
+y_pred &lt;- predict(model, 
                   type = &quot;response&quot;,
-                  newdata = filter(class_df, split == 0) %&gt;% select(-response))</code></pre>
-<pre><code>## Warning in predict.lm(object, newdata, se.fit, scale = 1, type =
-## ifelse(type == : prediction from a rank-deficient fit may be misleading</code></pre>
-<pre class="r"><code>y_pred_logical &lt;- if_else(y_pred &gt; 0.5, 1, 0)
-(con &lt;- table(y_pred_logical, filter(class_df, split == 0) %&gt;% pull(response)))</code></pre>
-<pre><code>##               
+                  newdata = filter(class_df, split == 0) %&gt;% select(-response))
+## Warning in predict.lm(object, newdata, se.fit, scale = 1, type = if (type
+## == : prediction from a rank-deficient fit may be misleading
+
+y_pred_logical &lt;- if_else(y_pred &gt; 0.5, 1, 0)
+(con &lt;- table(y_pred_logical, filter(class_df, split == 0) %&gt;% pull(response)))
+##               
 ## y_pred_logical FALSE TRUE
-##              0  1147  546
-##              1    81  363</code></pre>
-<pre class="r"><code>sum(diag(con)) / sum(con)</code></pre>
-<pre><code>## [1] 0.706598</code></pre>
+##              0  1161  541
+##              1    79  344
+sum(diag(con)) / sum(con)
+## [1] 0.7082353</code></pre>
 <p>it work fairly quickly and we get a decent accuracy of 71%. Remember this method isn’t meant to improve the accuracy but rather to improve the computational time.</p>
 <pre class="r"><code>model &lt;- randomForest(response ~ ., 
                       data = filter(class_df, split == 1))
@@ -100,14 +103,14 @@ y_pred &lt;- predict(model,
                   type = &quot;class&quot;,
                   newdata = filter(class_df, split == 0) %&gt;% select(-response))
 
-(con &lt;- table(y_pred, filter(class_df, split == 0) %&gt;% pull(response)))</code></pre>
-<pre><code>##        
+(con &lt;- table(y_pred, filter(class_df, split == 0) %&gt;% pull(response)))
+##        
 ## y_pred  FALSE TRUE
-##   FALSE  1041  349
-##   TRUE    187  560</code></pre>
-<pre class="r"><code>sum(diag(con)) / sum(con)</code></pre>
-<pre><code>## [1] 0.7491811</code></pre>
-<p>This one takes slightly longer to run due to the number of trees, but it does give us the nifty 75% accuracy which is pretty good considering we only look at tweets.</p>
+##   FALSE  1082  352
+##   TRUE    158  533
+sum(diag(con)) / sum(con)
+## [1] 0.76</code></pre>
+<p>This one takes slightly longer to run due to the number of trees, but it does give us the nifty 76% accuracy which is pretty good considering we only look at tweets.</p>
 <p>And this is all that there is to it! The dimensionality reduction method was able to reduce the number of variables while retaining most of the information within those variables such that we can run our procedures at a faster phase without much loss. There is still a lot of individual improvements to be done if this was to be used further, both in terms of hyper-parameter selection in the modeling choices but also the number of PCA variables that should be used in the final modelling. Remember that this is just one of the more simpler methods, with more advanced word representation methods being <a href="https://nlp.stanford.edu/projects/glove/">glove</a> and <a href="https://www.tensorflow.org/tutorials/word2vec">word2vec</a>.</p>
 </div>
 <div id="data-viz" class="section level2">
@@ -115,10 +118,11 @@ y_pred &lt;- predict(model,
 <p>Since Julia did most of the legwork for the visualizations so we will take a look at how each of the words contribute to the first four components.</p>
 <pre class="r"><code>tidied_pca &lt;- bind_cols(Tag = colnames(word_scaled),
                         tidy(word_pca$rotation)) %&gt;%
-    gather(PC, Contribution, PC1:PC4)</code></pre>
-<pre><code>## Warning: &#39;tidy.matrix&#39; is deprecated.
-## See help(&quot;Deprecated&quot;)</code></pre>
-<pre class="r"><code>tidied_pca %&gt;% 
+    gather(PC, Contribution, PC1:PC4)
+## Warning: &#39;tidy.matrix&#39; is deprecated.
+## See help(&quot;Deprecated&quot;)
+
+tidied_pca %&gt;% 
     filter(PC %in% paste0(&quot;PC&quot;, 1:4)) %&gt;%
     ggplot(aes(Tag, Contribution, fill = Tag)) +
     geom_col(show.legend = FALSE) +

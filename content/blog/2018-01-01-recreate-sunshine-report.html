@@ -80,8 +80,8 @@ str_before &lt;- function(string, pattern) {
 <p>this function will work even if you pick a year that have not ended yet. As 2017 have just ended I though it would be appropriate to look back on that year.</p>
 <pre class="r"><code>year &lt;- 2017
 dates &lt;- all_dates_in(year)
-head(dates)</code></pre>
-<pre><code>## [1] &quot;2017-01-01&quot; &quot;2017-01-02&quot; &quot;2017-01-03&quot; &quot;2017-01-04&quot; &quot;2017-01-05&quot;
+head(dates)
+## [1] &quot;2017-01-01&quot; &quot;2017-01-02&quot; &quot;2017-01-03&quot; &quot;2017-01-04&quot; &quot;2017-01-05&quot;
 ## [6] &quot;2017-01-06&quot;</code></pre>
 <p>next we have a little function that creates a url from the airport code and the date. For safety we will wrap that function in <code>purrr::safely</code>.</p>
 <pre class="r"><code>weather_data_html &lt;- function(date, code) {

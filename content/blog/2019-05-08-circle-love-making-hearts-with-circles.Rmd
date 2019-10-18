@@ -20,6 +20,7 @@ library(knitr)
 opts_chunk$set(
   echo = TRUE, 
   cache = TRUE,
+  collapse = TRUE,
   fig.width = 7, 
   fig.align = 'center',
   fig.asp = 0.618, # 1 / phi
@@ -168,7 +169,7 @@ Now that we have everything we need we will turn to `ggplot2` to pretty everythi
 ```{r}
 plotting_data %>%
   ggplot() +
-  geom_sf(aes(color = y), alpha = 0.2, fill = NA) +
+  geom_sf(aes(color = y, geometry = geometry), alpha = 0.2, fill = NA) +
   coord_sf(datum = NA) +
   theme_void() + 
   guides(color = "none")
@@ -214,7 +215,7 @@ circle_heart <- function(n, center_sf, outside_sf, outside_filter = "None", plot
   
   plotting_data %>%
     ggplot() +
-    geom_sf(...) +
+    geom_sf(..., mapping = aes(geometry = geometry)) +
     coord_sf(datum = NA) +
     theme_void()
 }

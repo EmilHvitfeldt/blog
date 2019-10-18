@@ -44,9 +44,10 @@ library(caret)</code></pre>
 </div>
 <div id="data" class="section level2">
 <h2>Data</h2>
-<p>The data we will be using for this demonstration will be some <a href="https://data.world/crowdflower/disasters-on-social-media">social media disaster tweets</a> discussed in <a href="https://arxiv.org/pdf/1705.02009.pdf">this article</a>. It consist of a number of tweets regarding accidents mixed in with a selection control tweets (not about accidents). We start by loading in the data.</p>
+<p>The data we will be using for this demonstration will be some <a href="https://data.world/crowdflower/disasters-on-social-media">social media disaster tweets</a> discussed in <a href="https://arxiv.org/pdf/1705.02009.pdf">this article</a>.
+It consist of a number of tweets regarding accidents mixed in with a selection control tweets (not about accidents). We start by loading in the data.</p>
 <pre class="r"><code>data &lt;- read_csv(&quot;https://github.com/EmilHvitfeldt/blog/raw/master/data/socialmedia-disaster-tweets-DFE.csv&quot;)</code></pre>
-<p>And for this exercise we will only look at the body of the text. Furthermore a handful of the tweets weren’t classified, marked <code>&quot;Can't Decide&quot;</code> so we are removing those as well. Since we are working with tweet data we have the constraint that most of tweets don’t actually have that much information in them as they are limited in characters and some only contain a couple of words.</p>
+<p>And for this exercise we will only look at the body of the text. Furthermore a handful of the tweets weren’t classified, marked <code>"Can't Decide"</code> so we are removing those as well. Since we are working with tweet data we have the constraint that most of tweets don’t actually have that much information in them as they are limited in characters and some only contain a couple of words.</p>
 <p>We will at this stage remove what appears to be urls using some regex and <code>str_replace_all</code>, and we will select the columns <code>id</code>, <code>disaster</code> and <code>text</code>.</p>
 <pre class="r"><code>data_clean &lt;- data %&gt;%
   filter(choose_one != &quot;Can&#39;t Decide&quot;) %&gt;%
