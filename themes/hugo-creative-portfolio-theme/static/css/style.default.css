@@ -14,22 +14,22 @@ GENERAL
 /* Reset */
 pre {
     border: 0;
-    font-size: 12px;
+    font-size: 11px;
     font: inherit;
     vertical-align: baseline;
-    margin: 0;
+    margin: 10px;
     padding: 0;
-    border-radius: 0
 }
 
 pre code {
   display: block;
-  background: #2d2d2d;
+  background: none;
   color: #eaeaea;
   font-family: Menlo, Monaco, Consolas, monospace;
   line-height: 1.5;
   border: none;
   padding: 10px;
+  border-radius: 5px;
 }
 
 html,
