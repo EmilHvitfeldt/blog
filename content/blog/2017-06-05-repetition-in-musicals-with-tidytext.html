@@ -36,27 +36,27 @@ library(rvest)</code></pre>
 
 the_stars_look_down %&gt;%
   read_lines() %&gt;%
-  head(20)</code></pre>
-<pre><code>##  [1] &quot;&quot;                                                                                                                                                                                                                                  
-##  [2] &quot;&quot;                                                                                                                                                                                                                                  
-##  [3] &quot;&lt;!DOCTYPE html&gt;&quot;                                                                                                                                                                                                                   
-##  [4] &quot;&lt;html class=\&quot;snarly apple_music_player--enabled bagon_song_page--enabled song_stories_public_launch--enabled\&quot; xmlns=\&quot;http://www.w3.org/1999/xhtml\&quot; xmlns:fb=\&quot;http://www.facebook.com/2008/fbml\&quot; lang=\&quot;en\&quot; xml:lang=\&quot;en\&quot;&gt;&quot;
-##  [5] &quot;  &lt;head&gt;&quot;                                                                                                                                                                                                                          
-##  [6] &quot;    &lt;base target=&#39;_top&#39; href=\&quot;//genius.com/\&quot;&gt;&quot;                                                                                                                                                                                   
-##  [7] &quot;&quot;                                                                                                                                                                                                                                  
-##  [8] &quot;    &lt;script type=\&quot;text/javascript\&quot;&gt;&quot;                                                                                                                                                                                             
-##  [9] &quot;//&lt;![CDATA[&quot;                                                                                                                                                                                                                       
-## [10] &quot;&quot;                                                                                                                                                                                                                                  
-## [11] &quot;  var _sf_startpt=(new Date()).getTime();&quot;                                                                                                                                                                                         
-## [12] &quot;  if (window.performance &amp;&amp; performance.mark) {&quot;                                                                                                                                                                                   
-## [13] &quot;    window.performance.mark(&#39;parse_start&#39;);&quot;                                                                                                                                                                                       
-## [14] &quot;  }&quot;                                                                                                                                                                                                                               
-## [15] &quot;&quot;                                                                                                                                                                                                                                  
-## [16] &quot;//]]&gt;&quot;                                                                                                                                                                                                                             
-## [17] &quot;&lt;/script&gt;&quot;                                                                                                                                                                                                                         
-## [18] &quot;&lt;title&gt;Elton John – The Stars Look Down Lyrics | Genius Lyrics&lt;/title&gt;&quot;                                                                                                                                                            
-## [19] &quot;&quot;                                                                                                                                                                                                                                  
-## [20] &quot;&lt;meta http-equiv=\&quot;Content-Type\&quot; content=\&quot;text/html; charset=utf-8\&quot; /&gt;&quot;</code></pre>
+  head(20)
+##  [1] &quot;&quot;                                                                                                                                                                                                                                                         
+##  [2] &quot;&quot;                                                                                                                                                                                                                                                         
+##  [3] &quot;&lt;!DOCTYPE html&gt;&quot;                                                                                                                                                                                                                                          
+##  [4] &quot;&lt;html class=\&quot;snarly apple_music_player--enabled bagon_song_page--enabled song_stories_public_launch--enabled react_forums--disabled\&quot; xmlns=\&quot;http://www.w3.org/1999/xhtml\&quot; xmlns:fb=\&quot;http://www.facebook.com/2008/fbml\&quot; lang=\&quot;en\&quot; xml:lang=\&quot;en\&quot;&gt;&quot;
+##  [5] &quot;  &lt;head&gt;&quot;                                                                                                                                                                                                                                                 
+##  [6] &quot;    &lt;base target=&#39;_top&#39; href=\&quot;//genius.com/\&quot;&gt;&quot;                                                                                                                                                                                                          
+##  [7] &quot;&quot;                                                                                                                                                                                                                                                         
+##  [8] &quot;    &lt;script type=\&quot;text/javascript\&quot;&gt;&quot;                                                                                                                                                                                                                    
+##  [9] &quot;//&lt;![CDATA[&quot;                                                                                                                                                                                                                                              
+## [10] &quot;&quot;                                                                                                                                                                                                                                                         
+## [11] &quot;  var _sf_startpt=(new Date()).getTime();&quot;                                                                                                                                                                                                                
+## [12] &quot;  if (window.performance &amp;&amp; performance.mark) {&quot;                                                                                                                                                                                                          
+## [13] &quot;    window.performance.mark(&#39;parse_start&#39;);&quot;                                                                                                                                                                                                              
+## [14] &quot;  }&quot;                                                                                                                                                                                                                                                      
+## [15] &quot;&quot;                                                                                                                                                                                                                                                         
+## [16] &quot;//]]&gt;&quot;                                                                                                                                                                                                                                                    
+## [17] &quot;&lt;/script&gt;&quot;                                                                                                                                                                                                                                                
+## [18] &quot;&quot;                                                                                                                                                                                                                                                         
+## [19] &quot;&lt;title&gt;Elton John – The Stars Look Down Lyrics | Genius Lyrics&lt;/title&gt;&quot;                                                                                                                                                                                   
+## [20] &quot;&quot;</code></pre>
 <p>And we find a whole of lines of no interest of us, which is to be expected. After some digging I manage to find that the lyrics are packed between <em>p</em> tags we can do this with <code>rvest</code>’s <code>html_nodes()</code>.</p>
 <pre class="r"><code>the_stars_look_down_lyrics &lt;- the_stars_look_down %&gt;%
   read_html() %&gt;%
@@ -66,8 +66,8 @@ the_stars_look_down %&gt;%
   unlist() %&gt;%
   tibble(text = .)
 
-the_stars_look_down_lyrics</code></pre>
-<pre><code>## # A tibble: 144 x 1
+the_stars_look_down_lyrics
+## # A tibble: 144 x 1
 ##    text                                                                    
 ##    &lt;chr&gt;                                                                   
 ##  1 [Spoken OVERHEAD VOICE]                                                 
@@ -80,12 +80,12 @@ the_stars_look_down_lyrics</code></pre>
 ##  8 Through the night and                                                   
 ##  9 Through the fear                                                        
 ## 10 Through the fight and                                                   
-## # ... with 134 more rows</code></pre>
+## # … with 134 more rows</code></pre>
 <p>We notice some of the rows are indications of who is talking, these are quickly dealt with by a <code>filter</code>. Now we employ our <code>tidytext</code> arsenal with <code>unnest_tokens</code> and we find all the bi-grams (pairs of consecutive words). (notice how they overlap)</p>
 <pre class="r"><code>the_stars_look_down_lyrics %&gt;%
   filter(!str_detect(text, &quot;\\[&quot;)) %&gt;%
-  unnest_tokens(bigram, text, token = &quot;ngrams&quot;, n = 2)</code></pre>
-<pre><code>## # A tibble: 721 x 1
+  unnest_tokens(bigram, text, token = &quot;ngrams&quot;, n = 2)
+## # A tibble: 721 x 1
 ##    bigram       
 ##    &lt;chr&gt;        
 ##  1 for over     
@@ -98,15 +98,15 @@ the_stars_look_down_lyrics</code></pre>
 ##  8 county have  
 ##  9 have come    
 ## 10 come together
-## # ... with 711 more rows</code></pre>
+## # … with 711 more rows</code></pre>
 <p>now from this we can summarize to find the number of unique bigrams and by extension the percentage of repeated bigrams.</p>
 <pre class="r"><code>the_stars_look_down_lyrics %&gt;%
   filter(!str_detect(text, &quot;\\[&quot;)) %&gt;%
   unnest_tokens(bigram, text, token = &quot;ngrams&quot;, n = 2) %&gt;%
   summarise(length = length(bigram),
             unique = length(unique(bigram))) %&gt;%
-  mutate(repetition = 1 - unique / length)</code></pre>
-<pre><code>## # A tibble: 1 x 3
+  mutate(repetition = 1 - unique / length)
+## # A tibble: 1 x 3
 ##   length unique repetition
 ##    &lt;int&gt;  &lt;int&gt;      &lt;dbl&gt;
 ## 1    721    447      0.380</code></pre>
@@ -202,7 +202,7 @@ rbind(billyelliot, thebookofmormon, lionking, avenueq, oklahoma,
                       labels = c(&quot;The Phantom of the Opera&quot;, &quot;The Book of Mormon&quot;, 
                                  &quot;Billy Elliot&quot;, &quot;Les Miserables&quot;,
                                  &quot;In the Heights&quot;, &quot;Oklahoma&quot;, 
-                                 &quot;The Sound of music&quot;, &quot;Avenue Q&quot;, &quot;Lion King&quot;))</code></pre>
-<pre><code>## `geom_smooth()` using method = &#39;loess&#39; and formula &#39;y ~ x&#39;</code></pre>
+                                 &quot;The Sound of music&quot;, &quot;Avenue Q&quot;, &quot;Lion King&quot;))
+## `geom_smooth()` using method = &#39;loess&#39; and formula &#39;y ~ x&#39;</code></pre>
 <p><img src="/blog/2017-06-05-repetition-in-musicals-with-tidytext_files/figure-html/unnamed-chunk-12-1.png" width="700px" style="display: block; margin: auto;" /></p>
 </div>

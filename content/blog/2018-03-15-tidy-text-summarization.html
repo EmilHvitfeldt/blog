@@ -57,7 +57,7 @@ library(rvest)</code></pre>
 article &lt;- read_html(url) %&gt;%
   html_nodes(&#39;div[class=&quot;padded&quot;]&#39;) %&gt;%
   html_text()</code></pre>
-<p>next we load the article into a <code>tibble</code> (since tidytext required the input as a data.frame). We start by tokenize according to sentences which is done by setting <code>token = &quot;sentences&quot;</code> in <code>unnest_tokens</code>. The tokenization is not always perfect using this tokenizer, but it have a low number of dependencies and is sufficient for this showcase. Lastly we add sentence number column and switch the order of the columns (<code>textrank_sentences</code> prefers the columns in a certain order).</p>
+<p>next we load the article into a <code>tibble</code> (since tidytext required the input as a data.frame). We start by tokenize according to sentences which is done by setting <code>token = "sentences"</code> in <code>unnest_tokens</code>. The tokenization is not always perfect using this tokenizer, but it have a low number of dependencies and is sufficient for this showcase. Lastly we add sentence number column and switch the order of the columns (<code>textrank_sentences</code> prefers the columns in a certain order).</p>
 <pre class="r"><code>article_sentences &lt;- tibble(text = article) %&gt;%
   unnest_tokens(sentence, text, token = &quot;sentences&quot;) %&gt;%
   mutate(sentence_id = row_number()) %&gt;%
@@ -80,8 +80,8 @@ article &lt;- read_html(url) %&gt;%
 <pre class="r"><code>article_summary &lt;- textrank_sentences(data = article_sentences, 
                                       terminology = article_words)</code></pre>
 <p>The output have its own printing method that displays the top 5 sentences:</p>
-<pre class="r"><code>article_summary</code></pre>
-<pre><code>## Textrank on sentences, showing top 5 most important sentences found:
+<pre class="r"><code>article_summary
+## Textrank on sentences, showing top 5 most important sentences found:
 ##   1. fitbit is launching a new fitness tracker designed for children called the fitbit ace, which will go on sale for $99.95 in the second quarter of this year.
 ##   2. fitbit says the tracker is designed for children eight years old and up.
 ##   3. the fitbit ace looks a lot like the company’s alta tracker, but with a few child-friendly tweaks.
@@ -97,16 +97,16 @@ article &lt;- read_html(url) %&gt;%
 <pre class="r"><code>article_summary[[&quot;sentences&quot;]] %&gt;%
   arrange(desc(textrank)) %&gt;% 
   slice(1:3) %&gt;%
-  pull(sentence)</code></pre>
-<pre><code>## [1] &quot;fitbit is launching a new fitness tracker designed for children called the fitbit ace, which will go on sale for $99.95 in the second quarter of this year.&quot;
+  pull(sentence)
+## [1] &quot;fitbit is launching a new fitness tracker designed for children called the fitbit ace, which will go on sale for $99.95 in the second quarter of this year.&quot;
 ## [2] &quot;fitbit says the tracker is designed for children eight years old and up.&quot;                                                                                   
 ## [3] &quot;the fitbit ace looks a lot like the company’s alta tracker, but with a few child-friendly tweaks.&quot;</code></pre>
 <p>As expected these are the same sentences as we saw earlier. However the button sentences, doesn’t include the word fitbit (properly rather important word) and focuses more “other” things, like the reference to another product in the second sentence.</p>
 <pre class="r"><code>article_summary[[&quot;sentences&quot;]] %&gt;%
   arrange(textrank) %&gt;% 
   slice(1:3) %&gt;%
-  pull(sentence)</code></pre>
-<pre><code>## [1] &quot;contact us at editors@time.com.&quot;                                                                                                                                                                                           
+  pull(sentence)
+## [1] &quot;contact us at editors@time.com.&quot;                                                                                                                                                                                           
 ## [2] &quot;the $39.99 nabi compete, meanwhile, is sold in pairs so that family members can work together to achieve movement milestones.&quot;                                                                                             
 ## [3] &quot;the company also announced a new smartwatch on tuesday called the versa, which is being positioned as an everyday smartwatch rather than a fitness-only device or sports watch, like some of the company’s other products.&quot;</code></pre>
 <p>If we look at the article over time, it would be interesting to see where the important sentences appear.</p>

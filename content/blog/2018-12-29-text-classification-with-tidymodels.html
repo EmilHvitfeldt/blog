@@ -41,9 +41,8 @@ output:
 <div id="data" class="section level2">
 <h2>Data</h2>
 <p>The data we will be using is the text from <em>Pride and Prejudice</em> and text from <em>The War of the Worlds</em>. These texts can we get from <a href="https://www.gutenberg.org/">Project Gutenberg</a> using the <a href="https://github.com/ropensci/gutenbergr">gutenbergr</a> package.</p>
-<pre class="r"><code>library(tidyverse)</code></pre>
-<pre><code>## Warning: package &#39;tibble&#39; was built under R version 3.5.2</code></pre>
-<pre class="r"><code>library(gutenbergr)
+<pre class="r"><code>library(tidyverse)
+library(gutenbergr)
 
 titles &lt;- c(
   &quot;The War of the Worlds&quot;,
@@ -54,8 +53,8 @@ books &lt;- gutenberg_works(title %in% titles) %&gt;%
   mutate(title = as.factor(title)) %&gt;%
   select(-gutenberg_id)
 
-books</code></pre>
-<pre><code>## # A tibble: 19,504 x 2
+books
+## # A tibble: 19,504 x 2
 ##    text                                                  title             
 ##    &lt;chr&gt;                                                 &lt;fct&gt;             
 ##  1 The War of the Worlds                                 The War of the Wo…
@@ -89,8 +88,8 @@ books</code></pre>
 <h2>Stop words</h2>
 <p>Lets first have a talk about stop words. These are the words that are needed for the sentences to be structurally sound, but doesn’t add any information. however such a concept as “non-informational” is quite abstract and is bound to be highly domain specific. We will be using the English snowball stop word lists provided by the <a href="https://github.com/quanteda/stopwords">stopwords</a> package (because that is what textrecipes naively uses).</p>
 <pre class="r"><code>library(stopwords)
-stopwords(language = &quot;en&quot;, source = &quot;snowball&quot;) %&gt;% sort()</code></pre>
-<pre><code>##   [1] &quot;a&quot;          &quot;about&quot;      &quot;above&quot;      &quot;after&quot;      &quot;again&quot;     
+stopwords(language = &quot;en&quot;, source = &quot;snowball&quot;) %&gt;% sort()
+##   [1] &quot;a&quot;          &quot;about&quot;      &quot;above&quot;      &quot;after&quot;      &quot;again&quot;     
 ##   [6] &quot;against&quot;    &quot;all&quot;        &quot;am&quot;         &quot;an&quot;         &quot;and&quot;       
 ##  [11] &quot;any&quot;        &quot;are&quot;        &quot;aren&#39;t&quot;     &quot;as&quot;         &quot;at&quot;        
 ##  [16] &quot;be&quot;         &quot;because&quot;    &quot;been&quot;       &quot;before&quot;     &quot;being&quot;     
@@ -131,8 +130,8 @@ stopwords(language = &quot;en&quot;, source = &quot;snowball&quot;) %&gt;% sort(
 <pre class="r"><code>sentence &lt;- &quot;This an example sentence that is used to explain the concept of ngrams.&quot;</code></pre>
 <p>to extract the ngrams we will use the <a href="https://github.com/ropensci/tokenizers">tokenizers</a> package (also default in textrecipes). Here we can get all the trigrams (ngrams of length 3).</p>
 <pre class="r"><code>library(tokenizers)
-tokenize_ngrams(sentence, n = 3)</code></pre>
-<pre><code>## [[1]]
+tokenize_ngrams(sentence, n = 3)
+## [[1]]
 ##  [1] &quot;this an example&quot;       &quot;an example sentence&quot;  
 ##  [3] &quot;example sentence that&quot; &quot;sentence that is&quot;     
 ##  [5] &quot;that is used&quot;          &quot;is used to&quot;           
@@ -140,8 +139,8 @@ tokenize_ngrams(sentence, n = 3)</code></pre>
 ##  [9] &quot;explain the concept&quot;   &quot;the concept of&quot;       
 ## [11] &quot;concept of ngrams&quot;</code></pre>
 <p>however we would also like to the singular word counts (unigrams) and bigrams (ngrams of length 2). This can easily be done by setting the <code>n_min</code> argument.</p>
-<pre class="r"><code>tokenize_ngrams(sentence, n = 3, n_min = 1)</code></pre>
-<pre><code>## [[1]]
+<pre class="r"><code>tokenize_ngrams(sentence, n = 3, n_min = 1)
+## [[1]]
 ##  [1] &quot;this&quot;                  &quot;this an&quot;              
 ##  [3] &quot;this an example&quot;       &quot;an&quot;                   
 ##  [5] &quot;an example&quot;            &quot;an example sentence&quot;  
@@ -166,9 +165,9 @@ tokenize_ngrams(sentence, n = 3)</code></pre>
   intersect(stopwords(language = &quot;en&quot;, source = &quot;snowball&quot;)) %&gt;%
   paste(collapse = &quot; &quot;) %&gt;%
   print() %&gt;%
-  tokenize_ngrams(n = 3, n_min = 1)</code></pre>
-<pre><code>## [1] &quot;this an that is to the of&quot;</code></pre>
-<pre><code>## [[1]]
+  tokenize_ngrams(n = 3, n_min = 1)
+## [1] &quot;this an that is to the of&quot;
+## [[1]]
 ##  [1] &quot;this&quot;         &quot;this an&quot;      &quot;this an that&quot; &quot;an&quot;          
 ##  [5] &quot;an that&quot;      &quot;an that is&quot;   &quot;that&quot;         &quot;that is&quot;     
 ##  [9] &quot;that is to&quot;   &quot;is&quot;           &quot;is to&quot;        &quot;is to the&quot;   
@@ -179,9 +178,8 @@ tokenize_ngrams(sentence, n = 3)</code></pre>
 <div id="training-testing-split" class="section level2">
 <h2>Training &amp; testing split</h2>
 <p>Before we start modeling we need to split our data into a testing and training set. This is easily done using the <a href="https://github.com/tidymodels/rsample">rsample</a> package from tidymodels.</p>
-<pre class="r"><code>library(tidymodels)</code></pre>
-<pre><code>## Warning: package &#39;rsample&#39; was built under R version 3.5.2</code></pre>
-<pre class="r"><code>set.seed(1234) 
+<pre class="r"><code>library(tidymodels)
+set.seed(1234) 
 
 books_split &lt;- initial_split(books, strata = &quot;title&quot;, p = 0.75)
 train_data &lt;- training(books_split)
@@ -198,8 +196,8 @@ julia_rec &lt;- recipe(title ~ ., data = train_data) %&gt;%
   step_tokenfilter(text, min_times = 11) %&gt;%
   step_tf(text) %&gt;%
   prep(training = train_data)
-julia_rec</code></pre>
-<pre><code>## Data Recipe
+julia_rec
+## Data Recipe
 ## 
 ## Inputs:
 ## 
@@ -219,20 +217,20 @@ julia_rec</code></pre>
 <pre class="r"><code>julia_train_data &lt;- juice(julia_rec)
 julia_test_data  &lt;- bake(julia_rec, test_data)
 
-str(julia_train_data, list.len = 10)</code></pre>
-<pre><code>## Classes &#39;tbl_df&#39;, &#39;tbl&#39; and &#39;data.frame&#39;:    12107 obs. of  1335 variables:
-##  $ title                 : Factor w/ 2 levels &quot;Pride and Prejudice&quot;,..: 2 2 2 2 2 2 2 2 2 2 ...
-##  $ tf_text__her_         : num  0 0 0 0 0 0 0 0 0 0 ...
-##  $ tf_text__me_          : num  0 0 0 0 0 0 0 0 0 0 ...
-##  $ tf_text__she_         : num  0 0 0 0 0 0 0 0 0 0 ...
-##  $ tf_text__that_        : num  0 0 0 0 0 0 0 0 0 0 ...
-##  $ tf_text__you_         : num  0 0 0 0 0 0 0 0 0 0 ...
-##  $ tf_text__your_        : num  0 0 0 0 0 0 0 0 0 0 ...
-##  $ tf_text_a             : num  0 0 0 0 0 0 0 0 0 0 ...
-##  $ tf_text_able          : num  0 0 0 0 0 0 0 0 0 0 ...
-##  $ tf_text_about         : num  0 0 0 0 0 0 0 0 0 0 ...
+str(julia_train_data, list.len = 10)
+## Classes &#39;tbl_df&#39;, &#39;tbl&#39; and &#39;data.frame&#39;:    12138 obs. of  101 variables:
+##  $ title            : Factor w/ 2 levels &quot;Pride and Prejudice&quot;,..: 2 2 2 2 2 2 2 2 2 2 ...
+##  $ tf_text_a        : num  0 0 0 0 0 0 0 0 0 0 ...
+##  $ tf_text_about    : num  0 0 0 0 0 0 0 0 0 0 ...
+##  $ tf_text_after    : num  0 0 0 0 0 0 0 0 0 0 ...
+##  $ tf_text_again    : num  0 0 0 0 0 0 0 0 0 0 ...
+##  $ tf_text_all      : num  0 0 0 0 1 0 0 0 0 0 ...
+##  $ tf_text_am       : num  0 0 0 0 0 0 0 0 0 0 ...
+##  $ tf_text_an       : num  0 0 0 0 0 0 0 0 0 0 ...
+##  $ tf_text_and      : num  0 0 0 0 1 0 0 0 0 0 ...
+##  $ tf_text_any      : num  0 0 0 0 0 0 0 0 0 0 ...
 ##   [list output truncated]</code></pre>
-<p>The reason we get 1335 features and Julia got 1652 is because she did her filtering on the full dataset where we only did the filtering on the training set and that Julia didn’t explicitly remove empty oberservations.</p>
+<p>The reason we get 101 features and Julia got 1652 is because she did her filtering on the full dataset where we only did the filtering on the training set and that Julia didn’t explicitly remove empty oberservations.</p>
 <p>Back to stop words!! In this case we need a slightly more complicated recipe</p>
 <pre class="r"><code>stopword_rec &lt;- recipe(title ~ ., data = train_data) %&gt;%
   step_filter(text != &quot;&quot;) %&gt;%
@@ -243,8 +241,8 @@ str(julia_train_data, list.len = 10)</code></pre>
   step_tokenfilter(text, min_times = 10) %&gt;%
   step_tf(text) %&gt;%
   prep(training = train_data)
-stopword_rec</code></pre>
-<pre><code>## Data Recipe
+stopword_rec
+## Data Recipe
 ## 
 ## Inputs:
 ## 
@@ -268,28 +266,28 @@ stopword_rec</code></pre>
 stopword_train_data &lt;- juice(stopword_rec)
 stopword_test_data  &lt;- bake(stopword_rec, test_data)
 
-str(stopword_train_data, list.len = 10)</code></pre>
-<pre><code>## Classes &#39;tbl_df&#39;, &#39;tbl&#39; and &#39;data.frame&#39;:    12107 obs. of  1774 variables:
-##  $ title                  : Factor w/ 2 levels &quot;Pride and Prejudice&quot;,..: 2 2 2 2 2 2 2 2 2 2 ...
-##  $ tf_text_a              : num  0 0 0 0 0 0 0 0 0 0 ...
-##  $ tf_text_a a            : num  0 0 0 0 0 0 0 0 0 0 ...
-##  $ tf_text_a and          : num  0 0 0 0 0 0 0 0 0 0 ...
-##  $ tf_text_a and a        : num  0 0 0 0 0 0 0 0 0 0 ...
-##  $ tf_text_a and i        : num  0 0 0 0 0 0 0 0 0 0 ...
-##  $ tf_text_a and then     : num  0 0 0 0 0 0 0 0 0 0 ...
-##  $ tf_text_a as           : num  0 0 0 0 0 0 0 0 0 0 ...
-##  $ tf_text_a at           : num  0 0 0 0 0 0 0 0 0 0 ...
-##  $ tf_text_a before       : num  0 0 0 0 0 0 0 0 0 0 ...
+str(stopword_train_data, list.len = 10)
+## Classes &#39;tbl_df&#39;, &#39;tbl&#39; and &#39;data.frame&#39;:    12138 obs. of  101 variables:
+##  $ title             : Factor w/ 2 levels &quot;Pride and Prejudice&quot;,..: 2 2 2 2 2 2 2 2 2 2 ...
+##  $ tf_text_a         : num  0 0 0 0 0 0 0 0 0 0 ...
+##  $ tf_text_a and     : num  0 0 0 0 0 0 0 0 0 0 ...
+##  $ tf_text_a of      : num  0 0 0 0 0 0 0 0 0 0 ...
+##  $ tf_text_about     : num  0 0 0 0 0 0 0 0 0 0 ...
+##  $ tf_text_after     : num  0 0 0 0 0 0 0 0 0 0 ...
+##  $ tf_text_again     : num  0 0 0 0 0 0 0 0 0 0 ...
+##  $ tf_text_all       : num  0 0 0 0 1 0 0 0 0 0 ...
+##  $ tf_text_am        : num  0 0 0 0 0 0 0 0 0 0 ...
+##  $ tf_text_an        : num  0 0 0 0 0 0 0 0 0 0 ...
 ##   [list output truncated]</code></pre>
-<p>And we are left with 1774 features.</p>
+<p>And we are left with 101 features.</p>
 </div>
 <div id="modeling" class="section level2">
 <h2>Modeling</h2>
 <p>For modeling we will be using the <a href="https://github.com/tidymodels/parsnip">parsnip</a> package from tidymodels. First we start by defining a model specification. This defines the intent of our model, what we want to do, not what we want to do it on. Meaning we don’t include the data yet, just the kind of model, its hyperparameters and the engine (the package that will do the work). We will be be using glmnet package here so we will specify a logistic regression model</p>
 <pre class="r"><code>glmnet_model &lt;- logistic_reg(mixture = 0, penalty = 0.1) %&gt;%
   set_engine(&quot;glmnet&quot;)
-glmnet_model</code></pre>
-<pre><code>## Logistic Regression Model Specification (classification)
+glmnet_model
+## Logistic Regression Model Specification (classification)
 ## 
 ## Main Arguments:
 ##   penalty = 0.1
@@ -310,43 +308,43 @@ julia_model &lt;- glmnet_model %&gt;%
 <pre class="r"><code>eval_tibble &lt;- stopword_test_data %&gt;%
   select(title) %&gt;%
   mutate(
-    class_stopword = predict_class(stopword_model, stopword_test_data),
-    class_julia    = predict_class(julia_model, julia_test_data),
-    prop_stopword  = predict_classprob(stopword_model, stopword_test_data) %&gt;% pull(`The War of the Worlds`),
-    prop_julia     = predict_classprob(julia_model, julia_test_data) %&gt;% pull(`The War of the Worlds`)
+    class_stopword = parsnip:::predict_class(stopword_model, stopword_test_data),
+    class_julia    = parsnip:::predict_class(julia_model, julia_test_data),
+    prop_stopword  = parsnip:::predict_classprob(stopword_model, stopword_test_data) %&gt;% pull(`The War of the Worlds`),
+    prop_julia     = parsnip:::predict_classprob(julia_model, julia_test_data) %&gt;% pull(`The War of the Worlds`)
   )
 
-eval_tibble</code></pre>
-<pre><code>## # A tibble: 4,058 x 5
+eval_tibble
+## # A tibble: 4,027 x 5
 ##    title         class_stopword    class_julia     prop_stopword prop_julia
 ##    &lt;fct&gt;         &lt;fct&gt;             &lt;fct&gt;                   &lt;dbl&gt;      &lt;dbl&gt;
-##  1 The War of t… Pride and Prejud… Pride and Prej…         0.332      0.195
-##  2 The War of t… Pride and Prejud… Pride and Prej…         0.376      0.452
-##  3 The War of t… The War of the W… The War of the…         0.613      0.836
-##  4 The War of t… The War of the W… The War of the…         0.535      0.515
-##  5 The War of t… Pride and Prejud… The War of the…         0.361      0.591
-##  6 The War of t… Pride and Prejud… The War of the…         0.475      0.643
-##  7 The War of t… The War of the W… Pride and Prej…         0.646      0.412
-##  8 The War of t… The War of the W… The War of the…         0.619      0.579
-##  9 The War of t… Pride and Prejud… Pride and Prej…         0.265      0.427
-## 10 The War of t… The War of the W… The War of the…         0.697      0.894
-## # … with 4,048 more rows</code></pre>
+##  1 The War of t… Pride and Prejud… The War of the…         0.475      0.508
+##  2 The War of t… Pride and Prejud… Pride and Prej…         0.498      0.388
+##  3 The War of t… Pride and Prejud… Pride and Prej…         0.335      0.315
+##  4 The War of t… The War of the W… The War of the…         0.690      0.710
+##  5 The War of t… The War of the W… The War of the…         0.650      0.607
+##  6 The War of t… Pride and Prejud… Pride and Prej…         0.241      0.264
+##  7 The War of t… Pride and Prejud… Pride and Prej…         0.369      0.351
+##  8 The War of t… Pride and Prejud… The War of the…         0.403      0.568
+##  9 The War of t… The War of the W… The War of the…         0.520      0.631
+## 10 The War of t… The War of the W… The War of the…         0.511      0.545
+## # … with 4,017 more rows</code></pre>
 <p>Tidymodels includes the <a href="https://github.com/tidymodels/yardstick">yardstick</a> package which makes evaluation calculations much easier and tidy. It can allow us to calculate the accuracy by calling the <code>accuracy()</code> function</p>
-<pre class="r"><code>accuracy(eval_tibble, truth = title, estimate = class_stopword)</code></pre>
-<pre><code>## # A tibble: 1 x 3
+<pre class="r"><code>accuracy(eval_tibble, truth = title, estimate = class_stopword)
+## # A tibble: 1 x 3
 ##   .metric  .estimator .estimate
 ##   &lt;chr&gt;    &lt;chr&gt;          &lt;dbl&gt;
-## 1 accuracy binary         0.800</code></pre>
-<pre class="r"><code>accuracy(eval_tibble, truth = title, estimate = class_julia)</code></pre>
-<pre><code>## # A tibble: 1 x 3
+## 1 accuracy binary         0.778
+accuracy(eval_tibble, truth = title, estimate = class_julia)
+## # A tibble: 1 x 3
 ##   .metric  .estimator .estimate
 ##   &lt;chr&gt;    &lt;chr&gt;          &lt;dbl&gt;
-## 1 accuracy binary         0.911</code></pre>
+## 1 accuracy binary         0.801</code></pre>
 <p>And we see that the stop words model beats the naive model (one that always picks the majority class), while lacking behind the word count model.</p>
 <pre class="r"><code>test_data %&gt;%
   filter(text != &quot;&quot;) %&gt;%
-  summarise(mean(title == &quot;Pride and Prejudice&quot;))</code></pre>
-<pre><code>## # A tibble: 1 x 1
+  summarise(mean(title == &quot;Pride and Prejudice&quot;))
+## # A tibble: 1 x 1
 ##   `mean(title == &quot;Pride and Prejudice&quot;)`
 ##                                    &lt;dbl&gt;
 ## 1                                  0.662</code></pre>

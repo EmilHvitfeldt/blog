@@ -24,6 +24,7 @@ library(knitr)
 opts_chunk$set(
   echo = TRUE, 
   cache = FALSE,
+  collapse = TRUE,
   fig.width = 7, 
   fig.align = 'center',
   fig.asp = 0.618, # 1 / phi
@@ -223,10 +224,10 @@ Now that we have fitted the data based on the training data we can evaluate base
 eval_tibble <- stopword_test_data %>%
   select(title) %>%
   mutate(
-    class_stopword = predict_class(stopword_model, stopword_test_data),
-    class_julia    = predict_class(julia_model, julia_test_data),
-    prop_stopword  = predict_classprob(stopword_model, stopword_test_data) %>% pull(`The War of the Worlds`),
-    prop_julia     = predict_classprob(julia_model, julia_test_data) %>% pull(`The War of the Worlds`)
+    class_stopword = parsnip:::predict_class(stopword_model, stopword_test_data),
+    class_julia    = parsnip:::predict_class(julia_model, julia_test_data),
+    prop_stopword  = parsnip:::predict_classprob(stopword_model, stopword_test_data) %>% pull(`The War of the Worlds`),
+    prop_julia     = parsnip:::predict_classprob(julia_model, julia_test_data) %>% pull(`The War of the Worlds`)
   )
 
 eval_tibble
