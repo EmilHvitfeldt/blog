@@ -5,8 +5,6 @@ twitterAuthor = "@Emil_Hvitfeldt"
 enableEmoji = true
 languageCode = "en-us"
 pluralizeListTitles = false
-# Enable comments by entering your Disqus shortname
-disqusShortname = "https-emilhvitfeldt-github-io"
 # Enable Google Analytics by entering your tracking code
 googleAnalytics = "UA-98238582-1"
 # Rss limit
