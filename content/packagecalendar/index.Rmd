@@ -1,7 +1,6 @@
 ---
 title: "2019 Package Calendar"
 author: "Emil Hvitfeldt"
-date: "11/20/2019"
 output: 
   html_document:
     css: "calendar.css"
