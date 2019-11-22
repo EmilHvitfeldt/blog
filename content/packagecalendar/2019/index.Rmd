@@ -63,11 +63,6 @@ cross_stitch <- function(background, color1, color2, width1 = 20, width2 = 20) {
 }
 ```
 
-```{r}
-
-```
-
-
 ```{r, echo=FALSE}
 make_package <- function(x) {
   random_green <- sample(c("#004000",
@@ -81,11 +76,13 @@ make_package <- function(x) {
 "#008000",
 "#008800"), 1)
   
+  tags$a(href = "./1/",
   div(class = "item",
-      "hello",
+      div(class = "circle", x),
       style = paste("width: 200px; height: 200px;", 
                     cross_stitch("white", random_green, "crimson", 30, 30))
   ) 
+  )
 }
 ```
 

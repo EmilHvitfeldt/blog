@@ -38,14 +38,16 @@ h1 {
 }
 
 .circle {
-  width: 500px;
-  height: 500px;
+  width: 75px;
+  height: 75px;
   border-radius: 50%;
   font-size: 50px;
-  color: #fff;
-  line-height: 500px;
+  color: #000;
+  line-height: 75px;
   text-align: center;
-  background: #000
+  background: #e2d9d1;
+  border-color: #a18e7d;
+  border-style: solid;
 }
 
 .navigation {
