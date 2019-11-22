@@ -4,6 +4,8 @@ author: "Emil Hvitfeldt"
 output: 
   html_document:
     css: "calendar.css"
+showonlyimage: false
+description: " "
 type: packagecalendar
 layout:: single
 ---
