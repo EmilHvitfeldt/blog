@@ -1,0 +1,39 @@
+---
+title: "2019 Package Calendar"
+author: "Emil Hvitfeldt"
+date: "11/20/2019"
+output: 
+  html_document:
+    css: "calendar.css"
+type: packagecalendar
+layout:: single
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+library(htmltools)
+```
+
+```{r}
+tags$section(class = "navigation",
+  tags$div(class = "nav-container",
+    tags$nav(
+      tags$ul(class = "nav-list",
+        tags$li(
+          tags$a(href = "https://www.hvitfeldt.me/", "Home")
+        )
+      )
+    )
+  )
+)
+```
+
+# Package Calendars
+
+```{r}
+tags$a(href = "./2019/", "2019")
+```
+
+```{r}
+tags$a(href = "https://twitter.com/i/moments/1076930412788641792", "2018")
+```

@@ -53,6 +53,10 @@ rssLimit = 10
   url = "about/"
   
   [[params.navlinks]]
+  name = "Package Calendar"
+  url = "packagecalendar/"
+  
+  [[params.navlinks]]
   name = "ERAN"
   url = "src/contrib/"
 
