@@ -33,7 +33,7 @@ tags$section(class = "navigation",
 # 2019 Package Calendar
 
 ```{r}
-library(shinyparticles)
+library(shinyparticles) 
 library(magrittr)
 
 particles_config(particles.number.value = 100, particles.color.value = "#FFF", particles.opacity.random = TRUE, particles.size.value = 10, particles.line_linked.enable = FALSE, particles.move.direction = "bottom", particles.move.speed = 1, interactivity.events.onclick.enable = FALSE, interactivity.events.onhover.enable = FALSE) %>% 
@@ -41,7 +41,6 @@ particles_config(particles.number.value = 100, particles.color.value = "#FFF", p
 ```
 
 ```{r, echo = FALSE}
-
 r_green <- function() {
   cols <- prismatic::color(c(
     "#004000",

@@ -7,10 +7,15 @@ body {
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
     font-family: Montserrat;
+    line-height: 1.7;
 }
 
 a {
   color: #b72c2f;
+}
+
+code {
+  font-size: 16px;
 }
 
 h1, h2, h3, h4, h5, h6 {
