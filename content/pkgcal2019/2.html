@@ -1,0 +1,94 @@
+---
+title: "Naughty List"
+author: "Emil Hvitfeldt"
+slug: "2"
+output: 
+  html_document:
+    css: "calendar.css"
+showonlyimage: true
+description: " "
+type: packagecalendar
+layout:: single
+---
+
+
+
+<html>
+<link rel="stylesheet" href="/css/calendar-post.css"/>
+</html>
+<section class="navigation">
+<div class="nav-container">
+<nav>
+<ul class="nav-list">
+<li>
+<a href="/">Home</a>
+</li>
+<li>
+<a href="/packagecalendar/2019/">Back</a>
+</li>
+</ul>
+</nav>
+</div>
+</section>
+<div id="day-2-glue" class="section level1">
+<h1>Day 2: glue</h1>
+<p>Welcome back for the second day of the <a href="https://twitter.com/hashtag/packagecalendar">#packagecalendar</a>,
+today we will be talking about the little package called <a href="https://github.com/tidyverse/glue">glue</a> package by <a href="https://twitter.com/jimhester_">Jim Hester</a>.</p>
+<p>the package is available from CRAN and can be downloaded with</p>
+<pre class="r"><code>install.packages(&quot;glue&quot;)</code></pre>
+<p><strong>glue</strong> provides a way to do simple string interpretation using a simple syntax.
+The user can pass expressions into the string to be evaluated.
+This approach will feel similar to <code>sprintf()</code> expect that <code>glue()</code> shows the location in place.
+Simply pass any expression into the string by wrapping it in curly brackets ({}).
+<code>glue()</code> will vectorize when needed.</p>
+<pre class="r"><code>library(glue)
+
+color &lt;- &quot;red&quot;
+glue(&quot;Santa packed a {color} present&quot;)
+## Santa packed a red present
+
+color &lt;- c(&quot;red&quot;, &quot;blue&quot;, &quot;green&quot;)
+glue(&quot;Santa packed a {color} present&quot;)
+## Santa packed a red present
+## Santa packed a blue present
+## Santa packed a green present</code></pre>
+<p>This is commonly done by passing in a defined variable outside <code>glue()</code>,
+but remember that any expression can be passed to <code>glue()</code>.</p>
+<pre class="r"><code>glue(&quot;`mtcars` has {nrow(mtcars)} rows and {ncol(mtcars)} columns&quot;)
+## `mtcars` has 32 rows and 11 columns</code></pre>
+<p>The curly brackets might be used for something else depending on what you are trying to do.
+In that case, you can use the arguments <code>.open</code> and <code>.close</code> to redefine the borders.</p>
+<pre class="r"><code>n &lt;- 1000000000 # number of children
+glue(&quot;Santa uses the formula $&lt;&lt;n&gt;&gt;^{magic + love}$ to determine how much sugar to give to the elfs.&quot;,
+     .open = &quot;&lt;&lt;&quot;, .close = &quot;&gt;&gt;&quot;)
+## Santa uses the formula $1e+09^{magic + love}$ to determine how much sugar to give to the elfs.</code></pre>
+<p>There are many other use cases for glue, but I would like to highlight <code>glue_data()</code>.
+This function allows you to access variables inside a given data.frame,
+much the same way you can with many of the tidyverse packages.</p>
+<p>For this example, I have created a summarized dataset.</p>
+<pre class="r"><code>library(dplyr)
+mtcars_summarized &lt;- mtcars %&gt;%
+  group_by(cyl) %&gt;%
+  summarise(n = n(),
+            min_wt = min(wt),
+            max_wt = max(wt)) %&gt;%
+  mutate_all(round, digits = 2)</code></pre>
+<p>We can then use <code>glue_data()</code> to create a little summary in text</p>
+<pre class="r"><code>cat(&quot;`mtcars` has\n&quot;)
+glue_data(mtcars_summarized,
+          &quot;{n} cars with {cyl} cylinders, with a weight range of {min_wt*1000}-{max_wt*1000} lbs&quot;)
+## `mtcars` has
+## 11 cars with 4 cylinders, with a weight range of 1510-3190 lbs
+## 7 cars with 6 cylinders, with a weight range of 2620-3460 lbs
+## 14 cars with 8 cylinders, with a weight range of 3170-5420 lbs</code></pre>
+<p>This is all I have for today!
+Stay happy and I look forward to seeing you back tomorrow!</p>
+<div id="additional-resources" class="section level2">
+<h2>Additional resources</h2>
+<ul>
+<li><a href="https://www.tidyverse.org/blog/2017/10/glue-1.2.0/">glue 1.2.0</a></li>
+<li><a href="https://www.njtierney.com/post/2019/07/07/glue-magic-p1/">Glue magic Part I</a></li>
+<li><a href="https://www.youtube.com/watch?v=XQmBcpQl8K8">Glue strings to data in R</a></li>
+</ul>
+</div>
+</div>
