@@ -1,0 +1,101 @@
+---
+title: "Naughty List"
+author: "Emil Hvitfeldt"
+slug: "3"
+output: 
+  html_document:
+    css: "calendar.css"
+showonlyimage: true
+description: " "
+type: packagecalendar
+layout:: single
+---
+
+
+
+<html>
+<link rel="stylesheet" href="/css/calendar-post.css"/>
+</html>
+<section class="navigation">
+<div class="nav-container">
+<nav>
+<ul class="nav-list">
+<li>
+<a href="/">Home</a>
+</li>
+<li>
+<a href="/packagecalendar/2019/">Back</a>
+</li>
+</ul>
+</nav>
+</div>
+</section>
+<div id="day-3-details" class="section level1">
+<h1>Day 3: details</h1>
+<p>Welcome back for the second day of the <a href="https://twitter.com/hashtag/packagecalendar">#packagecalendar</a>,
+today we will be talking about another little nifty package called <a href="https://github.com/yonicd/details">details</a> package by <a href="https://twitter.com/yoniceedee">Jonathan Sidi</a>.</p>
+<p>the package is available from CRAN and can be downloaded with</p>
+<pre class="r"><code>install.packages(&quot;details&quot;)</code></pre>
+<p>Suppose you want to hide some information in your html document,
+while still allowing the user to see it if they want to.
+In plain html something like that would normally be done using the <code>details</code> tag.</p>
+<pre class="r"><code>&lt;details&gt;
+ &lt;summary&gt;Secret list of names&lt;/summary&gt;
+ Aura
+ Dona
+ Danyelle
+ Maribel
+ Evonne
+ Elly
+ Joye
+ Monet
+ Donny
+ Georgeanna
+&lt;/details&gt;</code></pre>
+<p>Which would result in something like this:</p>
+<details closed>
+<p><summary> <span title="Click to Expand"> Secret list of names </span> </summary></p>
+<pre class="r"><code>
+Aura
+Dona
+Danyelle
+Maribel
+Evonne
+Elly
+Joye
+Monet
+Donny
+Georgeanna
+</code></pre>
+</details>
+<p><br></p>
+<p>Putting R objects or output into a details tag used to be quite frustration.
+Presenting <strong>details</strong>!
+Now all you have to do is pass (piping works too) what you want hidden into <code>details()</code>.</p>
+<pre class="r"><code>library(details)
+library(magrittr)
+
+secret &lt;- c(&quot;Madeline&quot;, &quot;Tom&quot;, &quot;Shavon&quot;, &quot;Krystyna&quot;, &quot;Callie&quot;,
+            &quot;Damon&quot;, &quot;Shellie&quot;, &quot;Bebe&quot;, &quot;Candis&quot;, &quot;Laure&quot;)
+
+details(secret)</code></pre>
+<details closed>
+<pre class="r"><code>
+Madeline
+Tom
+Shavon
+Krystyna
+Callie
+Damon
+Shellie
+Bebe
+Candis
+Laure
+</code></pre>
+</details>
+<p><br></p>
+<details closed>
+<p><img src="https://i.imgur.com/shf3FWI.png" /></p>
+</details>
+<p><br></p>
+</div>
