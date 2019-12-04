@@ -49,7 +49,7 @@ tags$section(class = "navigation",
 
 # Day 3: details
 
-Welcome back for the second day of the [#packagecalendar](https://twitter.com/hashtag/packagecalendar),
+Welcome back for the 3rd day of the [#packagecalendar](https://twitter.com/hashtag/packagecalendar),
 today we will be talking about another little nifty package called [details](https://github.com/yonicd/details) package by [Jonathan Sidi](https://twitter.com/yoniceedee).
 
 the package is available from CRAN and can be downloaded with

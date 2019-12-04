@@ -1,0 +1,82 @@
+---
+title: "Naughty List"
+author: "Emil Hvitfeldt"
+slug: "4"
+output: 
+  html_document:
+    css: "calendar.css"
+showonlyimage: true
+description: " "
+type: packagecalendar
+layout:: single
+---
+
+
+
+<html>
+<link rel="stylesheet" href="/css/calendar-post.css"/>
+</html>
+<section class="navigation">
+<div class="nav-container">
+<nav>
+<ul class="nav-list">
+<li>
+<a href="/">Home</a>
+</li>
+<li>
+<a href="/packagecalendar/2019/">Back</a>
+</li>
+</ul>
+</nav>
+</div>
+</section>
+<div id="day-4-details" class="section level1">
+<h1>Day 4: details</h1>
+<p>Welcome back for the 4th day of the <a href="https://twitter.com/hashtag/packagecalendar">#packagecalendar</a>,
+today we will revisit <a href="https://twitter.com/yoniceedee">Jonathan Sidi</a>’s creations by looking at <a href="https://github.com/yonicd/carbonate">carbonate</a>. The package is a nice way of interacting with <a href="https://carbon.now.sh/about">carbon.js</a>.</p>
+<p>the package is available from CRAN and can be downloaded with</p>
+<pre class="r"><code>install.packages(&quot;carbonate&quot;)</code></pre>
+<p>The <strong>carbonate</strong> package uses the <a href="">R6</a> classes which is why the syntax might look a little different then what you are used to.</p>
+<pre class="r"><code>library(carbonate)</code></pre>
+<p>The default behavior is to take the code you have in your clipboard.
+Here we create an object <code>x</code> with the code used to display yesterday’s secret.</p>
+<pre class="r"><code>x &lt;- carbon$new()</code></pre>
+<p>We can take a look at the code with</p>
+<pre class="r"><code>x$code
+##  [1] &quot;library(tidyverse)&quot;                                                       
+##  [2] &quot;symbols &lt;- c(&#39;.&#39;, &#39;~&#39;, \&quot;&#39;\&quot;, &#39;O&#39;, \&quot;&#39;\&quot;, &#39;~&#39;, &#39;.&#39;)&quot;                      
+##  [3] &quot;layer_size &lt;- seq(3, 45, by = 4)&quot;                                         
+##  [4] &quot;&quot;                                                                         
+##  [5] &quot;things &lt;- rep(symbols, length.out = sum(layer_size))&quot;                     
+##  [6] &quot;&quot;                                                                         
+##  [7] &quot;rows &lt;- split(things, rep(seq_along(layer_size), times = layer_size)) %&gt;%&quot;
+##  [8] &quot;  sapply(paste0, collapse = \&quot;\&quot;)&quot;                                        
+##  [9] &quot;&quot;                                                                         
+## [10] &quot;details(summary = \&quot;Open for a special presents\&quot;,&quot;                       
+## [11] &quot;        tibble(x = 0, &quot;                                                   
+## [12] &quot;               y = -as.numeric(names(rows)),&quot;                             
+## [13] &quot;               labels = rows) %&gt;%&quot;                                        
+## [14] &quot;          ggplot(aes(x, y, label = labels)) +&quot;                            
+## [15] &quot;          geom_text(size = 10) +&quot;                                         
+## [16] &quot;          theme_void()&quot;                                                   
+## [17] &quot;)&quot;</code></pre>
+<p>If you want the carbon output you have two ways to go</p>
+<div id="browse" class="section level2">
+<h2>Browse</h2>
+<p>calling the <code>browse()</code> method takes you to <a href="https://carbon.now.sh/">carbon.now.sh</a> with your code and configurations already there.
+From there you can play more with the configurations or simply press <strong>export</strong> to download your image.</p>
+<pre class="r"><code>x$browse()</code></pre>
+</div>
+<div id="rselenium" class="section level2">
+<h2>RSelenium</h2>
+<p>If you have <a href="https://ropensci.github.io/RSelenium/">RSelenium</a> installed you can create the image without leaving R.
+You just set the download path and run the <code>carbonate()</code> method.</p>
+<pre class="r"><code>x$download_path &lt;- file.path(&quot;~/Desktop/&quot;)
+x$carbonate(file = &#39;myfile.png&#39;)</code></pre>
+<p>No matter what you choose you will end up with something like this:</p>
+<p><img src="https://i.imgur.com/YTMP1t6.png" /></p>
+<p>There is a ton of <a href="https://yonicd.github.io/carbonate/#manipulate-carbon-object">options</a> to manipulate.
+So go wild and make it your own!
+See you next time!</p>
+</div>
+</div>
