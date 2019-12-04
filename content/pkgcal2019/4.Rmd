@@ -47,7 +47,7 @@ tags$section(class = "navigation",
 )
 ```
 
-# Day 4: details
+# Day 4: carbonate
 
 Welcome back for the 4th day of the [#packagecalendar](https://twitter.com/hashtag/packagecalendar),
 today we will revisit [Jonathan Sidi](https://twitter.com/yoniceedee)'s creations by looking at [carbonate](https://github.com/yonicd/carbonate). The package is a nice way of interacting with [carbon.js](https://carbon.now.sh/about).
