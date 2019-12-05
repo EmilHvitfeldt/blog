@@ -1,0 +1,94 @@
+---
+title: "Naughty List"
+author: "Emil Hvitfeldt"
+slug: "5"
+output: 
+  html_document:
+    css: "calendar.css"
+showonlyimage: true
+description: " "
+type: packagecalendar
+layout:: single
+---
+
+
+
+<html>
+<link rel="stylesheet" href="/css/calendar-post.css"/>
+</html>
+<section class="navigation">
+<div class="nav-container">
+<nav>
+<ul class="nav-list">
+<li>
+<a href="/">Home</a>
+</li>
+<li>
+<a href="/packagecalendar/2019/">Back</a>
+</li>
+</ul>
+</nav>
+</div>
+</section>
+<div id="day-5-ymlthis" class="section level1">
+<h1>Day 5: ymlthis</h1>
+<p>Welcome back for the 5th day of the <a href="https://twitter.com/hashtag/packagecalendar">#packagecalendar</a>,
+this time we will take a swing at something as wonderfully complicated as <a href="https://yaml.org/">YAML</a>.
+<a href="https://twitter.com/malco_barrett">Malcolm Barrett</a> is trying to make that process easier with <a href="https://github.com/r-lib/ymlthis">ymlthis</a>.</p>
+<p>the package is available from CRAN and can be downloaded with</p>
+<pre class="r"><code>install.packages(&quot;ymlthis&quot;)</code></pre>
+<p>when you normally create a new Rmarkdown document is comes prefilled with some examples and text.
+At the very beginning of the document you will typically find something that looks like:</p>
+<pre class="r"><code>---
+title: &quot;Elf Report&quot;
+author: &quot;Kris Kringle&quot;
+date: &quot;12/5/2019&quot;
+output: html_document
+---</code></pre>
+<p>This is called YAML and helps you control document-wide “settings”.
+With all the benefits of YAML, you still get some downsides.
+3 of which are:</p>
+<ul>
+<li>Indentation matters</li>
+<li>No autocompletion in RStudio IDE</li>
+<li>Fails silently</li>
+</ul>
+<p>And the 3rd one is what makes all of this a pain to work with.
+YAML will happily ignore what you did if you did 1 space instead of 2 spaces,
+all without telling you, leaving you scratching your head when you don’t get what you want.</p>
+<p>This is where <strong>ymlthis</strong> comes in!
+You will be using <code>yml()</code> along with <code>yml_*()</code> functions to compose your YAML chunk.
+By loading the package and starting with <code>yml()</code> you get a basic function header.</p>
+<pre class="r"><code>library(ymlthis)
+
+yml()</code></pre>
+<pre><code>## ---
+## author: Kris Kringle
+## date: &#39;`r format(Sys.Date())`&#39;
+## ---</code></pre>
+<p>The magic comes later once you start chaining on the <code>yml_*()</code> functions.</p>
+<pre class="r"><code>yml() %&gt;%
+  yml_title(&quot;Elf Report&quot;)</code></pre>
+<pre><code>## ---
+## author: Kris Kringle
+## date: &#39;`r format(Sys.Date())`&#39;
+## title: Elf Report
+## ---</code></pre>
+<p>Here you get the full power of autocompletion since you just have to writ <code>yml_</code> and press tab you see the options you have.
+This is the workflow you will be using.
+No longer do you have to worry about misspellings or indentations!!!</p>
+<p>The package and its accompanying documentation include a lot of information about use cases and general YAML information.
+Find more information in <strong>Additional resources</strong>.
+Before I sign off for today, I’ll like to highlight that <strong>ymlthis</strong> comes with a <a href="https://rstudio.github.io/rstudioaddins/">RStudio Addin</a> if you prefer a more GUI experience.</p>
+<p><img src="https://camo.githubusercontent.com/3f260281a892d2ac28dfd5c51148f856a073b346/68747470733a2f2f692e696d6775722e636f6d2f426b7a477565472e676966" /></p>
+<div id="additional-resources" class="section level2">
+<h2>Additional resources</h2>
+<ul>
+<li><a href="https://ymlthis.r-lib.org/">ymlthis - pkgdown site</a></li>
+<li><a href="https://ymlthis.r-lib.org/articles/introduction-to-ymlthis.html">An Introduction to ymlthis</a></li>
+<li><a href="https://ymlthis.r-lib.org/articles/yaml-overview.html">YAML: an Overview</a></li>
+<li><a href="https://ymlthis.r-lib.org/articles/yaml-fieldguide.html">The YAML Fieldguide</a></li>
+<li><a href="https://pensive-jackson-240dbf.netlify.com/#1">ymlthis talk - LA RUG</a></li>
+</ul>
+</div>
+</div>
