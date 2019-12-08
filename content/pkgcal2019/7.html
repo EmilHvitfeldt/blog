@@ -1,0 +1,231 @@
+---
+title: "Naughty List"
+author: "Emil Hvitfeldt"
+slug: "7"
+output: 
+  html_document:
+    css: "calendar.css"
+showonlyimage: true
+description: " "
+type: packagecalendar
+layout:: single
+---
+
+
+
+<html>
+<link rel="stylesheet" href="/css/calendar-post.css"/>
+</html>
+<section class="navigation">
+<div class="nav-container">
+<nav>
+<ul class="nav-list">
+<li>
+<a href="/">Home</a>
+</li>
+<li>
+<a href="/packagecalendar/2019/">Back</a>
+</li>
+</ul>
+</nav>
+</div>
+</section>
+<div id="day-7-gghalves" class="section level1">
+<h1>Day 7: gghalves</h1>
+<p>Welcome back for the 7th day of the <a href="https://twitter.com/hashtag/packagecalendar">#packagecalendar</a>,
+today we will continue our look at the billboards data from <a href="https://www.hvitfeldt.me/pkgcal2019/6/">yesterday</a>.
+The package of the day is <a href="https://github.com/erocoar/gghalves">gghalves</a> created by <a href="https://github.com/erocoar">Frederik Tiedemann</a>.</p>
+<p>The package is available from CRAN and can be downloaded with</p>
+<pre class="r"><code>install.packages(&quot;gghalves&quot;)</code></pre>
+<p>we will be working with Santa’s <code>elf</code> dataset.
+The data includes 50 observations for 3 elves (150 observations total) taken monthly describing the elfly capacities.
+Units have been removed due to being classified.</p>
+<pre class="r"><code>library(skimr)
+skim(elf)</code></pre>
+<table>
+<caption><span id="tab:unnamed-chunk-4">Table 1: </span>Data summary</caption>
+<tbody>
+<tr class="odd">
+<td align="left">Name</td>
+<td align="left">elf</td>
+</tr>
+<tr class="even">
+<td align="left">Number of rows</td>
+<td align="left">150</td>
+</tr>
+<tr class="odd">
+<td align="left">Number of columns</td>
+<td align="left">5</td>
+</tr>
+<tr class="even">
+<td align="left">_______________________</td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="left">Column type frequency:</td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="left">factor</td>
+<td align="left">1</td>
+</tr>
+<tr class="odd">
+<td align="left">numeric</td>
+<td align="left">4</td>
+</tr>
+<tr class="even">
+<td align="left">________________________</td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="left">Group variables</td>
+<td align="left">None</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Variable type: factor</strong></p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">skim_variable</th>
+<th align="right">n_missing</th>
+<th align="right">complete_rate</th>
+<th align="left">ordered</th>
+<th align="right">n_unique</th>
+<th align="left">top_counts</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Elf</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="left">FALSE</td>
+<td align="right">3</td>
+<td align="left">Bud: 50, Twi: 50, Hol: 50</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Variable type: numeric</strong></p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">skim_variable</th>
+<th align="right">n_missing</th>
+<th align="right">complete_rate</th>
+<th align="right">mean</th>
+<th align="right">sd</th>
+<th align="right">p0</th>
+<th align="right">p25</th>
+<th align="right">p50</th>
+<th align="right">p75</th>
+<th align="right">p100</th>
+<th align="left">hist</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Sugar Consumption</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">5.84</td>
+<td align="right">0.83</td>
+<td align="right">4.3</td>
+<td align="right">5.1</td>
+<td align="right">5.80</td>
+<td align="right">6.4</td>
+<td align="right">7.9</td>
+<td align="left">▆▇▇▅▂</td>
+</tr>
+<tr class="even">
+<td align="left">Toy Making Intensity</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">3.06</td>
+<td align="right">0.44</td>
+<td align="right">2.0</td>
+<td align="right">2.8</td>
+<td align="right">3.00</td>
+<td align="right">3.3</td>
+<td align="right">4.4</td>
+<td align="left">▁▆▇▂▁</td>
+</tr>
+<tr class="odd">
+<td align="left">Jolliness</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">3.76</td>
+<td align="right">1.77</td>
+<td align="right">1.0</td>
+<td align="right">1.6</td>
+<td align="right">4.35</td>
+<td align="right">5.1</td>
+<td align="right">6.9</td>
+<td align="left">▇▁▆▇▂</td>
+</tr>
+<tr class="even">
+<td align="left">Reindeer Training</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">1.20</td>
+<td align="right">0.76</td>
+<td align="right">0.1</td>
+<td align="right">0.3</td>
+<td align="right">1.30</td>
+<td align="right">1.8</td>
+<td align="right">2.5</td>
+<td align="left">▇▁▇▅▃</td>
+</tr>
+</tbody>
+</table>
+<p>since we have a categorical variable (<code>elf</code>) and a couple of continuous variables we could use <strong>ggplot2</strong> to visualize the distributions.
+Let us take a first look at the TMI (Toy Making Intensity) variable.
+We can create a boxplot for each elf by using <code>geom_boxplot()</code></p>
+<pre class="r"><code>library(ggplot2)
+ggplot(elf, aes(Elf, `Toy Making Intensity`)) +
+  geom_boxplot()</code></pre>
+<p><img src="/pkgcal2019/7_files/figure-html/unnamed-chunk-5-1.png" width="700px" style="display: block; margin: auto;" /></p>
+<p>But we can’t see the individual points.
+you could do a second plot with <code>geom_dotplot()</code></p>
+<pre class="r"><code>ggplot(elf, aes(Elf, `Toy Making Intensity`)) +
+  geom_dotplot(binaxis = &quot;y&quot;, stackdir = &quot;center&quot;, binwidth = 0.05)</code></pre>
+<p><img src="/pkgcal2019/7_files/figure-html/unnamed-chunk-6-1.png" width="700px" style="display: block; margin: auto;" /></p>
+<p>But now we have two separate charts trying to show the same data.
+This is where <strong>gghalves</strong> comes in!
+<strong>gghalves</strong> allows you to split many of the aggregation geoms in half.
+It is easier to show with an example.
+We have the data from before and we want to showcase a boxplot and a dotplot at the same time.</p>
+<pre class="r"><code>library(gghalves)
+ggplot(elf, aes(Elf, `Toy Making Intensity`)) +
+  geom_half_boxplot() +
+  geom_half_dotplot(binwidth = 0.05)</code></pre>
+<p><img src="/pkgcal2019/7_files/figure-html/unnamed-chunk-7-1.png" width="700px" style="display: block; margin: auto;" /></p>
+<p>by using <code>geom_half_boxplot()</code> and <code>geom_half_dotplot()</code> we we able to elegently combine 2 plot types.</p>
+<p>The geoms respect general <strong>ggplot2</strong> elements so things like color</p>
+<pre class="r"><code>ggplot(elf, aes(Elf, `Reindeer Training`, color = Elf)) +
+  geom_half_violin() +
+  geom_half_point(alpha = 0.6)</code></pre>
+<p><img src="/pkgcal2019/7_files/figure-html/unnamed-chunk-8-1.png" width="700px" style="display: block; margin: auto;" /></p>
+<p>and factors</p>
+<pre class="r"><code>ggplot(elf, aes(Elf, Jolliness, color = Elf)) +
+  geom_half_violin() +
+  geom_half_boxplot(side = &quot;r&quot;) +
+  facet_wrap(~ factor(`Sugar Consumption` &gt; mean(`Sugar Consumption`), 
+                      c(TRUE, FALSE), 
+                      c(&quot;High Sugar Comsumption&quot;, &quot;Low Sugar Comsumption&quot;)))</code></pre>
+<p><img src="/pkgcal2019/7_files/figure-html/unnamed-chunk-9-1.png" width="700px" style="display: block; margin: auto;" /></p>
+<details>
+<p><summary>Creating <code>elf</code> dataset</summary></p>
+<pre class="r"><code>library(tidyverse)
+set.seed(1234)
+
+elf &lt;- iris %&gt;%
+  rename(Elf = Species,
+         `Sugar Consumption` = Sepal.Width,
+         `Toy Making Intensity` = Sepal.Length,
+         `Jolliness` = Petal.Length,
+         `Reindeer Training` = Petal.Width) %&gt;%
+  mutate(Elf = factor(as.numeric(Elf), labels = c(&quot;Buddy&quot;, &quot;Twinkle&quot;, &quot;Holly&quot;))) %&gt;%
+  mutate_if(is.numeric, jitter)</code></pre>
+</details>
+</div>
