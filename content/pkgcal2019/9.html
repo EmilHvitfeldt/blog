@@ -1,0 +1,64 @@
+---
+title: "Naughty List"
+author: "Emil Hvitfeldt"
+slug: "9"
+output: 
+  html_document:
+    css: "calendar.css"
+showonlyimage: true
+description: " "
+type: packagecalendar
+layout:: single
+---
+
+
+
+<html>
+<link rel="stylesheet" href="/css/calendar-post.css"/>
+</html>
+<section class="navigation">
+<div class="nav-container">
+<nav>
+<ul class="nav-list">
+<li>
+<a href="/">Home</a>
+</li>
+<li>
+<a href="/packagecalendar/2019/">Back</a>
+</li>
+</ul>
+</nav>
+</div>
+</section>
+<div id="day-9-gapminder" class="section level1">
+<h1>Day 9: gapminder</h1>
+<p>Welcome back for the 9th day of the <a href="https://twitter.com/hashtag/packagecalendar">#packagecalendar</a>,
+today we will switch it up a little and talk about a great data package.
+The package of the day is <a href="https://github.com/jennybc/gapminder">gapminder</a> created by <a href="https://twitter.com/JennyBryan">Jenny Bryan</a>.</p>
+<p>The package is available from CRAN and can be downloaded with</p>
+<pre class="r"><code>install.packages(&quot;gapminder&quot;)</code></pre>
+<p>First a little background.
+The <a href="https://www.gapminder.org/">Gapminder Foundation</a> was created by <a href="https://en.wikipedia.org/wiki/Ola_Rosling">Ola Rosling</a>, <a href="https://en.wikipedia.org/wiki/Anna_Rosling_R%C3%B6nnlund">Anna Rosling Rönnlund</a> and <a href="https://en.wikipedia.org/wiki/Hans_Rosling">Hans Rosling</a> to promote “sustainable global development and achievement of the United Nations Millennium Development Goals by increased use and understanding of statistics and other information about social, economic and environmental development at local, national and global levels.” (quote straight from Wikipedia)</p>
+<p>The package includes a dataset with various socioeconomic factors.
+The data has been studied far and wide and serves as a great starting point for data wrangling and visualization.
+Both for your own #rstats journey but also if you are planning on teaching others.
+<strong>gapminder</strong> is a great starting dataset with a low barrier to entry for understanding,
+but a high ceiling for insights!</p>
+<p>We can take a look at the dataset by loading the package and simply calling <code>gapminder</code>.</p>
+<pre class="r"><code>library(gapminder)
+head(gapminder)
+## # A tibble: 6 x 6
+##   country     continent  year lifeExp      pop gdpPercap
+##   &lt;fct&gt;       &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;    &lt;int&gt;     &lt;dbl&gt;
+## 1 Afghanistan Asia       1952    28.8  8425333      779.
+## 2 Afghanistan Asia       1957    30.3  9240934      821.
+## 3 Afghanistan Asia       1962    32.0 10267083      853.
+## 4 Afghanistan Asia       1967    34.0 11537966      836.
+## 5 Afghanistan Asia       1972    36.1 13079460      740.
+## 6 Afghanistan Asia       1977    38.4 14880372      786.</code></pre>
+<p>We have information about life expectancy(lifeExp), population(pop) and Per-capita Gross domestic product(gdpPercap) for each country with a 5-year timestep.
+It is important to note that the package isn’t getting updated with newer data.
+So if you need these statistics for reasons other then teaching and examples people use other data sources.</p>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/jbkSRLYSojo" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
+</iframe>
+</div>
