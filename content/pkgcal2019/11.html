@@ -1,0 +1,274 @@
+---
+title: "Naughty List"
+author: "Emil Hvitfeldt"
+slug: "11"
+output: 
+  html_document:
+    css: "calendar.css"
+showonlyimage: true
+description: " "
+type: packagecalendar
+layout:: single
+---
+
+
+
+<html>
+<link rel="stylesheet" href="/css/calendar-post.css"/>
+</html>
+<section class="navigation">
+<div class="nav-container">
+<nav>
+<ul class="nav-list">
+<li>
+<a href="/">Home</a>
+</li>
+<li>
+<a href="/packagecalendar/2019/">Back</a>
+</li>
+</ul>
+</nav>
+</div>
+</section>
+<div id="day-11-slide" class="section level1">
+<h1>Day 11: slide</h1>
+<p>Welcome back for the 11th day of the <a href="https://twitter.com/hashtag/packagecalendar">#packagecalendar</a>,
+today we will be taking a look at the handy new package <a href="https://github.com/DavisVaughan/slide">slide</a> by <a href="https://twitter.com/dvaughan32">Davis Vaughan</a>.
+The main purpose of <strong>slide</strong> is to provide a more general-purpose approach to sliding window functions.</p>
+<p>The package is not yet available from CRAN but can be downloaded with</p>
+<pre class="r"><code>remotes::install_github(&quot;DavisVaughan/slide&quot;)</code></pre>
+<p>The package on the surface looks a lot like <a href="https://purrr.tidyverse.org/">purrr</a>.
+You have 3 main functions <code>slide()</code>, <code>slide_index()</code> and <code>slide_between()</code>,
+who all have <code>**_dbl()</code>, <code>**2()</code> and <code>p**()</code> variants.</p>
+<p>For the examples, we will use the data we also used for <a href="https://www.hvitfeldt.me/pkgcal2019/1/">day 1</a>.</p>
+<pre class="r"><code># remotes::install_github(&quot;PMassicotte/gtrendsR&quot;)
+library(gtrendsR)
+library(skimr)
+last_christmas &lt;- gtrends(&quot;Last Christmas&quot;, time = &quot;today 3-m&quot;)$interest_over_time
+
+skim(last_christmas)</code></pre>
+<table>
+<caption><span id="tab:unnamed-chunk-3">Table 1: </span>Data summary</caption>
+<tbody>
+<tr class="odd">
+<td align="left">Name</td>
+<td align="left">last_christmas</td>
+</tr>
+<tr class="even">
+<td align="left">Number of rows</td>
+<td align="left">89</td>
+</tr>
+<tr class="odd">
+<td align="left">Number of columns</td>
+<td align="left">7</td>
+</tr>
+<tr class="even">
+<td align="left">_______________________</td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="left">Column type frequency:</td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="left">character</td>
+<td align="left">4</td>
+</tr>
+<tr class="odd">
+<td align="left">numeric</td>
+<td align="left">2</td>
+</tr>
+<tr class="even">
+<td align="left">POSIXct</td>
+<td align="left">1</td>
+</tr>
+<tr class="odd">
+<td align="left">________________________</td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="left">Group variables</td>
+<td align="left">None</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Variable type: character</strong></p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">skim_variable</th>
+<th align="right">n_missing</th>
+<th align="right">complete_rate</th>
+<th align="right">min</th>
+<th align="right">max</th>
+<th align="right">empty</th>
+<th align="right">n_unique</th>
+<th align="right">whitespace</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">geo</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">5</td>
+<td align="right">5</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="left">time</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">9</td>
+<td align="right">9</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">0</td>
+</tr>
+<tr class="odd">
+<td align="left">keyword</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">14</td>
+<td align="right">14</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="left">gprop</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">3</td>
+<td align="right">3</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">0</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Variable type: numeric</strong></p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">skim_variable</th>
+<th align="right">n_missing</th>
+<th align="right">complete_rate</th>
+<th align="right">mean</th>
+<th align="right">sd</th>
+<th align="right">p0</th>
+<th align="right">p25</th>
+<th align="right">p50</th>
+<th align="right">p75</th>
+<th align="right">p100</th>
+<th align="left">hist</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">hits</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">28.01</td>
+<td align="right">28.11</td>
+<td align="right">2</td>
+<td align="right">4</td>
+<td align="right">11</td>
+<td align="right">51</td>
+<td align="right">100</td>
+<td align="left">▇▁▃▂▁</td>
+</tr>
+<tr class="even">
+<td align="left">category</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">0.00</td>
+<td align="right">0.00</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="left">▁▁▇▁▁</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Variable type: POSIXct</strong></p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">skim_variable</th>
+<th align="right">n_missing</th>
+<th align="right">complete_rate</th>
+<th align="left">min</th>
+<th align="left">max</th>
+<th align="left">median</th>
+<th align="right">n_unique</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">date</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="left">2019-09-12</td>
+<td align="left">2019-12-09</td>
+<td align="left">2019-10-26</td>
+<td align="right">89</td>
+</tr>
+</tbody>
+</table>
+<p>Lets try to plot the <code>hits</code> variable over time (<code>date</code>) using <a href="https://ggplot2.tidyverse.org/">ggplot2</a>.</p>
+<pre class="r"><code>library(ggplot2)
+ggplot(last_christmas, aes(date, hits)) +
+  geom_point()</code></pre>
+<p><img src="/pkgcal2019/11_files/figure-html/unnamed-chunk-4-1.png" width="700px" style="display: block; margin: auto;" /></p>
+<p>suppose we want to apply a rolling average to the hits variable.
+For this we will use the <code>slide()</code> function, you pass the object you want to iterate over and what to do it.
+Similar style to how we do it in <strong>purrr</strong>, notice how I specified <code>_dbl()</code> as I know the answer should be numeric.</p>
+<pre class="r"><code>library(slide)
+slide_dbl(last_christmas$hits, ~mean(.x))
+##  [1]   4   6   6   4   4   4   4   3   3   3   3   4   4   5   5   5   4   4   3
+## [20]   2   3   3   4   4   5   3   4   3   3   4   5   5   5   5   7   6   6   8
+## [39]   8   7   8   9   9  10  12  14  11  17  17  16  19  22  27  27  31  43  55
+## [58]  83 100  87  62  51  44  51  64  89  82  47  45  44  46  56  73  64  43  45
+## [77]  49  48  60  77  72  52  52  54  53  68  79  75  53</code></pre>
+<p>However, nothing actually happened in this example as the sliding window had length 1.
+Instead let’s calculate the average of the last 5 days, or I other words: today + last 4 days.
+We do this by specifying <code>.before = 4</code>.</p>
+<pre class="r"><code>slide_dbl(last_christmas$hits, mean, .before = 4)
+##  [1]  4.000000  5.000000  5.333333  5.000000  4.800000  4.800000  4.400000
+##  [8]  3.800000  3.600000  3.400000  3.200000  3.200000  3.400000  3.800000
+## [15]  4.200000  4.600000  4.600000  4.600000  4.200000  3.600000  3.200000
+## [22]  3.000000  3.000000  3.200000  3.800000  3.800000  4.000000  3.800000
+## [29]  3.600000  3.400000  3.800000  4.000000  4.400000  4.800000  5.400000
+## [36]  5.600000  5.800000  6.400000  7.000000  7.000000  7.400000  8.000000
+## [43]  8.200000  8.600000  9.600000 10.800000 11.200000 12.800000 14.200000
+## [50] 15.000000 16.000000 18.200000 20.200000 22.200000 25.200000 30.000000
+## [57] 36.600000 47.800000 62.400000 73.600000 77.400000 76.600000 68.800000
+## [64] 59.000000 54.400000 59.800000 66.000000 66.600000 65.400000 61.400000
+## [71] 52.800000 47.600000 52.800000 56.600000 56.400000 56.200000 54.800000
+## [78] 49.800000 49.000000 55.800000 61.200000 61.800000 62.600000 61.400000
+## [85] 56.600000 55.800000 61.200000 65.800000 65.600000</code></pre>
+<p>Notice how the output has the same length as the input.
+This makes it easy to use inside other functions such as <code>mutate()</code>.</p>
+<p>Now let’s calculate the moving average again and plot it on top of our plot.</p>
+<pre class="r"><code>library(dplyr)
+last_christmas %&gt;%
+  mutate(hits_ma5 = slide_dbl(hits, ~mean(.x), .before = 4)) %&gt;%
+  ggplot(aes(date, hits)) +
+  geom_point() +
+  geom_line(aes(y = hits_ma5), color = &quot;firebrick&quot;)</code></pre>
+<p><img src="/pkgcal2019/11_files/figure-html/unnamed-chunk-7-1.png" width="700px" style="display: block; margin: auto;" /></p>
+<p>Lastly, I would like to note that you can use arbitrary functions inside your <code>slide()</code>.
+Take a look at the additional resources for many more examples of what <strong>slide</strong> can do.</p>
+<div id="additional-resources" class="section level2">
+<h2>Additional resources</h2>
+<ul>
+<li><a href="https://davisvaughan.github.io/slide/articles/rowwise.html">Row-wise iteration with slide</a></li>
+<li><a href="https://www.youtube.com/watch?v=sbrhxvpP3iw">Moving Averages and Calendars</a></li>
+</ul>
+</div>
+</div>
