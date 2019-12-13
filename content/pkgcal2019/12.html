@@ -1,0 +1,101 @@
+---
+title: "Naughty List"
+author: "Emil Hvitfeldt"
+slug: "12"
+output: 
+  html_document:
+    css: "calendar.css"
+showonlyimage: true
+description: " "
+type: packagecalendar
+layout:: single
+---
+
+
+
+<html>
+<link rel="stylesheet" href="/css/calendar-post.css"/>
+</html>
+<section class="navigation">
+<div class="nav-container">
+<nav>
+<ul class="nav-list">
+<li>
+<a href="/">Home</a>
+</li>
+<li>
+<a href="/packagecalendar/2019/">Back</a>
+</li>
+</ul>
+</nav>
+</div>
+</section>
+<div id="day-12-polite" class="section level1">
+<h1>Day 12: polite</h1>
+<p>Welcome back for the 12th day of the <a href="https://twitter.com/hashtag/packagecalendar">#packagecalendar</a>,
+today we will be taking a look at the <a href="https://github.com/dmi3kno/polite">polite</a> by <a href="https://twitter.com/dmi3k">Dmytro Perepolkin</a>.
+The <strong>polite</strong> package helps you be considerate when scraping the web.</p>
+<p>The package is available from CRAN and can be downloaded with</p>
+<pre class="r"><code>install.packages(&quot;polite&quot;)</code></pre>
+<p>The main functions for this package is <code>bow()</code> and <code>scrape()</code>.
+First to call <code>bow()</code> on the website you intend to scrape.
+This will set up a session with permission, set up a connection and establish settings.</p>
+<pre class="r"><code>library(polite)
+
+session &lt;- bow(&quot;https://www.classicfm.com/discover-music/occasions/christmas/nations-top-30-christmas-carols/&quot;)
+## No encoding supplied: defaulting to UTF-8.
+session
+## &lt;polite session&gt; https://www.classicfm.com/discover-music/occasions/christmas/nations-top-30-christmas-carols/
+##     User-agent: polite R package - https://github.com/dmi3kno/polite
+##     robots.txt: 3 rules are defined for 2 bots
+##    Crawl delay: 10 sec
+##   The path is scrapable for this user-agent</code></pre>
+<p>We can then use <code>scrape()</code> to the HTML object that we can investigate with <a href="https://rvest.tidyverse.org/">rvest</a>.</p>
+<pre class="r"><code>library(rvest)
+## Loading required package: xml2
+scrape(session) %&gt;%
+  html_nodes(&quot;h2&quot;) %&gt;%
+  html_text()
+##  [1] &quot;On Air Now&quot;                                        
+##  [2] &quot;Now Playing&quot;                                       
+##  [3] &quot;1. O Holy Night&quot;                                   
+##  [4] &quot;2. Silent Night&quot;                                   
+##  [5] &quot; 3. In the Bleak Mid-Winter – Gustav Holst version&quot;
+##  [6] &quot;4. In the Bleak Mid-Winter – Harold Darke version&quot; 
+##  [7] &quot;5. Hark! The Herald Angels Sing&quot;                   
+##  [8] &quot;6. O Come All Ye Faithful&quot;                         
+##  [9] &quot;7. O Come, O Come Emmanuel&quot;                        
+## [10] &quot;8. Coventry Carol&quot;                                 
+## [11] &quot;9. O Little Town of Bethlehem&quot;                     
+## [12] &quot;10. It Came Upon a Midnight Clear&quot;                 
+## [13] &quot;11. Once in Royal David’s City&quot;                    
+## [14] &quot;12. In Dulci Jubilo&quot;                               
+## [15] &quot;13. Joy to the World&quot;                              
+## [16] &quot;14. God Rest Ye Merry, Gentlemen&quot;                  
+## [17] &quot;15. Away in a Manger&quot;                              
+## [18] &quot;16. Sussex Carol&quot;                                  
+## [19] &quot;17. Shepherd’s Pipe Carol&quot;                         
+## [20] &quot;18. The Three Kings&quot;                               
+## [21] &quot;19. Gabriel’s Message&quot;                             
+## [22] &quot;20. Jesus Christ the Apple Tree&quot;                   
+## [23] &quot;21. Gaudete&quot;                                       
+## [24] &quot;22. The Holly and the Ivy&quot;                         
+## [25] &quot;23. Carol of the Bells&quot;                            
+## [26] &quot;24. See Amid the Winter&#39;s Snow&quot;                    
+## [27] &quot;25. Ding Dong! Merrily on High&quot;                    
+## [28] &quot;26. Candlelight Carol&quot;                             
+## [29] &quot;27. Good King Wenceslas&quot;                           
+## [30] &quot;28. Angels From the Realms of Glory&quot;               
+## [31] &quot;29. The First Nowell&quot;                              
+## [32] &quot;30. What Sweeter Music&quot;                            
+## [33] &quot;Latest features&quot;                                   
+## [34] &quot;More From ClassicFM&quot;                               
+## [35] &quot;Browse by&quot;</code></pre>
+<p>There are more examples of the package <a href="https://dmi3kno.github.io/polite/">website</a> of expended examples.</p>
+<div id="additional-resources" class="section level2">
+<h2>Additional resources</h2>
+<ul>
+<li><a href="https://github.com/dmi3kno/user19-polite">Presentation of {polite} at UseR’19 in Toulouse (11 July 2019)</a></li>
+</ul>
+</div>
+</div>
