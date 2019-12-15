@@ -62,7 +62,7 @@ remotes::install_github("schochastics/networkdata")
 The package itself is fairly straightforward. All the datasets come in `igraph` format.
 All the datasets along with metadata can be seen using the `show_networks()` function
 
-```{css}
+```{css, echo=FALSE}
 .ReactTable {
   background: #2f3238;
 }
