@@ -1,0 +1,62 @@
+---
+title: "Naughty List"
+author: "Emil Hvitfeldt"
+slug: "15"
+output: 
+  html_document:
+    css: "calendar.css"
+showonlyimage: true
+description: " "
+type: packagecalendar
+layout:: single
+---
+
+
+
+<html>
+<link rel="stylesheet" href="/css/calendar-post.css"/>
+</html>
+<section class="navigation">
+<div class="nav-container">
+<nav>
+<ul class="nav-list">
+<li>
+<a href="/">Home</a>
+</li>
+<li>
+<a href="/packagecalendar/2019/">Back</a>
+</li>
+</ul>
+</nav>
+</div>
+</section>
+<div id="day-15-covr" class="section level1">
+<h1>Day 15: covr</h1>
+<p>Welcome back for the 15th day of the <a href="https://twitter.com/hashtag/packagecalendar">#packagecalendar</a>,
+today we will be taking a look at the <a href="https://github.com/r-lib/covr">covr</a> package by <a href="https://twitter.com/jimhester_">Jim Hester</a>.
+The <strong>covr</strong> package helps you track test coverage for your R packages.</p>
+<p>The package is available from CRAN and can be downloaded with</p>
+<pre class="r"><code>install.packages(&quot;covr&quot;)</code></pre>
+<p>once you start developing packages you get to a point where you start thinking about implementing <a href="http://r-pkgs.had.co.nz/tests.html">unit tests</a>.
+<strong>covr</strong> helps you keep track of which parts of the code have had tests done on them.
+Setting up <strong>covr</strong> is really easy to set up if you use the <a href="https://usethis.r-lib.org/">usethis</a> package.
+You simply run the following command and follow the instructions.</p>
+<pre class="r"><code>usethis::use_coverage()</code></pre>
+<p>for local usage you can use the <code>package_coverage()</code> to get a printout of your coverage.
+For this example, I have cheated a little bit to showcase the result for my <a href="https://github.com/EmilHvitfeldt/prismatic">prismatic</a> package.</p>
+<pre class="r"><code>library(covr)
+package_coverage()</code></pre>
+<pre><code>## prismatic Coverage: 96.65%
+## R/color.R: 82.35%
+## R/aaa.R: 85.71%
+## R/alpha.R: 100.00%
+## R/color-blindness.R: 100.00%
+## R/greyscale.R: 100.00%
+## R/lightness.R: 100.00%
+## R/mix.R: 100.00%
+## R/negate.R: 100.00%
+## R/rotate.R: 100.00%
+## R/saturate.R: 100.00%</code></pre>
+<p>The <code>report()</code> function will run <code>package_coverage()</code> in the background and will return an interactive table so you can see which lines have been tested.</p>
+<p>That is everything I have for today, I look forward to seeing you again tomorrow!</p>
+</div>
