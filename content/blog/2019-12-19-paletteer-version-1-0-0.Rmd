@@ -9,7 +9,7 @@ type: "blog"
 showonlyimage: false
 weight: 1
 image: "/img/blog/paletteer-version-1-0-0/cover.jpg"
-description: "Refactor your tests for more modular tests anf speedy new development"
+description: "paletteer v1.0.0 release post! Many updates!"
 output:
   blogdown::html_page:
     toc: true
