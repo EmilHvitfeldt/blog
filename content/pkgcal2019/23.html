@@ -1,0 +1,57 @@
+---
+title: "Naughty List"
+author: "Emil Hvitfeldt"
+slug: "23"
+output: 
+  html_document:
+    css: "calendar.css"
+showonlyimage: true
+description: " "
+type: packagecalendar
+layout:: single
+---
+
+
+
+<html>
+<link rel="stylesheet" href="/css/calendar-post.css"/>
+</html>
+<section class="navigation">
+<div class="nav-container">
+<nav>
+<ul class="nav-list">
+<li>
+<a href="/">Home</a>
+</li>
+<li>
+<a href="/packagecalendar/2019/">Back</a>
+</li>
+</ul>
+</nav>
+</div>
+</section>
+<div id="day-23-precommit" class="section level1">
+<h1>Day 23: precommit</h1>
+<p>Welcome back for the 23rd day of the <a href="https://twitter.com/hashtag/packagecalendar">#packagecalendar</a>,
+today we will be taking a look at the <a href="https://github.com/lorenzwalthert/precommit">precommit</a> package by <a href="https://twitter.com/lorenzwalthert">Lorenz Walthert</a>.</p>
+<p>The package is not yet available from CRAN but can be downloaded with the following line of code.
+Also you need to have conda installed.</p>
+<pre class="r"><code>remotes::install_github(&quot;lorenzwalthert/precommit&quot;)
+precommit::install_precommit()</code></pre>
+<p>Once you installed what you need you just run</p>
+<pre class="r"><code>precommit::use_precommit()</code></pre>
+<p>to initiate the use of <a href="https://pre-commit.com/">pre-commit</a>.
+Now every time you run <code>git commit</code> the hooks listed in your <code>.pre-commit-config.yaml</code> will be executed before the commit.</p>
+<p>The package website includes a section on <a href="https://lorenzwalthert.github.io/precommit/articles/available-hooks.html">available hooks</a> included in the package.
+This includes things like</p>
+<ul>
+<li><code>readme-rmd-rendered:</code> Make sure README.Rmd hasn’t been edited more recently than README.md, i.e. remind you to render the .Rmd to .md before committing.</li>
+</ul>
+<p>and</p>
+<ul>
+<li><code>no-browser-statement</code>: Guarantees you that you don’t accidentally commit code with a browser() statement in it.</li>
+</ul>
+<p>Simply run <code>precommit::open_config()</code> to start configuring the hooks you want.</p>
+<p>Lastly, I’ll quote a word of warning from the <a href="https://lorenzwalthert.github.io/precommit/">README</a>
+&gt; Do not abort while hooks are running. Non-staged changes are stashed to a temp directory when the hooks are run and may not easily be recovered afterwards.</p>
+</div>

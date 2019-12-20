@@ -1,0 +1,84 @@
+---
+title: "Naughty List"
+author: "Emil Hvitfeldt"
+slug: "19"
+output: 
+  html_document:
+    css: "calendar.css"
+showonlyimage: true
+description: " "
+type: packagecalendar
+layout:: single
+---
+
+
+
+<html>
+<link rel="stylesheet" href="/css/calendar-post.css"/>
+</html>
+<section class="navigation">
+<div class="nav-container">
+<nav>
+<ul class="nav-list">
+<li>
+<a href="/">Home</a>
+</li>
+<li>
+<a href="/packagecalendar/2019/">Back</a>
+</li>
+</ul>
+</nav>
+</div>
+</section>
+<div id="day-19-ggtext" class="section level1">
+<h1>Day 19: ggtext</h1>
+<p>Welcome back for the 19th day of the <a href="https://twitter.com/hashtag/packagecalendar">#packagecalendar</a>,
+today we will be taking a look at the <a href="https://github.com/clauswilke/ggtext">ggtext</a> package by <a href="https://twitter.com/ClausWilke">Claus Wilke</a>.
+The <strong>ggtext</strong> package provides improved text rendering support for <a href="https://ggplot2.tidyverse.org/">ggplot2</a>.</p>
+<p>The package is not yet available from CRAN but can be downloaded with</p>
+<pre class="r"><code>remotes::install_github(&quot;clauswilke/ggtext&quot;)</code></pre>
+<p>For the following example, we will use the “Last Christmas” data from earlier posts.</p>
+<pre class="r"><code># remotes::install_github(&quot;PMassicotte/gtrendsR&quot;)
+library(gtrendsR)
+last_christmas &lt;- gtrends(&quot;Last Christmas&quot;, time = &quot;today 3-m&quot;)$interest_over_time</code></pre>
+<p>And we will be building off the chart we created back in <a href="https://www.hvitfeldt.me/pkgcal2019/11/">day 11</a></p>
+<pre class="r"><code>library(ggplot2)
+library(slide)
+library(dplyr)
+last_christmas %&gt;%
+  mutate(hits_ma5 = slide_dbl(hits, ~mean(.x), .before = 4)) %&gt;%
+  ggplot(aes(date, hits)) +
+  geom_point() +
+  geom_line(aes(y = hits_ma5), color = &quot;firebrick&quot;)</code></pre>
+<p><img src="/pkgcal2019/19_files/figure-html/unnamed-chunk-4-1.png" width="700px" style="display: block; margin: auto;" /></p>
+<p><strong>ggtext</strong> introduces a new theme element, <code>element_markdown()</code>, which behaves similarly to <code>element_text()</code> but renders the text as markdown/HTML.
+Suppose you want to selectively bold part of our title.
+Using markdown we would put the text in double stars.</p>
+<pre class="r"><code>last_christmas %&gt;%
+  mutate(hits_ma5 = slide_dbl(hits, ~mean(.x), .before = 4)) %&gt;%
+  ggplot(aes(date, hits)) +
+  geom_point() +
+  geom_line(aes(y = hits_ma5), color = &quot;firebrick&quot;) +
+  labs(title = &quot;I only want **this** part in bold&quot;)</code></pre>
+<p><img src="/pkgcal2019/19_files/figure-html/unnamed-chunk-5-1.png" width="700px" style="display: block; margin: auto;" /></p>
+<p>But using normal <strong>ggplot2</strong> doesn’t allow you to do that.
+There is where <strong>ggtext</strong> comes in, we use the <code>theme()</code> function to specify the plot title to be rendered using markdown.</p>
+<pre class="r"><code>library(ggtext)
+last_christmas %&gt;%
+  mutate(hits_ma5 = slide_dbl(hits, ~mean(.x), .before = 4)) %&gt;%
+  ggplot(aes(date, hits)) +
+  geom_point() +
+  geom_line(aes(y = hits_ma5), color = &quot;firebrick&quot;) +
+  labs(title = &quot;I only want **this** part in bold&quot;) +
+  theme(plot.title = element_markdown())</code></pre>
+<p><img src="/pkgcal2019/19_files/figure-html/unnamed-chunk-6-1.png" width="700px" style="display: block; margin: auto;" /></p>
+<p>Additionally, you can also use standard HTML syntax to modify your text</p>
+<pre class="r"><code>last_christmas %&gt;%
+  mutate(hits_ma5 = slide_dbl(hits, ~mean(.x), .before = 4)) %&gt;%
+  ggplot(aes(date, hits)) +
+  geom_point() +
+  geom_line(aes(y = hits_ma5), color = &quot;firebrick&quot;) +
+  labs(title =  &quot;&lt;i style=&#39;color:#FF3030&#39;&gt;I only want **this** part in bold&lt;/i&gt;&quot;) +
+  theme(plot.title = element_markdown())</code></pre>
+<p><img src="/pkgcal2019/19_files/figure-html/unnamed-chunk-7-1.png" width="700px" style="display: block; margin: auto;" /></p>
+</div>

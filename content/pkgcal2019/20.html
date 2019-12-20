@@ -1,0 +1,85 @@
+---
+title: "Naughty List"
+author: "Emil Hvitfeldt"
+slug: "20"
+output: 
+  html_document:
+    css: "calendar.css"
+showonlyimage: true
+description: " "
+type: packagecalendar
+layout:: single
+---
+
+
+
+<html>
+<link rel="stylesheet" href="/css/calendar-post.css"/>
+</html>
+<section class="navigation">
+<div class="nav-container">
+<nav>
+<ul class="nav-list">
+<li>
+<a href="/">Home</a>
+</li>
+<li>
+<a href="/packagecalendar/2019/">Back</a>
+</li>
+</ul>
+</nav>
+</div>
+</section>
+<div id="day-20-rayrender" class="section level1">
+<h1>Day 20: rayrender</h1>
+<p>Welcome back for the 20th day of the <a href="https://twitter.com/hashtag/packagecalendar">#packagecalendar</a>,
+today we will be taking a look at the <a href="https://github.com/tylermorganwall/rayrender">rayrender</a> package by <a href="https://twitter.com/tylermorganwall">Tyler Morgan-Wall</a>.
+The <strong>rayrender</strong> package provides a raytracer written in R.</p>
+<p>The package is not yet available from CRAN but can be downloaded with</p>
+<pre class="r"><code>remotes::install_github(&quot;tylermorganwall/rayrender&quot;)</code></pre>
+<p>The package <a href="http://www.rayrender.net/">website</a> provides many cool examples you should look at.</p>
+<p>For this post, I’m gonna do something simple. I’ll try to generate a scene with a single Christmas tree.</p>
+<p>The data object used in this example is downloaded from <a href="https://free3d.com/3d-model/christmas-tree-891764.html">here</a>.</p>
+<p>We start by generating a ground using the <code>generate_ground()</code>, this will create a specification and not render directly yet.</p>
+<pre class="r"><code>library(rayrender)
+generate_ground()
+## # A tibble: 1 x 30
+##       x     y     z radius type  shape properties velocity checkercolor noise
+##   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt; &lt;list&gt;     &lt;list&gt;   &lt;list&gt;       &lt;dbl&gt;
+## 1     0 -1001     0   1000 diff… sphe… &lt;dbl [3]&gt;  &lt;dbl [3… &lt;dbl [2]&gt;        0
+## # … with 20 more variables: noisephase &lt;dbl&gt;, noiseintensity &lt;dbl&gt;,
+## #   noisecolor &lt;list&gt;, angle &lt;list&gt;, image &lt;list&gt;, lightintensity &lt;lgl&gt;,
+## #   flipped &lt;lgl&gt;, fog &lt;lgl&gt;, fogdensity &lt;dbl&gt;, implicit_sample &lt;lgl&gt;,
+## #   sigma &lt;dbl&gt;, order_rotation &lt;list&gt;, pivot_point &lt;list&gt;,
+## #   group_translate &lt;list&gt;, group_angle &lt;list&gt;, group_order_rotation &lt;list&gt;,
+## #   tricolorinfo &lt;list&gt;, fileinfo &lt;lgl&gt;, scale_factor &lt;list&gt;,
+## #   group_scale &lt;list&gt;</code></pre>
+<p>Next, we add the Christmas tree.
+This is done using the <code>add_object()</code> function along with the <code>obj_model()</code> function inport the .obj file.
+For this, I decide to have the tree be made of green metal.
+Notice again how we just get a data.frame back with a specification.</p>
+<pre class="r"><code>generate_ground() %&gt;%
+  add_object(obj_model(filename = &quot;~/Downloads/55-ct/Christmas Tree.obj&quot;, 
+                       scale_obj = 0.5,
+                       material = metal(color = &quot;green&quot;)))
+## # A tibble: 2 x 30
+##       x     y     z radius type  shape properties velocity checkercolor noise
+##   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt; &lt;list&gt;     &lt;list&gt;   &lt;list&gt;       &lt;dbl&gt;
+## 1     0 -1001     0   1000 diff… sphe… &lt;dbl [3]&gt;  &lt;dbl [3… &lt;dbl [2]&gt;        0
+## 2     0     0     0     NA metal obj   &lt;dbl [5]&gt;  &lt;dbl [3… &lt;lgl [1]&gt;        0
+## # … with 20 more variables: noisephase &lt;dbl&gt;, noiseintensity &lt;dbl&gt;,
+## #   noisecolor &lt;list&gt;, angle &lt;list&gt;, image &lt;list&gt;, lightintensity &lt;lgl&gt;,
+## #   flipped &lt;lgl&gt;, fog &lt;lgl&gt;, fogdensity &lt;dbl&gt;, implicit_sample &lt;lgl&gt;,
+## #   sigma &lt;dbl&gt;, order_rotation &lt;list&gt;, pivot_point &lt;list&gt;,
+## #   group_translate &lt;list&gt;, group_angle &lt;list&gt;, group_order_rotation &lt;list&gt;,
+## #   tricolorinfo &lt;list&gt;, fileinfo &lt;chr&gt;, scale_factor &lt;list&gt;,
+## #   group_scale &lt;list&gt;</code></pre>
+<p>Lastly, we pass all of that into <code>render_scene()</code> where I have changed the <code>lookfrom</code> to zoom out a little bit.</p>
+<pre class="r"><code>generate_ground() %&gt;%
+  add_object(obj_model(filename = &quot;~/Downloads/55-ct/Christmas Tree.obj&quot;, 
+                       scale_obj = 0.5,
+                       material = metal(color = &quot;green&quot;))) %&gt;%
+  render_scene(lookfrom = c(0,10,100))</code></pre>
+<p><img src="/pkgcal2019/20_files/figure-html/unnamed-chunk-5-1.png" width="700px" style="display: block; margin: auto;" /></p>
+<p>And there we have it! A beautiful Christmas tree!</p>
+</div>

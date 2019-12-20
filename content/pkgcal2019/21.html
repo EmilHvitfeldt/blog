@@ -1,0 +1,87 @@
+---
+title: "Naughty List"
+author: "Emil Hvitfeldt"
+slug: "21"
+output: 
+  html_document:
+    css: "calendar.css"
+showonlyimage: true
+description: " "
+type: packagecalendar
+layout:: single
+---
+
+
+
+<html>
+<link rel="stylesheet" href="/css/calendar-post.css"/>
+</html>
+<section class="navigation">
+<div class="nav-container">
+<nav>
+<ul class="nav-list">
+<li>
+<a href="/">Home</a>
+</li>
+<li>
+<a href="/packagecalendar/2019/">Back</a>
+</li>
+</ul>
+</nav>
+</div>
+</section>
+<div id="day-21-devout" class="section level1">
+<h1>Day 21: devout</h1>
+<p>Welcome back for the 21st day of the <a href="https://twitter.com/hashtag/packagecalendar">#packagecalendar</a>,
+today we will be taking a look at the <a href="https://github.com/coolbutuseless/devout">devout</a> package by <a href="https://twitter.com/coolbutuseless">mikefc</a>.
+The <strong>devout</strong> package gives you a way to write R graphics output devices in plain R.</p>
+<p>The package is not yet available from CRAN but can be downloaded with</p>
+<pre class="r"><code>remotes::install_github(&quot;coolbutuseless/devout&quot;)</code></pre>
+<p>For the following examples, we will use the “Last Christmas” data from earlier posts.</p>
+<pre class="r"><code># remotes::install_github(&quot;PMassicotte/gtrendsR&quot;)
+library(gtrendsR)
+last_christmas &lt;- gtrends(&quot;Last Christmas&quot;, time = &quot;today 3-m&quot;)$interest_over_time</code></pre>
+<p>And we will be building off the chart we created back in <a href="https://www.hvitfeldt.me/pkgcal2019/11/">day 11</a></p>
+<pre class="r"><code>library(ggplot2)
+library(slide)
+library(dplyr)
+p &lt;- last_christmas %&gt;%
+  mutate(hits_ma5 = slide_dbl(hits, ~mean(.x), .before = 4)) %&gt;%
+  ggplot(aes(date, hits)) +
+  geom_point() +
+  geom_line(aes(y = hits_ma5), color = &quot;firebrick&quot;)
+p</code></pre>
+<p><img src="/pkgcal2019/21_files/figure-html/unnamed-chunk-4-1.png" width="700px" style="display: block; margin: auto;" /></p>
+<p>The <strong>devout</strong> package is simply delightful as it allows us to change the graphical output to anything we want.
+It comes with the way to set the graphical engine to ascii using the <code>ascii()</code> function.</p>
+<pre class="r"><code>library(devout)
+ascii(width = 100)
+p
+invisible(dev.off())
+##   100 O                                                          #                                  
+##       ...... .............. .............. .............. .............. ............. .............
+##       ...... .............. .............. .............. ........#..... ............. .............
+##                                                                         #                           
+##       ...... .............. .............. .............. ......#....... #............ .............
+##       O                                                            XX                #      ##      
+##    75 ...... .............. .............. .............. ........X..X.. .....#.......#.............
+##       ...... .............. .............. .............. .......X...X.. .XX.......... ....#.XXX....
+##                                                                  X # X # X X   #    # XXXX  X       
+## h     ...... .............. .............. .............. .......X....X.X..X...XXX...X ...XX...#....
+## i     O                                                        #X   #  X    X#X   X  X ####   #     
+## t  50 ...... .............. .............. .............. ......X.....#. .##.X...##XX. .............
+## s     ...... .............. .............. .............. ....#X.....#.. ..##...#..... .............
+##                                                                X                                    
+##       ...... .............. .............. .............. .....X........ ............. .............
+##       ...... .............. .............. .............. .###X......... ............. .............
+##    25 O                                                   # XX                                      
+##       ...... .............. .............. ............###XX............ ............. .............
+##                                                    ## XXXX                                          
+##       ...... .............. ..............#.##XXXXXXXX... .............. ............. .............
+##       ....XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX........... .............. ............. .............
+##     0 O                                                                                             
+##       ...... ............Oct.............. ............Nov.............. ...........Dec.............
+##                                                   date                                              
+## </code></pre>
+<p>There are many other use-cases some of which can be found <a href="https://coolbutuseless.github.io/2019/10/08/the-devoutverse-a-collection-of-non-standard-graphics-output-devices-for-rstats/">here</a>.</p>
+</div>
