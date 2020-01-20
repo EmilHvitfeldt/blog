@@ -146,7 +146,7 @@ Click on "Add a new secret"
 You need to do this twice.
 
 - one named "NETLIFY_AUTH_TOKEN" where you put the personal access token as the value and,
-- one named "SITE_ID" where you put the API ID as the value.
+- one named "NETLIFY_SITE_ID" where you put the API ID as the value.
 
 ![](/img/blog/bookdown-netlify-github-actions/fill-in-secret.png)
 
@@ -223,10 +223,9 @@ jobs:
         # NETLIFY_AUTH_TOKEN added in the repo's secrets
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
-          SITE_ID: ${{ secrets.SITE_ID }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
         run: |
           npm install netlify-cli -g
-          netlify link --id $SITE_ID
           netlify deploy --prod --dir _book
 ```
 

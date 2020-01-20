@@ -114,7 +114,7 @@ Once you leave this site you can get it back.</p>
 <p>You need to do this twice.</p>
 <ul>
 <li>one named “NETLIFY_AUTH_TOKEN” where you put the personal access token as the value and,</li>
-<li>one named “SITE_ID” where you put the API ID as the value.</li>
+<li>one named “NETLIFY_SITE_ID” where you put the API ID as the value.</li>
 </ul>
 <p><img src="/img/blog/bookdown-netlify-github-actions/fill-in-secret.png" /></p>
 </div>
@@ -180,10 +180,9 @@ jobs:
         # NETLIFY_AUTH_TOKEN added in the repo&#39;s secrets
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
-          SITE_ID: ${{ secrets.SITE_ID }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
         run: |
           npm install netlify-cli -g
-          netlify link --id $SITE_ID
           netlify deploy --prod --dir _book</code></pre>
 </div>
 <div id="run-renvsnapshot" class="section level2">
