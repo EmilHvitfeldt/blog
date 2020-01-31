@@ -120,70 +120,12 @@ Once you leave this site you can get it back.</p>
 </div>
 <div id="create-github-workflow" class="section level2">
 <h2>Create Github workflow</h2>
-<p>Now add the GitHub workflow file.
-If you don’t already add a folder called <code>.github/workflows</code>.
-This can be done from R with the <a href="https://github.com/r-lib/fs">fs</a> package.</p>
-<pre class="r"><code>fs::dir_create(&quot;.github/workflows&quot;)</code></pre>
-<p>next, create a .yml file in that folder.
-The name doesn’t matter, but I’m calling it <code>bookdown.yml</code>.
-It can be a little hard to create a file in a secret folder so you can create it with</p>
-<pre class="r"><code>fs::file_create(&quot;.github/workflows/bookdown.yaml&quot;)</code></pre>
-<p>If you can see the file look <a href="https://github.com/rstudio/rstudio/issues/1769">here</a> for help.</p>
-<p>Copy-paste the following code into the file and save it.
-You don’t need to modify anything.
-This is a modify version of from <a href="https://github.com/r-lib/actions/tree/master/examples#build-bookdown-site">r-lib/actions</a>.</p>
-<pre><code>on:
-  push:
-    branches: master
-
-jobs:
-  build:
-    runs-on: macOS-latest
-    steps:
-      - name: Checkout repo
-        uses: actions/checkout@master
-
-      - name: Setup R
-        uses: r-lib/actions/setup-r@master
-
-      - name: Install pandoc and pandoc citeproc
-        run: |
-          brew install pandoc
-          brew install pandoc-citeproc
-
-      - name: Cache Renv packages
-        uses: actions/cache@v1
-        with:
-          path: $HOME/.local/share/renv
-          key: r-${{ hashFiles(&#39;renv.lock&#39;) }}
-          restore-keys: r-
-
-      - name: Cache bookdown results
-        uses: actions/cache@v1
-        with:
-          path: _bookdown_files
-          key: bookdown-${{ hashFiles(&#39;**/*Rmd&#39;) }}
-          restore-keys: bookdown-
-
-      - name: Install packages
-        run: |
-          R -e &#39;install.packages(&quot;renv&quot;)&#39;
-          R -e &#39;renv::restore()&#39;
-
-      - name: Build site
-        run: Rscript -e &#39;bookdown::render_book(&quot;index.Rmd&quot;, quiet = TRUE)&#39;
-
-      - name: Install npm
-        uses: actions/setup-node@v1
-
-      - name: Deploy to Netlify
-        # NETLIFY_AUTH_TOKEN added in the repo&#39;s secrets
-        env:
-          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
-          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
-        run: |
-          npm install netlify-cli -g
-          netlify deploy --prod --dir _book</code></pre>
+<p>Now add the GitHub workflow file.</p>
+<p>For this you will need version <code>1.5.1.9000</code> or higher of <strong>usethis</strong> for it to work.
+You can get the newest version of usethis from github with</p>
+<pre class="r"><code># install.packages(&quot;devtools&quot;)
+devtools::install_github(&quot;r-lib/usethis&quot;)</code></pre>
+<p>then you run <code>use_github_action("bookdown.yaml")</code> which will create the .yaml file in the right directory for you.</p>
 </div>
 <div id="run-renvsnapshot" class="section level2">
 <h2>Run renv::snapshot</h2>
