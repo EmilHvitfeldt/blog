@@ -43,17 +43,17 @@ The <strong>rayrender</strong> package provides a raytracer written in R.</p>
 <p>We start by generating a ground using the <code>generate_ground()</code>, this will create a specification and not render directly yet.</p>
 <pre class="r"><code>library(rayrender)
 generate_ground()
-## # A tibble: 1 x 30
-##       x     y     z radius type  shape properties velocity checkercolor noise
-##   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt; &lt;list&gt;     &lt;list&gt;   &lt;list&gt;       &lt;dbl&gt;
-## 1     0 -1001     0   1000 diff… sphe… &lt;dbl [3]&gt;  &lt;dbl [3… &lt;dbl [2]&gt;        0
-## # … with 20 more variables: noisephase &lt;dbl&gt;, noiseintensity &lt;dbl&gt;,
-## #   noisecolor &lt;list&gt;, angle &lt;list&gt;, image &lt;list&gt;, lightintensity &lt;lgl&gt;,
-## #   flipped &lt;lgl&gt;, fog &lt;lgl&gt;, fogdensity &lt;dbl&gt;, implicit_sample &lt;lgl&gt;,
-## #   sigma &lt;dbl&gt;, order_rotation &lt;list&gt;, pivot_point &lt;list&gt;,
-## #   group_translate &lt;list&gt;, group_angle &lt;list&gt;, group_order_rotation &lt;list&gt;,
-## #   tricolorinfo &lt;list&gt;, fileinfo &lt;lgl&gt;, scale_factor &lt;list&gt;,
-## #   group_scale &lt;list&gt;</code></pre>
+## # A tibble: 1 x 32
+##       x     y     z radius type  shape properties velocity checkercolor
+##   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt; &lt;list&gt;     &lt;list&gt;   &lt;list&gt;      
+## 1     0 -1001     0   1000 diff… sphe… &lt;dbl [3]&gt;  &lt;dbl [3… &lt;dbl [2]&gt;   
+## # … with 23 more variables: gradient_color &lt;list&gt;, gradient_transpose &lt;lgl&gt;,
+## #   noise &lt;dbl&gt;, noisephase &lt;dbl&gt;, noiseintensity &lt;dbl&gt;, noisecolor &lt;list&gt;,
+## #   angle &lt;list&gt;, image &lt;list&gt;, lightintensity &lt;lgl&gt;, flipped &lt;lgl&gt;, fog &lt;lgl&gt;,
+## #   fogdensity &lt;dbl&gt;, implicit_sample &lt;lgl&gt;, sigma &lt;dbl&gt;,
+## #   order_rotation &lt;list&gt;, pivot_point &lt;list&gt;, group_translate &lt;list&gt;,
+## #   group_angle &lt;list&gt;, group_order_rotation &lt;list&gt;, tricolorinfo &lt;list&gt;,
+## #   fileinfo &lt;lgl&gt;, scale_factor &lt;list&gt;, group_scale &lt;list&gt;</code></pre>
 <p>Next, we add the Christmas tree.
 This is done using the <code>add_object()</code> function along with the <code>obj_model()</code> function inport the .obj file.
 For this, I decide to have the tree be made of green metal.
@@ -62,18 +62,18 @@ Notice again how we just get a data.frame back with a specification.</p>
   add_object(obj_model(filename = &quot;~/Downloads/55-ct/Christmas Tree.obj&quot;, 
                        scale_obj = 0.5,
                        material = metal(color = &quot;green&quot;)))
-## # A tibble: 2 x 30
-##       x     y     z radius type  shape properties velocity checkercolor noise
-##   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt; &lt;list&gt;     &lt;list&gt;   &lt;list&gt;       &lt;dbl&gt;
-## 1     0 -1001     0   1000 diff… sphe… &lt;dbl [3]&gt;  &lt;dbl [3… &lt;dbl [2]&gt;        0
-## 2     0     0     0     NA metal obj   &lt;dbl [5]&gt;  &lt;dbl [3… &lt;lgl [1]&gt;        0
-## # … with 20 more variables: noisephase &lt;dbl&gt;, noiseintensity &lt;dbl&gt;,
-## #   noisecolor &lt;list&gt;, angle &lt;list&gt;, image &lt;list&gt;, lightintensity &lt;lgl&gt;,
-## #   flipped &lt;lgl&gt;, fog &lt;lgl&gt;, fogdensity &lt;dbl&gt;, implicit_sample &lt;lgl&gt;,
-## #   sigma &lt;dbl&gt;, order_rotation &lt;list&gt;, pivot_point &lt;list&gt;,
-## #   group_translate &lt;list&gt;, group_angle &lt;list&gt;, group_order_rotation &lt;list&gt;,
-## #   tricolorinfo &lt;list&gt;, fileinfo &lt;chr&gt;, scale_factor &lt;list&gt;,
-## #   group_scale &lt;list&gt;</code></pre>
+## # A tibble: 2 x 32
+##       x     y     z radius type  shape properties velocity checkercolor
+##   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt; &lt;list&gt;     &lt;list&gt;   &lt;list&gt;      
+## 1     0 -1001     0   1000 diff… sphe… &lt;dbl [3]&gt;  &lt;dbl [3… &lt;dbl [2]&gt;   
+## 2     0     0     0     NA metal obj   &lt;dbl [5]&gt;  &lt;dbl [3… &lt;lgl [1]&gt;   
+## # … with 23 more variables: gradient_color &lt;list&gt;, gradient_transpose &lt;lgl&gt;,
+## #   noise &lt;dbl&gt;, noisephase &lt;dbl&gt;, noiseintensity &lt;dbl&gt;, noisecolor &lt;list&gt;,
+## #   angle &lt;list&gt;, image &lt;list&gt;, lightintensity &lt;lgl&gt;, flipped &lt;lgl&gt;, fog &lt;lgl&gt;,
+## #   fogdensity &lt;dbl&gt;, implicit_sample &lt;lgl&gt;, sigma &lt;dbl&gt;,
+## #   order_rotation &lt;list&gt;, pivot_point &lt;list&gt;, group_translate &lt;list&gt;,
+## #   group_angle &lt;list&gt;, group_order_rotation &lt;list&gt;, tricolorinfo &lt;list&gt;,
+## #   fileinfo &lt;chr&gt;, scale_factor &lt;list&gt;, group_scale &lt;list&gt;</code></pre>
 <p>Lastly, we pass all of that into <code>render_scene()</code> where I have changed the <code>lookfrom</code> to zoom out a little bit.</p>
 <pre class="r"><code>generate_ground() %&gt;%
   add_object(obj_model(filename = &quot;~/Downloads/55-ct/Christmas Tree.obj&quot;, 

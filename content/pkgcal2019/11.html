@@ -56,7 +56,7 @@ skim(last_christmas)</code></pre>
 </tr>
 <tr class="even">
 <td align="left">Number of rows</td>
-<td align="left">89</td>
+<td align="left">91</td>
 </tr>
 <tr class="odd">
 <td align="left">Number of columns</td>
@@ -171,20 +171,20 @@ skim(last_christmas)</code></pre>
 <td align="left">hits</td>
 <td align="right">0</td>
 <td align="right">1</td>
-<td align="right">28.01</td>
-<td align="right">28.11</td>
+<td align="right">25</td>
+<td align="right">27.63</td>
 <td align="right">2</td>
-<td align="right">4</td>
-<td align="right">11</td>
-<td align="right">51</td>
+<td align="right">5</td>
+<td align="right">7</td>
+<td align="right">48</td>
 <td align="right">100</td>
-<td align="left">▇▁▃▂▁</td>
+<td align="left">▇▁▂▂▁</td>
 </tr>
 <tr class="even">
 <td align="left">category</td>
 <td align="right">0</td>
 <td align="right">1</td>
-<td align="right">0.00</td>
+<td align="right">0</td>
 <td align="right">0.00</td>
 <td align="right">0</td>
 <td align="right">0</td>
@@ -213,10 +213,10 @@ skim(last_christmas)</code></pre>
 <td align="left">date</td>
 <td align="right">0</td>
 <td align="right">1</td>
-<td align="left">2019-09-12</td>
-<td align="left">2019-12-09</td>
-<td align="left">2019-10-26</td>
-<td align="right">89</td>
+<td align="left">2019-11-29</td>
+<td align="left">2020-02-27</td>
+<td align="left">2020-01-13</td>
+<td align="right">91</td>
 </tr>
 </tbody>
 </table>
@@ -230,28 +230,22 @@ For this we will use the <code>slide()</code> function, you pass the object you 
 Similar style to how we do it in <strong>purrr</strong>, notice how I specified <code>_dbl()</code> as I know the answer should be numeric.</p>
 <pre class="r"><code>library(slide)
 slide_dbl(last_christmas$hits, ~mean(.x))
-##  [1]   4   6   6   4   4   4   4   3   3   3   3   4   4   5   5   5   4   4   3
-## [20]   2   3   3   4   4   5   3   4   3   3   4   5   5   5   5   7   6   6   8
-## [39]   8   7   8   9   9  10  12  14  11  17  17  16  19  22  27  27  31  43  55
-## [58]  83 100  87  62  51  44  51  64  89  82  47  45  44  46  56  73  64  43  45
-## [77]  49  48  60  77  72  52  52  54  53  68  79  75  53</code></pre>
+##  [1]  51  68  64  45  46  47  45  60  70  66  48  50  48  51  57  69  70  61  64
+## [20]  68  71  76  80  79  69 100  98  52  37  34  33  24  23  21  14  12  13  12
+## [39]   9   9   7   7   8   9   9   6   5   5   5   5   5   6   4   5   5   6   6
+## [58]   8   7   5   4   5   4   5   7   7   4   4   5   5   5   7   7   5   4   4
+## [77]   3   4   6   6   4   6   3   3   3   4   4   3   3   2   2</code></pre>
 <p>However, nothing actually happened in this example as the sliding window had length 1.
 Instead let’s calculate the average of the last 5 days, or I other words: today + last 4 days.
 We do this by specifying <code>.before = 4</code>.</p>
 <pre class="r"><code>slide_dbl(last_christmas$hits, mean, .before = 4)
-##  [1]  4.000000  5.000000  5.333333  5.000000  4.800000  4.800000  4.400000
-##  [8]  3.800000  3.600000  3.400000  3.200000  3.200000  3.400000  3.800000
-## [15]  4.200000  4.600000  4.600000  4.600000  4.200000  3.600000  3.200000
-## [22]  3.000000  3.000000  3.200000  3.800000  3.800000  4.000000  3.800000
-## [29]  3.600000  3.400000  3.800000  4.000000  4.400000  4.800000  5.400000
-## [36]  5.600000  5.800000  6.400000  7.000000  7.000000  7.400000  8.000000
-## [43]  8.200000  8.600000  9.600000 10.800000 11.200000 12.800000 14.200000
-## [50] 15.000000 16.000000 18.200000 20.200000 22.200000 25.200000 30.000000
-## [57] 36.600000 47.800000 62.400000 73.600000 77.400000 76.600000 68.800000
-## [64] 59.000000 54.400000 59.800000 66.000000 66.600000 65.400000 61.400000
-## [71] 52.800000 47.600000 52.800000 56.600000 56.400000 56.200000 54.800000
-## [78] 49.800000 49.000000 55.800000 61.200000 61.800000 62.600000 61.400000
-## [85] 56.600000 55.800000 61.200000 65.800000 65.600000</code></pre>
+##  [1] 51.0 59.5 61.0 57.0 54.8 54.0 49.4 48.6 53.6 57.6 57.8 58.8 56.4 52.6 50.8
+## [16] 55.0 59.0 61.6 64.2 66.4 66.8 68.0 71.8 74.8 75.0 80.8 85.2 79.6 71.2 64.2
+## [31] 50.8 36.0 30.2 27.0 23.0 18.8 16.6 14.4 12.0 11.0 10.0  8.8  8.0  8.0  8.0
+## [46]  7.8  7.4  6.8  6.0  5.2  5.0  5.2  5.0  5.0  5.0  5.2  5.2  6.0  6.4  6.4
+## [61]  6.0  5.8  5.0  4.6  5.0  5.6  5.4  5.4  5.4  5.0  4.6  5.2  5.8  5.8  5.6
+## [76]  5.4  4.6  4.0  4.2  4.6  4.6  5.2  5.0  4.4  3.8  3.8  3.4  3.4  3.4  3.2
+## [91]  2.8</code></pre>
 <p>Notice how the output has the same length as the input.
 This makes it easy to use inside other functions such as <code>mutate()</code>.</p>
 <p>Now let’s calculate the moving average again and plot it on top of our plot.</p>

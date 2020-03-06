@@ -91,10 +91,10 @@ y_pred_logical &lt;- if_else(y_pred &gt; 0.5, 1, 0)
 (con &lt;- table(y_pred_logical, filter(class_df, split == 0) %&gt;% pull(response)))
 ##               
 ## y_pred_logical FALSE TRUE
-##              0  1213  603
-##              1    78  376
+##              0  1204  604
+##              1    62  348
 sum(diag(con)) / sum(con)
-## [1] 0.7</code></pre>
+## [1] 0.6997295</code></pre>
 <p>it work fairly quickly and we get a decent accuracy of 70%. Remember this method isn’t meant to improve the accuracy but rather to improve the computational time.</p>
 <pre class="r"><code>model &lt;- randomForest(response ~ ., 
                       data = filter(class_df, split == 1))
@@ -106,11 +106,11 @@ y_pred &lt;- predict(model,
 (con &lt;- table(y_pred, filter(class_df, split == 0) %&gt;% pull(response)))
 ##        
 ## y_pred  FALSE TRUE
-##   FALSE  1129  366
-##   TRUE    162  613
+##   FALSE  1124  387
+##   TRUE    142  565
 sum(diag(con)) / sum(con)
-## [1] 0.7674009</code></pre>
-<p>This one takes slightly longer to run due to the number of trees, but it does give us the nifty 77% accuracy which is pretty good considering we only look at tweets.</p>
+## [1] 0.7614968</code></pre>
+<p>This one takes slightly longer to run due to the number of trees, but it does give us the nifty 76% accuracy which is pretty good considering we only look at tweets.</p>
 <p>And this is all that there is to it! The dimensionality reduction method was able to reduce the number of variables while retaining most of the information within those variables such that we can run our procedures at a faster phase without much loss. There is still a lot of individual improvements to be done if this was to be used further, both in terms of hyper-parameter selection in the modeling choices but also the number of PCA variables that should be used in the final modelling. Remember that this is just one of the more simpler methods, with more advanced word representation methods being <a href="https://nlp.stanford.edu/projects/glove/">glove</a> and <a href="https://www.tensorflow.org/tutorials/word2vec">word2vec</a>.</p>
 </div>
 <div id="data-viz" class="section level2">

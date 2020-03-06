@@ -64,7 +64,8 @@ library(emo)</code></pre>
 </div>
 <div id="gdp-per-capita" class="section level4">
 <h4>GDP per capita</h4>
-<p>To have something somehow meaningful to compare the freedom index to. I’ve found some data about GDP per capita, mostly because I figured it would have data for quite a lot of the countries covered by the freedom index. So from <a href="http://data.worldbank.org/indicator/NY.GDP.PCAP.CD">The World Bank</a> <a href="http://api.worldbank.org/v2/en/indicator/NY.GDP.PCAP.CD?downloadformat=csv">(direct download link)</a> which we load in as normal.</p>
+<p>To have something somehow meaningful to compare the freedom index to. I’ve found some data about GDP per capita, mostly because I figured it would have data for quite a lot of the countries covered by the freedom index. So from <a href="http://data.worldbank.org/indicator/NY.GDP.PCAP.CD">The World Bank</a> <a href="http://api.worldbank.org/v2/en/indicator/NY.GDP.PCAP.CD?downloadformat=csv">(direct download link)</a>
+which we load in as normal.</p>
 <pre class="r"><code>(gdp_pcap &lt;- read_csv(&quot;API_NY.GDP.PCAP.CD_DS2_en_csv_v2.csv&quot;, skip = 2))</code></pre>
 <p>which have quite a few variables but for now we will just focus on the 2015 variable as the 2016 appears empty. Now that we have two data sets which we would like to combine, a general question would be if the gdp_pcap data have information matching our 180 countries. So with the following bit of code we join the two datasets together by the ICO ALPHA-3 Code available in both datasets and select the countries who don’t have a value for the year 2015.</p>
 <pre class="r"><code>left_join(freedom_index, gdp_pcap, by = c(&quot;ISO&quot; = &quot;Country Code&quot;)) %&gt;% 
@@ -206,8 +207,5 @@ newemoji</code></pre>
   labs(x = &quot;GDP per capita (current US$)&quot;, y = &quot;2017 World Press Freedom Index&quot;,
        title = &quot;Countries with high GDP per capita\ntend to have low Freedom Index&quot;,
        subtitle = &quot;Visualized with emojis&quot;)</code></pre>
-<div class="figure">
-<img src="/img/blog/2017-world-press-freedom-index-with-emojis/pic1.svg" />
-
-</div>
+<p><img src="/img/blog/2017-world-press-freedom-index-with-emojis/pic1.svg" /></p>
 </div>

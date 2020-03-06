@@ -267,7 +267,7 @@ eval_tibble %>%
   autoplot() +
   labs(title = "ROC curve for text classification using word count or stopwords",
        subtitle = "Predicting whether text was written by Jane Austen or H.G. Wells") +
-  paletteer::scale_color_paletteer_d(ggsci, category10_d3)
+  paletteer::scale_color_paletteer_d("ggsci::category10_d3")
 ```
 
 ## Conclusion

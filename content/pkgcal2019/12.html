@@ -52,7 +52,6 @@ session
 ##   The path is scrapable for this user-agent</code></pre>
 <p>We can then use <code>scrape()</code> to the HTML object that we can investigate with <a href="https://rvest.tidyverse.org/">rvest</a>.</p>
 <pre class="r"><code>library(rvest)
-## Loading required package: xml2
 scrape(session) %&gt;%
   html_nodes(&quot;h2&quot;) %&gt;%
   html_text()

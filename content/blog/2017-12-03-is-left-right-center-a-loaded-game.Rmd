@@ -46,7 +46,7 @@ The data structure used to keep track of the game states will be a matrix as I f
 This project is light on packages as the entire simulation part is done in base R, however, we will analyse the results using tidyverse.
 
 ```{r, message=FALSE, warning=FALSE, comment=FALSE}
-library(tidyverse) 
+library(tidyverse)
 ```
 
 ## Building blocks

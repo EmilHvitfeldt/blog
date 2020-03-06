@@ -60,28 +60,28 @@ last_christmas_data &lt;- datafy(
 
 last_christmas_data
 ## l a s t   c h r i s t m a s 
-## 0 0 0 0 0 0 0 0 1 2 2 3 3 3 
+## 3 3 3 2 2 1 0 0 0 0 0 0 0 0 
 ## attr(,&quot;class&quot;)
 ## [1] &quot;datafied&quot; &quot;numeric&quot;</code></pre>
 <p>Next, we pass the datafied object to <code>fig()</code> to render it in our document.
 I have manually set size to 60 as the default is quite small.</p>
 <pre class="r"><code>fig(last_christmas_data, size = 60)</code></pre>
-<span class="figsdot" style=" font-size:60pt;">§0l|0a|0s|0t|0 |0c|0h|0r|0i|1s|2t|2m|3a|3s|3</span>
+<span class="figsdot" style=" font-size:60pt;">§0l|3a|3s|3t|2 |2c|1h|0r|0i|0s|0t|0m|0a|0s|0</span>
 <p>From here on we can add our final stylistic choice.
 There are simple self-explanatory arguments such as <code>color</code> and <code>bgcolor</code>(background color).
 One of the prominent is the <code>type</code> argument which specifies the area under the curve.</p>
 <pre class="r"><code>fig(last_christmas_data, size = 60, type = &quot;thin&quot;)</code></pre>
-<span class="figsthin" style=" font-size:60pt;">§0l|0a|0s|0t|0 |0c|0h|0r|0i|1s|2t|2m|3a|3s|3</span>
+<span class="figsthin" style=" font-size:60pt;">§0l|3a|3s|3t|2 |2c|1h|0r|0i|0s|0t|0m|0a|0s|0</span>
 <pre class="r"><code>fig(last_christmas_data, size = 60, type = &quot;gradient&quot;)</code></pre>
-<span class="figsgradient" style=" font-size:60pt;">§0l|0a|0s|0t|0 |0c|0h|0r|0i|1s|2t|2m|3a|3s|3</span>
+<span class="figsgradient" style=" font-size:60pt;">§0l|3a|3s|3t|2 |2c|1h|0r|0i|0s|0t|0m|0a|0s|0</span>
 <pre class="r"><code>fig(last_christmas_data, size = 60, type = &quot;dot&quot;)</code></pre>
-<span class="figsdot" style=" font-size:60pt;">§0l|0a|0s|0t|0 |0c|0h|0r|0i|1s|2t|2m|3a|3s|3</span>
+<span class="figsdot" style=" font-size:60pt;">§0l|3a|3s|3t|2 |2c|1h|0r|0i|0s|0t|0m|0a|0s|0</span>
 <p>I like the gradient type so I’ll stick with that one for now.
 Last we will use the <code>xlabs</code> argument to add little text above the datalegreyar.
 I’ll use the opportunity to label the start and endpoints for dates.</p>
 <pre class="r"><code>fig(last_christmas_data, size = 60, type = &quot;gradient&quot;, 
     xlabs = c(&quot;sep 1&quot;, &quot;dec 1&quot;))</code></pre>
-<span class="figsgradient" style=" font-size:60pt;">{sep 1}§0l|0a|0s|0t|0 |0c|0h|0r|0i|1s|2t|2m|3a|3s|3{dec 1}</span>
+<span class="figsgradient" style=" font-size:60pt;">{sep 1}§0l|3a|3s|3t|2 |2c|1h|0r|0i|0s|0t|0m|0a|0s|0{dec 1}</span>
 <div id="santas-little-datalegreyar-factory" class="section level2">
 <h2>Santa’s little datalegreyar factory</h2>
 <p>I already decided on a style I like, so I’m going to wrap up everything into a function and pass in a bunch of Christmas Song titles.</p>
@@ -96,10 +96,10 @@ I’ll use the opportunity to label the start and endpoints for dates.</p>
 <p>Then we just apply it many times and see the magic!
 This is all for today, keep an eye out for the next opening tomorrow!</p>
 <pre class="r"><code>datalegreyar_factory(&quot;Drummer Boy&quot;, size = 60) </code></pre>
-<span class="figsgradient" style=" font-size:60pt;">{sep 1}§0d|0r|0u|0m|0m|0e|0r|0 |1b|1o|2y|3{dec 1}</span>
+<span class="figsgradient" style=" font-size:60pt;">{sep 1}§0d|3r|3u|3m|2m|1e|0r|0 |0b|0o|0y|0{dec 1}</span>
 <pre class="r"><code>datalegreyar_factory(&quot;White Christmas&quot;, size = 50) </code></pre>
-<span class="figsgradient" style=" font-size:50pt;">{sep 1}§0w|0h|0i|0t|0e|0 |0c|0h|0r|1i|1s|1t|2m|2a|3s|3{dec 1}</span>
+<span class="figsgradient" style=" font-size:50pt;">{sep 1}§0w|3h|3i|3t|2e|2 |1c|1h|0r|0i|0s|0t|0m|0a|0s|0{dec 1}</span>
 <pre class="r"><code>datalegreyar_factory(&quot;We Wish You A Mary Christmas&quot;, size = 30) </code></pre>
-<span class="figsgradient" style=" font-size:30pt;">{sep 1}§0w|0e|0 |0w|0i|0s|0h|0 |0y|0o|0u|0 |0a|0 |0m|0a|0r|0y|0 |0c|0h|1r|1i|1s|2t|2m|2a|3s|3{dec 1}</span>
+<span class="figsgradient" style=" font-size:30pt;">{sep 1}§0w|3e|3 |3w|3i|3s|3h|2 |2y|2o|2u|1 |1a|0 |0m|0a|0r|0y|0 |0c|0h|0r|0i|0s|0t|0m|0a|0s|0{dec 1}</span>
 </div>
 </div>
