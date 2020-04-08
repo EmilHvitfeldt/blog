@@ -10,9 +10,6 @@ googleAnalytics = "UA-98238582-1"
 # Rss limit
 rssLimit = 10
 
-[permalinks]
-  post = "/:year/:month/:slug/"
-
 ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_files$", "_cache$"]
 
 [params]
@@ -73,3 +70,6 @@ ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_files$", "_cache$"]
 
     MathJaxCDN = "//cdn.bootcss.com"
     MathJaxVersion = "2.7.1"
+    
+[permalinks]
+  post = "/:year/:month/:slug/"
