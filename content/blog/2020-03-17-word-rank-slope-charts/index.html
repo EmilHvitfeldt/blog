@@ -83,7 +83,7 @@ Next, we will calculate a slope between the points and add the correct labels.</
   theme(panel.border = element_blank(), panel.grid.major.x = element_blank()) +
   labs(x = NULL, y = &quot;Word Rank&quot;) +
   labs(title = &quot;Masculine gendered words appeared more often in H.C. Andersen&#39;s fairy tales&quot;)</code></pre>
-<p><img src="/blog/2020-03-17-word-rank-slope-charts_files/figure-html/unnamed-chunk-6-1.png" width="700px" style="display: block; margin: auto;" /></p>
+<p><img src="/blog/2020-03-17-word-rank-slope-charts/index_files/figure-html/unnamed-chunk-6-1.png" width="700px" style="display: block; margin: auto;" /></p>
 </div>
 <div id="make-it-into-a-function" class="section level2">
 <h2>Make it into a function ✨</h2>
@@ -155,7 +155,7 @@ words &lt;- hcandersen_en %&gt;%
 
 plot_fun(words, ref, direction = -1) +
   labs(title = &quot;Masculine gendered words appeared more often in H.C. Andersen&#39;s fairy tales&quot;)</code></pre>
-<p><img src="/blog/2020-03-17-word-rank-slope-charts_files/figure-html/unnamed-chunk-8-1.png" width="700px" style="display: block; margin: auto;" /></p>
+<p><img src="/blog/2020-03-17-word-rank-slope-charts/index_files/figure-html/unnamed-chunk-8-1.png" width="700px" style="display: block; margin: auto;" /></p>
 </div>
 <div id="gallery" class="section level2">
 <h2>Gallery 🖼</h2>
@@ -175,7 +175,7 @@ words &lt;- janeaustenr::austen_books() %&gt;%
 
 plot_fun(words, ref, direction = -1) +
   labs(title = &quot;Masculine gendered words appeared less often in Jane Austen Novels&quot;)</code></pre>
-<p><img src="/blog/2020-03-17-word-rank-slope-charts_files/figure-html/unnamed-chunk-9-1.png" width="700px" style="display: block; margin: auto;" /></p>
+<p><img src="/blog/2020-03-17-word-rank-slope-charts/index_files/figure-html/unnamed-chunk-9-1.png" width="700px" style="display: block; margin: auto;" /></p>
 <p>More examples using the <a href="https://github.com/EmilHvitfeldt/tidygutenbergr">tidygutenbergr</a> package.</p>
 <pre class="r"><code>ref &lt;- tribble(
   ~Men, ~Women,
@@ -194,7 +194,7 @@ words &lt;- tidygutenbergr::phantom_of_the_opera() %&gt;%
 
 plot_fun(words, ref, &quot;scico::berlin&quot;) +
   labs(title = &quot;Masculine gendered words appeared more often in Phantom of the Opera&quot;)</code></pre>
-<p><img src="/blog/2020-03-17-word-rank-slope-charts_files/figure-html/unnamed-chunk-10-1.png" width="700px" style="display: block; margin: auto;" /></p>
+<p><img src="/blog/2020-03-17-word-rank-slope-charts/index_files/figure-html/unnamed-chunk-10-1.png" width="700px" style="display: block; margin: auto;" /></p>
 <pre class="r"><code>ref &lt;- tribble(
   ~Positive, ~Negative,
   &quot;good&quot;, &quot;bad&quot;,
@@ -208,5 +208,5 @@ words &lt;- tidygutenbergr::dracula() %&gt;%
 
 plot_fun(words, ref, palette = &quot;scico::tokyo&quot;) +
   labs(title = &quot;Positive adjectives appeared more often in Dracula&quot;)</code></pre>
-<p><img src="/blog/2020-03-17-word-rank-slope-charts_files/figure-html/unnamed-chunk-11-1.png" width="700px" style="display: block; margin: auto;" /></p>
+<p><img src="/blog/2020-03-17-word-rank-slope-charts/index_files/figure-html/unnamed-chunk-11-1.png" width="700px" style="display: block; margin: auto;" /></p>
 </div>

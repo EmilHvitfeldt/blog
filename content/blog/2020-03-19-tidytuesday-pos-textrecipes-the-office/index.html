@@ -95,7 +95,7 @@ This is going to be a problem for us later on as predicting with shorter text is
   theme_minimal() +
   theme(legend.position = &quot;top&quot;, 
         plot.title.position = &quot;plot&quot;) </code></pre>
-<p><img src="/blog/tidytuesday-pos-textrecipes-the-office_files/figure-html/unnamed-chunk-4-1.png" width="700px" style="display: block; margin: auto;" /></p>
+<p><img src="/blog/2020-03-19-tidytuesday-pos-textrecipes-the-office/index_files/figure-html/unnamed-chunk-4-1.png" width="700px" style="display: block; margin: auto;" /></p>
 <p>These lines are thankfully pretty similar, which will make it easier for us to make a good predictive model.
 However, we can still see some differences.
 Pam and Jim both have shorter lines than the rest,
@@ -105,10 +105,6 @@ It isn’t always needed but I’m going to explicitly initialize the spacy mode
 <pre class="r"><code>spacy_initialize(model = &quot;en_core_web_sm&quot;)</code></pre>
 <p>the spacyr package outputs in this nice format with <code>doc_id</code>, <code>sentence_id</code>, <code>token_id</code>, <code>token</code> and <code>pos</code>.</p>
 <pre class="r"><code>spacy_parse(small_office$text[1], entity = FALSE, lemma = FALSE)</code></pre>
-<pre><code>## Finding a python executable with spaCy installed...</code></pre>
-<pre><code>## spaCy (language model: en_core_web_sm) is installed in /usr/bin/python</code></pre>
-<pre><code>## successfully initialized (spaCy Version: 2.0.18, language model: en_core_web_sm)</code></pre>
-<pre><code>## (python options: type = &quot;python_executable&quot;, value = &quot;/usr/bin/python&quot;)</code></pre>
 <pre><code>##    doc_id sentence_id token_id       token   pos
 ## 1   text1           1        1         All   ADV
 ## 2   text1           1        2       right   ADV
@@ -169,7 +165,7 @@ small_office_tokens %&gt;%
   guides(fill = &quot;none&quot;) +
   theme_minimal() +
   theme(plot.title.position = &quot;plot&quot;) </code></pre>
-<p><img src="/blog/tidytuesday-pos-textrecipes-the-office_files/figure-html/unnamed-chunk-10-1.png" width="700px" style="display: block; margin: auto;" /></p>
+<p><img src="/blog/2020-03-19-tidytuesday-pos-textrecipes-the-office/index_files/figure-html/unnamed-chunk-10-1.png" width="700px" style="display: block; margin: auto;" /></p>
 <p>I found it initially surprising that punctuation (<code>PUNCT</code>) was leading the chart.
 But after thinking about it a little bit it, I can imagine it has something to do with all the lines being very short and having to end in some kind of punctuation.</p>
 <p>We can facet this by the character to see who uses what part of speech.</p>
@@ -186,7 +182,7 @@ But after thinking about it a little bit it, I can imagine it has something to d
   theme_minimal() +
   theme(legend.position = &quot;top&quot;, 
         plot.title.position = &quot;plot&quot;) </code></pre>
-<p><img src="/blog/tidytuesday-pos-textrecipes-the-office_files/figure-html/unnamed-chunk-11-1.png" width="700px" style="display: block; margin: auto;" /></p>
+<p><img src="/blog/2020-03-19-tidytuesday-pos-textrecipes-the-office/index_files/figure-html/unnamed-chunk-11-1.png" width="700px" style="display: block; margin: auto;" /></p>
 <p>I don’t immediately see anything popping out at me, but it is a very pretty chart otherwise.
 I feel like I have seen enough, lets get to modeling!</p>
 </div>
@@ -217,10 +213,6 @@ This calculation will once again take a little while since the part of speech ca
   # Calculate tf-idf for both sets of tokens
   step_tfidf(text, text_copy) %&gt;%
   prep()</code></pre>
-<pre><code>## Finding a python executable with spaCy installed...</code></pre>
-<pre><code>## spaCy (language model: en_core_web_sm) is installed in /usr/bin/python</code></pre>
-<pre><code>## successfully initialized (spaCy Version: 2.0.18, language model: en_core_web_sm)</code></pre>
-<pre><code>## (python options: type = &quot;python_executable&quot;, value = &quot;/usr/bin/python&quot;)</code></pre>
 <p>We can now extract the processed data</p>
 <pre class="r"><code>office_test_prepped &lt;- bake(rec, office_test)
 office_train_prepped &lt;- juice(rec)</code></pre>
@@ -279,7 +271,7 @@ fitted_grid &lt;- tune_grid(
 ) %&gt;%
   conf_mat(truth = character, estimate = .pred_class) %&gt;%
   autoplot(type = &quot;heatmap&quot;)</code></pre>
-<p><img src="/blog/tidytuesday-pos-textrecipes-the-office_files/figure-html/unnamed-chunk-20-1.png" width="700px" style="display: block; margin: auto;" /></p>
+<p><img src="/blog/2020-03-19-tidytuesday-pos-textrecipes-the-office/index_files/figure-html/unnamed-chunk-20-1.png" width="700px" style="display: block; margin: auto;" /></p>
 <p>These are not going too well.
 It is doing best at predicting Michael correctly, and it seems to confuse Dwight and Michael a little bit.</p>
 <p>Let us investigate the cases that didn’t go too well.

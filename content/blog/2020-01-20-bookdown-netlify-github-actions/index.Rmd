@@ -68,87 +68,122 @@ I have it set up with Github for easier interaction.
 
 Once you have logged into Netlify go to your team page and to create a "New site from Git"
 
-![](/img/blog/bookdown-netlify-github-actions/netlify-teams.png)
+```{r echo=FALSE, fig.align='center'}
+knitr::include_graphics("netlify-teams.png")
+```
 
 Select Github for Continuous Deployment
 
-![](/img/blog/bookdown-netlify-github-actions/create-new-site.png)
+```{r echo=FALSE, fig.align='center'}
+knitr::include_graphics("create-new-site.png")
+```
 
 Now we need to select the GitHub repository.
 Depending on how many repositories you have you can find it in the list or search for it with the search bar.
 Once you have found it click the little arrow to the right of it.
 
-![](/img/blog/bookdown-netlify-github-actions/pick-a-repository.png)
+```{r echo=FALSE, fig.align='center'}
+knitr::include_graphics("pick-a-repository.png")
+```
 
 Don't touch any of the settings.
 
-![](/img/blog/bookdown-netlify-github-actions/deploy-settings.png)
+```{r echo=FALSE, fig.align='center'}
+knitr::include_graphics("deploy-settings.png")
+```
 
 And voila!
 Here is your new site, it is currently empty. 
 Now click on the "Site settings" button
 
-![](/img/blog/bookdown-netlify-github-actions/new-site.png)
+```{r echo=FALSE, fig.align='center'}
+knitr::include_graphics("new-site.png")
+```
 
 copy the API ID and save it, you will need it in a little bit.
 If you lose it you can always come back here and copy it again.
 
-![](/img/blog/bookdown-netlify-github-actions/site-id.png)
+```{r echo=FALSE, fig.align='center'}
+knitr::include_graphics("site-id.png")
+```
 
 You might have noticed that the website is completely random.
 If you click on the "Change site name" button you can set a new prefix name.
 
-![](/img/blog/bookdown-netlify-github-actions/set-name.png)
+```{r echo=FALSE, fig.align='center'}
+knitr::include_graphics("set-name.png")
+```
 
 Scroll down to get the Status Badge, you can copy this too and put it in the top of your README.md file if you want.
 
-![](/img/blog/bookdown-netlify-github-actions/status-badge.png)
+```{r echo=FALSE, fig.align='center'}
+knitr::include_graphics("status-badge.png")
+```
 
 ## Get a Netlify personal access token
 
 Scroll all the way up and click on your icon in the top right corner.
 Then go to "User settings"
 
-![](/img/blog/bookdown-netlify-github-actions/icon.png)
+```{r echo=FALSE, fig.align='center'}
+knitr::include_graphics("icon.png")
+```
 
 go to "Applications"
 
-![](/img/blog/bookdown-netlify-github-actions/user-settings.png)
+```{r echo=FALSE, fig.align='center'}
+knitr::include_graphics("user-settings.png")
+```
 
 And click on "New access token" to create a personal access token
 
-![](/img/blog/bookdown-netlify-github-actions/personal-access-token.png)
+```{r echo=FALSE, fig.align='center'}
+knitr::include_graphics("personal-access-token.png")
+```
 
 The description of your token isn't important but try to make it related to your book so you remember.
 Click "Generate token" when you are done.
 
-![](/img/blog/bookdown-netlify-github-actions/generate-token.png)
+```{r echo=FALSE, fig.align='center'}
+knitr::include_graphics("generate-token.png")
+```
+
 Here is your authentication token. 
 Copy it and don't lose it!
 Once you leave this site you can get it back.
 
-![](/img/blog/bookdown-netlify-github-actions/created-token.png)
+```{r echo=FALSE, fig.align='center'}
+knitr::include_graphics("created-token.png")
+```
 
 ## Store Your Secrets
 
 Now that you have the API ID and personal access token go back to your Github repository and go to "Settings"
 
-![](/img/blog/bookdown-netlify-github-actions/github-settings.png)
+```{r echo=FALSE, fig.align='center'}
+knitr::include_graphics("github-settings.png")
+```
 
 go to "Secrets"
 
-![](/img/blog/bookdown-netlify-github-actions/github-secrets.png)
+```{r echo=FALSE, fig.align='center'}
+knitr::include_graphics("github-secrets.png")
+```
 
 Click on "Add a new secret"
 
-![](/img/blog/bookdown-netlify-github-actions/add-new-secret.png)
+```{r echo=FALSE, fig.align='center'}
+knitr::include_graphics("add-new-secret.png")
+```
 
 You need to do this twice.
 
 - one named "NETLIFY_AUTH_TOKEN" where you put the personal access token as the value and,
 - one named "NETLIFY_SITE_ID" where you put the API ID as the value.
 
-![](/img/blog/bookdown-netlify-github-actions/fill-in-secret.png)
+```{r echo=FALSE, fig.align='center'}
+knitr::include_graphics("fill-in-secret.png")
+```
 
 ## Create Github workflow
 

@@ -64,59 +64,59 @@ I have it set up with Github for easier interaction.</p>
 <div id="create-netlify-site" class="section level2">
 <h2>Create Netlify site</h2>
 <p>Once you have logged into Netlify go to your team page and to create a “New site from Git”</p>
-<p><img src="/img/blog/bookdown-netlify-github-actions/netlify-teams.png" /></p>
+<p><img src="netlify-teams.png" width="700px" style="display: block; margin: auto;" /></p>
 <p>Select Github for Continuous Deployment</p>
-<p><img src="/img/blog/bookdown-netlify-github-actions/create-new-site.png" /></p>
+<p><img src="create-new-site.png" width="700px" style="display: block; margin: auto;" /></p>
 <p>Now we need to select the GitHub repository.
 Depending on how many repositories you have you can find it in the list or search for it with the search bar.
 Once you have found it click the little arrow to the right of it.</p>
-<p><img src="/img/blog/bookdown-netlify-github-actions/pick-a-repository.png" /></p>
+<p><img src="pick-a-repository.png" width="700px" style="display: block; margin: auto;" /></p>
 <p>Don’t touch any of the settings.</p>
-<p><img src="/img/blog/bookdown-netlify-github-actions/deploy-settings.png" /></p>
+<p><img src="deploy-settings.png" width="700px" style="display: block; margin: auto;" /></p>
 <p>And voila!
 Here is your new site, it is currently empty.
 Now click on the “Site settings” button</p>
-<p><img src="/img/blog/bookdown-netlify-github-actions/new-site.png" /></p>
+<p><img src="new-site.png" width="700px" style="display: block; margin: auto;" /></p>
 <p>copy the API ID and save it, you will need it in a little bit.
 If you lose it you can always come back here and copy it again.</p>
-<p><img src="/img/blog/bookdown-netlify-github-actions/site-id.png" /></p>
+<p><img src="site-id.png" width="700px" style="display: block; margin: auto;" /></p>
 <p>You might have noticed that the website is completely random.
 If you click on the “Change site name” button you can set a new prefix name.</p>
-<p><img src="/img/blog/bookdown-netlify-github-actions/set-name.png" /></p>
+<p><img src="set-name.png" width="700px" style="display: block; margin: auto;" /></p>
 <p>Scroll down to get the Status Badge, you can copy this too and put it in the top of your README.md file if you want.</p>
-<p><img src="/img/blog/bookdown-netlify-github-actions/status-badge.png" /></p>
+<p><img src="status-badge.png" width="700px" style="display: block; margin: auto;" /></p>
 </div>
 <div id="get-a-netlify-personal-access-token" class="section level2">
 <h2>Get a Netlify personal access token</h2>
 <p>Scroll all the way up and click on your icon in the top right corner.
 Then go to “User settings”</p>
-<p><img src="/img/blog/bookdown-netlify-github-actions/icon.png" /></p>
+<p><img src="icon.png" width="700px" style="display: block; margin: auto;" /></p>
 <p>go to “Applications”</p>
-<p><img src="/img/blog/bookdown-netlify-github-actions/user-settings.png" /></p>
+<p><img src="user-settings.png" width="700px" style="display: block; margin: auto;" /></p>
 <p>And click on “New access token” to create a personal access token</p>
-<p><img src="/img/blog/bookdown-netlify-github-actions/personal-access-token.png" /></p>
+<p><img src="personal-access-token.png" width="700px" style="display: block; margin: auto;" /></p>
 <p>The description of your token isn’t important but try to make it related to your book so you remember.
 Click “Generate token” when you are done.</p>
-<p><img src="/img/blog/bookdown-netlify-github-actions/generate-token.png" />
-Here is your authentication token.
+<p><img src="generate-token.png" width="700px" style="display: block; margin: auto;" /></p>
+<p>Here is your authentication token.
 Copy it and don’t lose it!
 Once you leave this site you can get it back.</p>
-<p><img src="/img/blog/bookdown-netlify-github-actions/created-token.png" /></p>
+<p><img src="created-token.png" width="700px" style="display: block; margin: auto;" /></p>
 </div>
 <div id="store-your-secrets" class="section level2">
 <h2>Store Your Secrets</h2>
 <p>Now that you have the API ID and personal access token go back to your Github repository and go to “Settings”</p>
-<p><img src="/img/blog/bookdown-netlify-github-actions/github-settings.png" /></p>
+<p><img src="github-settings.png" width="700px" style="display: block; margin: auto;" /></p>
 <p>go to “Secrets”</p>
-<p><img src="/img/blog/bookdown-netlify-github-actions/github-secrets.png" /></p>
+<p><img src="github-secrets.png" width="700px" style="display: block; margin: auto;" /></p>
 <p>Click on “Add a new secret”</p>
-<p><img src="/img/blog/bookdown-netlify-github-actions/add-new-secret.png" /></p>
+<p><img src="add-new-secret.png" width="700px" style="display: block; margin: auto;" /></p>
 <p>You need to do this twice.</p>
 <ul>
 <li>one named “NETLIFY_AUTH_TOKEN” where you put the personal access token as the value and,</li>
 <li>one named “NETLIFY_SITE_ID” where you put the API ID as the value.</li>
 </ul>
-<p><img src="/img/blog/bookdown-netlify-github-actions/fill-in-secret.png" /></p>
+<p><img src="fill-in-secret.png" width="700px" style="display: block; margin: auto;" /></p>
 </div>
 <div id="create-github-workflow" class="section level2">
 <h2>Create Github workflow</h2>
