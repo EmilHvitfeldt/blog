@@ -53,7 +53,7 @@ library(usethis)</code></pre>
 <p>Side-note, if you are to create a R package, you need a name. It needs to be unique, especially if you plan on getting your package on CRAN. The <strong>available</strong> package can help you evaluate possible names to make sure they don’t clash with other names and that they don’t mean something rude. For this example I’m going to make a horrible name by shortening the phrases “<strong>u</strong>se<strong>t</strong>his <strong>w</strong>ork<strong>f</strong>low”</p>
 <pre class="r"><code>library(available)
 available(&quot;utwf&quot;)</code></pre>
-<p><img src="/img/blog/usethis-workflow-for-package-development/Screen%20Shot%202018-09-02%20at%2019.34.04.png" /></p>
+<p><img src="Screen%20Shot%202018-09-02%20at%2019.34.04.png" width="700px" style="display: block; margin: auto;" /></p>
 <p>the only acronym it finds is “Umauma Triple Water Falls” so we are good to go. Next we need to make sure that you have setup <strong>usethis</strong>, for this section I’ll refer to the original documentation <a href="http://usethis.r-lib.org/articles/articles/usethis-setup.html">usethis setup</a> as it explains these steps better then I could.</p>
 </div>
 <div id="creating-minimal-functional-package" class="section level2">
@@ -63,11 +63,11 @@ available(&quot;utwf&quot;)</code></pre>
 <pre class="r"><code>create_package(&quot;~/Desktop/utwf&quot;)
 use_git()
 use_github()</code></pre>
-<p><img src="/img/blog/usethis-workflow-for-package-development/Screen%20Shot%202018-09-02%20at%2016.39.18.png" />
-<img src="/img/blog/usethis-workflow-for-package-development/Screen%20Shot%202018-09-02%20at%2016.41.05.png" />
-<img src="/img/blog/usethis-workflow-for-package-development/Screen%20Shot%202018-09-02%20at%2016.42.53.png" /></p>
+<p><img src="Screen%20Shot%202018-09-02%20at%2016.39.18.png" width="700px" style="display: block; margin: auto;" /></p>
+<p><img src="Screen%20Shot%202018-09-02%20at%2016.41.05.png" width="700px" style="display: block; margin: auto;" /></p>
+<p><img src="Screen%20Shot%202018-09-02%20at%2016.42.53.png" width="700px" style="display: block; margin: auto;" /></p>
 <p>And we are done! We now have a minimal R package, complete with Github repository. With these files included:</p>
-<p><img src="/img/blog/usethis-workflow-for-package-development/Screen%20Shot%202018-09-02%20at%2016.56.20.png" /></p>
+<p><img src="Screen%20Shot%202018-09-02%20at%2016.56.20.png" width="700px" style="display: block; margin: auto;" /></p>
 <p>Right now it doesn’t have much, in fact it doesn’t even have a single function in it. We can check that the package works by pressing “Install and Restart” in the “Build” panel. Alternatively you can use the keyboard shortcut Cmd+Shift+B (Ctrl+Shift+B for Windows).</p>
 </div>
 <div id="one-time-modifications" class="section level2">
@@ -79,32 +79,32 @@ use_github()</code></pre>
 use_gpl3_license()
 use_apl2_license()
 use_cc0_license()</code></pre>
-<p><img src="/img/blog/usethis-workflow-for-package-development/Screen%20Shot%202018-09-02%20at%2017.17.47.png" /></p>
+<p><img src="Screen%20Shot%202018-09-02%20at%2017.17.47.png" width="700px" style="display: block; margin: auto;" /></p>
 <p>Choice of which license you neeed is beyond the scope of this post. Please refer to the <a href="http://r-pkgs.had.co.nz/description.html#license">R Packages license section</a> or <a href="https://choosealicense.com/">https://choosealicense.com/</a> for further assistance.</p>
 <p>Now we add the <em>readme</em> files, this is done using the</p>
 <pre class="r"><code>use_readme_rmd()</code></pre>
-<p><img src="/img/blog/usethis-workflow-for-package-development/Screen%20Shot%202018-09-02%20at%2017.39.55.png" /></p>
+<p><img src="Screen%20Shot%202018-09-02%20at%2017.39.55.png" width="700px" style="display: block; margin: auto;" /></p>
 <p>This will create a <em>readme.Rmd</em> file that you can edit and knit as you normally would.</p>
 <p>Next we will setup some continuous integration. I’ll recommend trying to do all of the 3 following:</p>
 <pre class="r"><code>use_travis()
 use_appveyor()
 use_coverage(type = c(&quot;codecov&quot;))</code></pre>
-<p><img src="/img/blog/usethis-workflow-for-package-development/Screen%20Shot%202018-09-02%20at%2017.34.04.png" /></p>
+<p><img src="Screen%20Shot%202018-09-02%20at%2017.34.04.png" width="700px" style="display: block; margin: auto;" /></p>
 <p>These calls won’t do all the work for you, so you would have to follow the directions (following red circles) and turn on the services on the Travis and AppVeyor websites respectively, copy badges to the readme (typically placed right under the main title “# utwf”) and copy the code snippet to the <em>.travis.yml</em> file.</p>
 <p>You will most likely also want to include unit testing, this can be achieved using the <a href="https://github.com/r-lib/testthat">testthat</a> package, to include the testing capasity of <strong>testthat</strong> in your package simply run the following</p>
 <pre class="r"><code>use_testthat()</code></pre>
-<p><img src="/img/blog/usethis-workflow-for-package-development/Screen%20Shot%202018-09-02%20at%2017.29.02.png" /></p>
+<p><img src="Screen%20Shot%202018-09-02%20at%2017.29.02.png" width="700px" style="display: block; margin: auto;" /></p>
 <p>you will need to add at least one test to avoid failed builds on Travis-ci and Appveyor. More information on how to do testing can be found at the <a href="http://r-pkgs.had.co.nz/tests.html">Testing</a> chapter in the R packages book.</p>
 <p>Next we will add spell checking to our workflow, this is done with</p>
 <pre class="r"><code>use_spell_check()</code></pre>
-<p><img src="/img/blog/usethis-workflow-for-package-development/Screen%20Shot%202018-09-02%20at%2017.22.40.png" /></p>
+<p><img src="Screen%20Shot%202018-09-02%20at%2017.22.40.png" width="700px" style="display: block; margin: auto;" /></p>
 <p>Make sure that the <strong>spelling</strong> package is installed before running.</p>
 <p>If you are going to include data in your package, you would want to include a <em>data-raw</em> folder where the data is created/formatted.</p>
 <pre class="r"><code>use_data_raw()</code></pre>
-<p><img src="/img/blog/usethis-workflow-for-package-development/Screen%20Shot%202018-09-02%20at%2017.27.12.png" /></p>
+<p><img src="Screen%20Shot%202018-09-02%20at%2017.27.12.png" width="700px" style="display: block; margin: auto;" /></p>
 <p>Lastly if you plan on doing a little larger project a <em>NEWS</em> file is very handy to keep track on what is happening in your package.</p>
 <pre class="r"><code>use_news_md()</code></pre>
-<p><img src="/img/blog/usethis-workflow-for-package-development/Screen%20Shot%202018-09-02%20at%2017.45.27.png" /></p>
+<p><img src="Screen%20Shot%202018-09-02%20at%2017.45.27.png" width="700px" style="display: block; margin: auto;" /></p>
 </div>
 <div id="multiple-time-modifications" class="section level2">
 <h2>Multiple time modifications</h2>
@@ -120,17 +120,17 @@ use_coverage(type = c(&quot;codecov&quot;))</code></pre>
 </ul>
 <p>Writing code most likely includes writing functions, this is helped by the <code>use_r()</code> function by adding and opening a .R file that you write your function in</p>
 <pre class="r"><code>use_r(&quot;function_name&quot;)</code></pre>
-<p><img src="/img/blog/usethis-workflow-for-package-development/Screen%20Shot%202018-09-02%20at%2017.57.38.png" /></p>
+<p><img src="Screen%20Shot%202018-09-02%20at%2017.57.38.png" width="700px" style="display: block; margin: auto;" /></p>
 <p>This function is very important and you will using it a lot, not only will it create the files you save your functions in, but it will also open the files if they are already created, this makes navigating your R files much easier. Once you have created your function it is time to add some tests! This is done using the <code>use_test()</code> function, and it works much the same way as the <code>use_r()</code>.</p>
 <pre class="r"><code>use_test(&quot;function_name&quot;)</code></pre>
-<p><img src="/img/blog/usethis-workflow-for-package-development/Screen%20Shot%202018-09-02%20at%2018.04.35.png" /></p>
+<p><img src="Screen%20Shot%202018-09-02%20at%2018.04.35.png" width="700px" style="display: block; margin: auto;" /></p>
 <p>In the creating of your functions, you might need to depend on another package, to add a function to the <em>imports</em> field in the <em>DESCRIPTION</em> file you can use the <code>use_package()</code> function</p>
 <pre class="r"><code>use_package(&quot;dplyr&quot;) </code></pre>
-<p><img src="/img/blog/usethis-workflow-for-package-development/Screen%20Shot%202018-09-02%20at%2018.03.21.png" /></p>
+<p><img src="Screen%20Shot%202018-09-02%20at%2018.03.21.png" width="700px" style="display: block; margin: auto;" /></p>
 <p>Special cases function includes <code>use_rcpp()</code>, <code>use_pipe()</code> and <code>use_tibble()</code>.</p>
 <p>An vignette provides a nice piece of documentation once you have added a bunch of capabilities to your package.</p>
 <pre class="r"><code>use_vignette(&quot;How to do this cool analysis&quot;)</code></pre>
-<p><img src="/img/blog/usethis-workflow-for-package-development/Screen%20Shot%202018-09-02%20at%2018.08.50.png" /></p>
+<p><img src="Screen%20Shot%202018-09-02%20at%2018.08.50.png" width="700px" style="display: block; margin: auto;" /></p>
 </div>
 <div id="before-every-commit" class="section level2">
 <h2>Before every commit</h2>
@@ -151,7 +151,7 @@ use_coverage(type = c(&quot;codecov&quot;))</code></pre>
 </ul>
 <p>update the version number with the use of</p>
 <pre class="r"><code>use_version()</code></pre>
-<p><img src="/img/blog/usethis-workflow-for-package-development/Screen%20Shot%202018-09-02%20at%2019.16.46.png" /></p>
+<p><img src="Screen%20Shot%202018-09-02%20at%2019.16.46.png" width="700px" style="display: block; margin: auto;" /></p>
 <p>And you are good to go!</p>
 </div>
 <div id="conclusion" class="section level2">

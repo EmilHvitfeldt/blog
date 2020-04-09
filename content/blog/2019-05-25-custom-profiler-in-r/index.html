@@ -62,8 +62,8 @@ pca_kmeans &lt;- function(x, threshold = 0.9, centers = 2) {
   pca_kmeans(large_data)
 })</code></pre>
 <p>And we get the following information back.</p>
-<p><img src="/img/blog/custom-profiler-in-r/profvis-flame.png" />
-<img src="/img/blog/custom-profiler-in-r/profvis-data.png" /></p>
+<p><img src="profvis-flame.png" width="700px" style="display: block; margin: auto;" /></p>
+<p><img src="profvis-data.png" width="700px" style="display: block; margin: auto;" /></p>
 </div>
 <div id="the-problem" class="section level2">
 <h2>The Problem</h2>
@@ -117,7 +117,7 @@ head(profile)</code></pre>
   x &lt;- pca_kmeans(large_data),
   pattern = &quot;pca_threshold&quot;
 )
-## [1] 0.6666667</code></pre>
+## [1] 0.75</code></pre>
 <p>And this is how to create a custom profiler. Simple modify the last line in the skeleton function <code>prof_procentage</code> to change its behavior.</p>
 </div>
 <div id="the-extensions" class="section level2">
@@ -139,7 +139,7 @@ prof_procentage_plot(
   x &lt;- pca_kmeans(large_data),
   pattern = &quot;pca_threshold&quot;
 )</code></pre>
-<p><img src="/blog/2019-05-25-custom-profiler-in-r_files/figure-html/unnamed-chunk-11-1.png" width="700px" style="display: block; margin: auto;" /></p>
+<p><img src="/blog/2019-05-25-custom-profiler-in-r/index_files/figure-html/unnamed-chunk-13-1.png" width="700px" style="display: block; margin: auto;" /></p>
 </div>
 <div id="the-follow-up" class="section level2">
 <h2>The follow-up</h2>

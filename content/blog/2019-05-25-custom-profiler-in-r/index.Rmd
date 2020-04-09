@@ -84,8 +84,13 @@ profvis::profvis({
 
 And we get the following information back.
 
-![](/img/blog/custom-profiler-in-r/profvis-flame.png)
-![](/img/blog/custom-profiler-in-r/profvis-data.png)
+```{r echo=FALSE, fig.align='center'}
+knitr::include_graphics("profvis-flame.png")
+```
+
+```{r echo=FALSE, fig.align='center'}
+knitr::include_graphics("profvis-data.png")
+```
 
 ## The Problem
 

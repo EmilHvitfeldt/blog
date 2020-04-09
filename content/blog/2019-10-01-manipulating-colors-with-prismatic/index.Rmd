@@ -60,7 +60,9 @@ scico::scico(256, palette = "buda") %>% color() %>% plot()
 
 Which I would like to think is one of the main features of the package. If you happens to have [crayon](https://github.com/r-lib/crayon) available you will see a approximation of the colors with a filled in background (this limited to 256 colors so you milage might very, when in doubt use `plot()`)
 
-![](/img/blog/manipulating-colors-with-prismatic/print.png)
+```{r echo=FALSE, fig.align='center'}
+knitr::include_graphics("print.png")
+```
 
 This is the extent of what the color object can do.
 

@@ -100,6 +100,8 @@ emoji_all %>%
        y = "Count", x = "")
 ```
 
-![](/img/blog/emoji-use-on-twitter/unnamed-chunk-7-1.png)
+```{r echo=FALSE, fig.align='center'}
+knitr::include_graphics("unnamed-chunk-7-1.png")
+```
 
 Using the `emoji` data.frame allows us to gain quick insight with the descriptive short names.

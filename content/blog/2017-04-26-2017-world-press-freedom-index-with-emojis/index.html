@@ -57,9 +57,9 @@ library(emo)</code></pre>
 ##  8 JAM       8 Jamaïque   Jamaica    Jamaica                1273
 ##  9 BEL       9 Belgique   Belgium    Bélgica                1247
 ## 10 ISL      10 Islande    Iceland    Islandia               1303
-## # ... with 170 more rows, and 6 more variables: `Abuse score 2016` &lt;chr&gt;,
-## #   `Overall Score 2016` &lt;dbl&gt;, `Progression RANK` &lt;dbl&gt;, `Rank
-## #   2015` &lt;dbl&gt;, `Score 2015` &lt;dbl&gt;, Zone &lt;chr&gt;</code></pre>
+## # … with 170 more rows, and 6 more variables: `Abuse score 2016` &lt;chr&gt;,
+## #   `Overall Score 2016` &lt;dbl&gt;, `Progression RANK` &lt;dbl&gt;, `Rank 2015` &lt;dbl&gt;,
+## #   `Score 2015` &lt;dbl&gt;, Zone &lt;chr&gt;</code></pre>
 <p>and we see that a total of 180 countries have a score (Overall Score 2016).</p>
 </div>
 <div id="gdp-per-capita" class="section level4">
@@ -107,7 +107,7 @@ which we load in as normal.</p>
 ##  8 armenia              🇦🇲   
 ##  9 angola               🇦🇴   
 ## 10 antarctica           🇦🇶   
-## # ... with 254 more rows</code></pre>
+## # … with 254 more rows</code></pre>
 <p>we first notice that the first two emojis are not country flags, and that the name of the countries are not on same format as what we have from earlier, so we replace the underscores with spaces and translate everything to lowercase before joining. This time by country name. Again we check for missed joints.</p>
 <pre class="r"><code>left_join(freedom_index, gdp_pcap, by = c(&quot;ISO&quot; = &quot;Country Code&quot;)) %&gt;% 
   mutate(EN_country = tolower(EN_country)) %&gt;% 
@@ -131,7 +131,7 @@ which we load in as normal.</p>
 ##  8 south korea           
 ##  9 bosnia and herzegovina
 ## 10 japan                 
-## # ... with 12 more rows</code></pre>
+## # … with 12 more rows</code></pre>
 <p>Which is quite a few. It turns out that the naming convention for the emoji names have not been that consistent, “de” used instead of “germany” etc. To clear up code later on we make a new emoji tibble with all the changes.</p>
 <pre class="r"><code>newemoji &lt;- emo::ji_find(&quot;flag&quot;) %&gt;% 
               mutate(name = str_replace_all(string = name,
@@ -173,7 +173,7 @@ newemoji</code></pre>
 ##  8 armenia              🇦🇲   
 ##  9 angola               🇦🇴   
 ## 10 antarctica           🇦🇶   
-## # ... with 254 more rows</code></pre>
+## # … with 254 more rows</code></pre>
 </div>
 </div>
 <div id="plotting-it-all-with-ggplot2" class="section level3">
@@ -185,7 +185,7 @@ newemoji</code></pre>
   ggplot(aes(x = `2015`, y = `Overall Score 2016`)) +
   geom_text(aes(label = emoji))</code></pre>
 <pre><code>## Warning: Removed 14 rows containing missing values (geom_text).</code></pre>
-<p><img src="/blog/2017-04-26-2017-world-press-freedom-index-with-emojis_files/figure-html/unnamed-chunk-10-1.png" width="700px" style="display: block; margin: auto;" /></p>
+<p><img src="/blog/2017-04-26-2017-world-press-freedom-index-with-emojis/index_files/figure-html/unnamed-chunk-10-1.png" width="700px" style="display: block; margin: auto;" /></p>
 <p>But wait, we have a couple of problems:</p>
 <ul>
 <li>The emojis don’t show up.</li>
@@ -207,5 +207,5 @@ newemoji</code></pre>
   labs(x = &quot;GDP per capita (current US$)&quot;, y = &quot;2017 World Press Freedom Index&quot;,
        title = &quot;Countries with high GDP per capita\ntend to have low Freedom Index&quot;,
        subtitle = &quot;Visualized with emojis&quot;)</code></pre>
-<p><img src="/img/blog/2017-world-press-freedom-index-with-emojis/pic1.svg" /></p>
+<p><img src="final.svg" width="700px" style="display: block; margin: auto;" /></p>
 </div>

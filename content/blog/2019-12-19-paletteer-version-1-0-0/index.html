@@ -57,7 +57,7 @@ but to be honest the package felt more like a novelty project than a useful tool
 <p>All of this changes with version 1.0.0 🎉!
 Simply starting by typing <code>paletteer_d()</code> or any of the other related functions and simply hit tab.
 This will prompt all the names of available palettes which you then can search through using fuzzy search.</p>
-<p><img src="/img/blog/paletteer-version-1-0-0/complete1.gif" /></p>
+<p><img src="complete1.gif" width="700px" style="display: block; margin: auto;" /></p>
 <p>This change is the single biggest improvement to this package.</p>
 <ul>
 <li>Discoverability ✅</li>
@@ -65,7 +65,7 @@ This will prompt all the names of available palettes which you then can search t
 <li>Total awesomeness ✅</li>
 </ul>
 <p>And yes, it also work with the <code>scale_*_paletteer()</code> functions 🙌</p>
-<p><img src="/img/blog/paletteer-version-1-0-0/complete2.gif" /></p>
+<p><img src="complete2.gif" width="700px" style="display: block; margin: auto;" /></p>
 </div>
 <div id="prismatic-integration" class="section level2">
 <h2>Prismatic integration 💎</h2>
@@ -75,12 +75,12 @@ The <strong>prismatic</strong> colors objects that are returned from all <strong
 This is great for when you want to take a quick look at the colors you are about to use.
 Please note that the background can only take <a href="https://github.com/r-lib/crayon#256-colors">256</a> different colors.
 Some palettes will fit nicely inside these 256 values and will display nicely (viridis::magma) below, while other palettes with a lot of value will show weird jumps in colors (gameofthrones::greyjoy)</p>
-<p><img src="/img/blog/paletteer-version-1-0-0/prismatic1.png" /></p>
+<p><img src="prismatic1.png" width="700px" style="display: block; margin: auto;" /></p>
 <p>If you want more accurate color depictions you can simply <code>plot()</code> the output to see the real colors</p>
 <pre class="r"><code>plot(paletteer_c(&quot;viridis::magma&quot;, 10))</code></pre>
-<p><img src="/blog/2019-12-19-paletteer-version-1-0-0_files/figure-html/unnamed-chunk-4-1.png" width="700px" style="display: block; margin: auto;" /></p>
+<p><img src="/blog/2019-12-19-paletteer-version-1-0-0/index_files/figure-html/unnamed-chunk-7-1.png" width="700px" style="display: block; margin: auto;" /></p>
 <pre class="r"><code>plot(paletteer_c(&quot;gameofthrones::greyjoy&quot;, 100))</code></pre>
-<p><img src="/blog/2019-12-19-paletteer-version-1-0-0_files/figure-html/unnamed-chunk-5-1.png" width="700px" style="display: block; margin: auto;" /></p>
+<p><img src="/blog/2019-12-19-paletteer-version-1-0-0/index_files/figure-html/unnamed-chunk-8-1.png" width="700px" style="display: block; margin: auto;" /></p>
 </div>
 <div id="more-color-palettes" class="section level2">
 <h2>More color palettes 🌈</h2>

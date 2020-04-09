@@ -64,7 +64,9 @@ library(available)
 available("utwf")
 ```
 
-![](/img/blog/usethis-workflow-for-package-development/Screen Shot 2018-09-02 at 19.34.04.png)
+```{r echo=FALSE, fig.align='center'}
+knitr::include_graphics("Screen Shot 2018-09-02 at 19.34.04.png")
+```
 
 the only acronym it finds is "Umauma Triple Water Falls" so we are good to go. Next we need to make sure that you have setup **usethis**, for this section I'll refer to the original documentation [usethis setup](http://usethis.r-lib.org/articles/articles/usethis-setup.html) as it explains these steps better then I could.
 
@@ -79,13 +81,24 @@ create_package("~/Desktop/utwf")
 use_git()
 use_github()
 ```
-![](/img/blog/usethis-workflow-for-package-development/Screen Shot 2018-09-02 at 16.39.18.png)
-![](/img/blog/usethis-workflow-for-package-development/Screen Shot 2018-09-02 at 16.41.05.png)
-![](/img/blog/usethis-workflow-for-package-development/Screen Shot 2018-09-02 at 16.42.53.png)
+
+```{r echo=FALSE, fig.align='center'}
+knitr::include_graphics("Screen Shot 2018-09-02 at 16.39.18.png")
+```
+
+```{r echo=FALSE, fig.align='center'}
+knitr::include_graphics("Screen Shot 2018-09-02 at 16.41.05.png")
+```
+
+```{r echo=FALSE, fig.align='center'}
+knitr::include_graphics("Screen Shot 2018-09-02 at 16.42.53.png")
+```
 
 And we are done! We now have a minimal R package, complete with Github repository. With these files included:
 
-![](/img/blog/usethis-workflow-for-package-development/Screen Shot 2018-09-02 at 16.56.20.png)
+```{r echo=FALSE, fig.align='center'}
+knitr::include_graphics("Screen Shot 2018-09-02 at 16.56.20.png")
+```
 
 Right now it doesn't have much, in fact it doesn't even have a single function in it. We can check that the package works by pressing "Install and Restart" in the "Build" panel. Alternatively you can use the keyboard shortcut Cmd+Shift+B (Ctrl+Shift+B for Windows). 
 
@@ -104,7 +117,9 @@ use_apl2_license()
 use_cc0_license()
 ```
 
-![](/img/blog/usethis-workflow-for-package-development/Screen Shot 2018-09-02 at 17.17.47.png)
+```{r echo=FALSE, fig.align='center'}
+knitr::include_graphics("Screen Shot 2018-09-02 at 17.17.47.png")
+```
 
 Choice of which license you neeed is beyond the scope of this post. Please refer to the [R Packages license section](http://r-pkgs.had.co.nz/description.html#license) or [https://choosealicense.com/](https://choosealicense.com/) for further assistance.  
 
@@ -114,7 +129,9 @@ Now we add the *readme* files, this is done using the
 use_readme_rmd()
 ```
 
-![](/img/blog/usethis-workflow-for-package-development/Screen Shot 2018-09-02 at 17.39.55.png)
+```{r echo=FALSE, fig.align='center'}
+knitr::include_graphics("Screen Shot 2018-09-02 at 17.39.55.png")
+```
 
 This will create a *readme.Rmd* file that you can edit and knit as you normally would.  
 
@@ -126,7 +143,9 @@ use_appveyor()
 use_coverage(type = c("codecov"))
 ```
 
-![](/img/blog/usethis-workflow-for-package-development/Screen Shot 2018-09-02 at 17.34.04.png)
+```{r echo=FALSE, fig.align='center'}
+knitr::include_graphics("Screen Shot 2018-09-02 at 17.34.04.png")
+```
 
 These calls won't do all the work for you, so you would have to follow the directions (following red circles) and turn on the services on the Travis and AppVeyor websites respectively, copy badges to the readme (typically placed right under the main title "# utwf") and copy the code snippet to the *.travis.yml* file.  
 
@@ -136,7 +155,9 @@ You will most likely also want to include unit testing, this can be achieved usi
 use_testthat()
 ```
 
-![](/img/blog/usethis-workflow-for-package-development/Screen Shot 2018-09-02 at 17.29.02.png)
+```{r echo=FALSE, fig.align='center'}
+knitr::include_graphics("Screen Shot 2018-09-02 at 17.29.02.png")
+```
 
 you will need to add at least one test to avoid failed builds on Travis-ci and Appveyor. More information on how to do testing can be found at the [Testing](http://r-pkgs.had.co.nz/tests.html) chapter in the R packages book.  
 
@@ -146,7 +167,9 @@ Next we will add spell checking to our workflow, this is done with
 use_spell_check()
 ```
 
-![](/img/blog/usethis-workflow-for-package-development/Screen Shot 2018-09-02 at 17.22.40.png)
+```{r echo=FALSE, fig.align='center'}
+knitr::include_graphics("Screen Shot 2018-09-02 at 17.22.40.png")
+```
 
 Make sure that the **spelling** package is installed before running.  
 
@@ -156,7 +179,9 @@ If you are going to include data in your package, you would want to include a *d
 use_data_raw()
 ```
 
-![](/img/blog/usethis-workflow-for-package-development/Screen Shot 2018-09-02 at 17.27.12.png)
+```{r echo=FALSE, fig.align='center'}
+knitr::include_graphics("Screen Shot 2018-09-02 at 17.27.12.png")
+```
 
 Lastly if you plan on doing a little larger project a *NEWS* file is very handy to keep track on what is happening in your package.
 
@@ -164,7 +189,9 @@ Lastly if you plan on doing a little larger project a *NEWS* file is very handy 
 use_news_md()
 ```
 
-![](/img/blog/usethis-workflow-for-package-development/Screen Shot 2018-09-02 at 17.45.27.png)
+```{r echo=FALSE, fig.align='center'}
+knitr::include_graphics("Screen Shot 2018-09-02 at 17.45.27.png")
+```
 
 ## Multiple time modifications
 
@@ -185,7 +212,9 @@ Writing code most likely includes writing functions, this is helped by the `use_
 use_r("function_name")
 ```
 
-![](/img/blog/usethis-workflow-for-package-development/Screen Shot 2018-09-02 at 17.57.38.png)
+```{r echo=FALSE, fig.align='center'}
+knitr::include_graphics("Screen Shot 2018-09-02 at 17.57.38.png")
+```
 
 This function is very important and you will using it a lot, not only will it create the files you save your functions in, but it will also open the files if they are already created, this makes navigating your R files much easier. Once you have created your function it is time to add some tests! This is done using the `use_test()` function, and it works much the same way as the `use_r()`.
 
@@ -193,7 +222,9 @@ This function is very important and you will using it a lot, not only will it cr
 use_test("function_name")
 ```
 
-![](/img/blog/usethis-workflow-for-package-development/Screen Shot 2018-09-02 at 18.04.35.png)
+```{r echo=FALSE, fig.align='center'}
+knitr::include_graphics("Screen Shot 2018-09-02 at 18.04.35.png")
+```
 
 In the creating of your functions, you might need to depend on another package, to add a function to the *imports* field in the *DESCRIPTION* file you can use the `use_package()` function
 
@@ -201,7 +232,9 @@ In the creating of your functions, you might need to depend on another package, 
 use_package("dplyr") 
 ```
 
-![](/img/blog/usethis-workflow-for-package-development/Screen Shot 2018-09-02 at 18.03.21.png)
+```{r echo=FALSE, fig.align='center'}
+knitr::include_graphics("Screen Shot 2018-09-02 at 18.03.21.png")
+```
 
 Special cases function includes `use_rcpp()`, `use_pipe()` and `use_tibble()`.
 
@@ -211,7 +244,9 @@ An vignette provides a nice piece of documentation once you have added a bunch o
 use_vignette("How to do this cool analysis")
 ```
 
-![](/img/blog/usethis-workflow-for-package-development/Screen Shot 2018-09-02 at 18.08.50.png)
+```{r echo=FALSE, fig.align='center'}
+knitr::include_graphics("Screen Shot 2018-09-02 at 18.08.50.png")
+```
 
 ## Before every commit
 
@@ -235,7 +270,9 @@ update the version number with the use of
 use_version()
 ```
 
-![](/img/blog/usethis-workflow-for-package-development/Screen Shot 2018-09-02 at 19.16.46.png)
+```{r echo=FALSE, fig.align='center'}
+knitr::include_graphics("Screen Shot 2018-09-02 at 19.16.46.png")
+```
 
 And you are good to go!  
 

@@ -38,7 +38,7 @@ Hello again! I this mini-series (of in-determined length) will I try as best as 
 I have recently read [The Visual Display of Quantitative Information](https://www.edwardtufte.com/tufte/books_vdqi) by Edward R Tufte, which I highly recommend. In the book the following chart was displayed which showed the sunshine record for each day day of the year.  
 
 ```{r echo=FALSE, out.width='100%'}
-knitr::include_graphics("/img/blog/recreate-sunshine-report/2018-01-01-13.53scan.jpg")
+knitr::include_graphics("2018-01-01-13.53scan.jpg")
 ```
 
 
@@ -227,7 +227,7 @@ save(full_data2, file = glue("{airport_code}-{year}.Rdata"))
 ```
 
 ```{r include=FALSE}
-load(glue("~/Github/blog/static/img/blog/recreate-sunshine-report/{airport_code}-{year}.Rdata"))
+load(glue("{airport_code}-{year}.Rdata"))
 ```
 
 ## Plotting data
@@ -272,7 +272,7 @@ full_data2 %>%
 ## Extra 
 
 ```{r echo=FALSE, fig.asp=1/2}
-load(glue("~/Github/blog/static/img/blog/recreate-sunshine-report/KNYC-{year}.Rdata"))
+load(glue("KNYC-{year}.Rdata"))
 full_data2 %>%
   mutate(con = Conditions == "Clear",
          day_minutes2 = lag(day_minutes)) %>%

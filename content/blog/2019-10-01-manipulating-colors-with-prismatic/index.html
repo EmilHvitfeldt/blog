@@ -46,13 +46,13 @@ library(magrittr) # for the glorious pipe</code></pre>
 <h2>Let me see the colors!!</h2>
 <p>If you have seen my work, you will properly know that I <a href="https://github.com/EmilHvitfeldt/r-color-palettes">like</a> <a href="https://github.com/EmilHvitfeldt/paletteer">colors</a> <a href="https://github.com/EmilHvitfeldt/quickpalette">alot</a>! But being also to quickly inspect some colors have always been a little too much work. Now all you have to do it pass your colors to <code>color()</code> (or <code>colour()</code> for our friends across the pond) to get a <color> object which has a nice <code>plot()</code> method</p>
 <pre class="r"><code>rainbow(10) %&gt;% color() %&gt;% plot()</code></pre>
-<p><img src="/blog/2019-10-01-manipulating-colors-with-prismatic_files/figure-html/unnamed-chunk-2-1.png" width="700px" style="display: block; margin: auto;" /></p>
+<p><img src="/blog/2019-10-01-manipulating-colors-with-prismatic/index_files/figure-html/unnamed-chunk-2-1.png" width="700px" style="display: block; margin: auto;" /></p>
 <pre class="r"><code>hcl.colors(25) %&gt;% color() %&gt;% plot()</code></pre>
-<p><img src="/blog/2019-10-01-manipulating-colors-with-prismatic_files/figure-html/unnamed-chunk-3-1.png" width="700px" style="display: block; margin: auto;" /></p>
+<p><img src="/blog/2019-10-01-manipulating-colors-with-prismatic/index_files/figure-html/unnamed-chunk-3-1.png" width="700px" style="display: block; margin: auto;" /></p>
 <pre class="r"><code>scico::scico(256, palette = &quot;buda&quot;) %&gt;% color() %&gt;% plot()</code></pre>
-<p><img src="/blog/2019-10-01-manipulating-colors-with-prismatic_files/figure-html/unnamed-chunk-4-1.png" width="700px" style="display: block; margin: auto;" /></p>
+<p><img src="/blog/2019-10-01-manipulating-colors-with-prismatic/index_files/figure-html/unnamed-chunk-4-1.png" width="700px" style="display: block; margin: auto;" /></p>
 <p>Which I would like to think is one of the main features of the package. If you happens to have <a href="https://github.com/r-lib/crayon">crayon</a> available you will see a approximation of the colors with a filled in background (this limited to 256 colors so you milage might very, when in doubt use <code>plot()</code>)</p>
-<p><img src="/img/blog/manipulating-colors-with-prismatic/print.png" /></p>
+<p><img src="print.png" width="700px" style="display: block; margin: auto;" /></p>
 <p>This is the extent of what the color object can do.</p>
 </div>
 <div id="manipulations" class="section level2">
@@ -70,10 +70,10 @@ library(magrittr) # for the glorious pipe</code></pre>
 <pre class="r"><code>hcl.colors(10, &quot;plasma&quot;) %&gt;%
   clr_desaturate(0.8) %&gt;%
   plot()</code></pre>
-<p><img src="/blog/2019-10-01-manipulating-colors-with-prismatic_files/figure-html/unnamed-chunk-5-1.png" width="700px" style="display: block; margin: auto;" /></p>
-<p><img src="/blog/2019-10-01-manipulating-colors-with-prismatic_files/figure-html/unnamed-chunk-6-1.png" width="700px" style="display: block; margin: auto;" /></p>
+<p><img src="/blog/2019-10-01-manipulating-colors-with-prismatic/index_files/figure-html/unnamed-chunk-6-1.png" width="700px" style="display: block; margin: auto;" /></p>
+<p><img src="/blog/2019-10-01-manipulating-colors-with-prismatic/index_files/figure-html/unnamed-chunk-7-1.png" width="700px" style="display: block; margin: auto;" /></p>
 <p>Example done with Mango palette from <a href="https://github.com/johannesbjork/LaCroixColoR">LaCroixColoR</a> package.</p>
-<p><img src="/blog/2019-10-01-manipulating-colors-with-prismatic_files/figure-html/unnamed-chunk-7-1.png" width="700px" style="display: block; margin: auto;" /></p>
+<p><img src="/blog/2019-10-01-manipulating-colors-with-prismatic/index_files/figure-html/unnamed-chunk-8-1.png" width="700px" style="display: block; margin: auto;" /></p>
 </div>
 <div id="seeing-life-in-black-and-white" class="section level3">
 <h3>Seeing life in black and white</h3>
@@ -81,9 +81,9 @@ library(magrittr) # for the glorious pipe</code></pre>
 <pre class="r"><code>hcl.colors(10) %&gt;%
   clr_greyscale() %&gt;%
   plot()</code></pre>
-<p><img src="/blog/2019-10-01-manipulating-colors-with-prismatic_files/figure-html/unnamed-chunk-8-1.png" width="700px" style="display: block; margin: auto;" /></p>
+<p><img src="/blog/2019-10-01-manipulating-colors-with-prismatic/index_files/figure-html/unnamed-chunk-9-1.png" width="700px" style="display: block; margin: auto;" /></p>
 <p>Be advised that not all of these methods are meant to be perceptually uniform.</p>
-<p><img src="/blog/2019-10-01-manipulating-colors-with-prismatic_files/figure-html/unnamed-chunk-9-1.png" width="700px" style="display: block; margin: auto;" /></p>
+<p><img src="/blog/2019-10-01-manipulating-colors-with-prismatic/index_files/figure-html/unnamed-chunk-10-1.png" width="700px" style="display: block; margin: auto;" /></p>
 </div>
 <div id="negate" class="section level3">
 <h3>Negate</h3>
@@ -91,8 +91,8 @@ library(magrittr) # for the glorious pipe</code></pre>
 <pre class="r"><code>terrain.colors(10) %&gt;%
   clr_negate() %&gt;%
   plot()</code></pre>
-<p><img src="/blog/2019-10-01-manipulating-colors-with-prismatic_files/figure-html/unnamed-chunk-10-1.png" width="700px" style="display: block; margin: auto;" /></p>
-<p><img src="/blog/2019-10-01-manipulating-colors-with-prismatic_files/figure-html/unnamed-chunk-11-1.png" width="700px" style="display: block; margin: auto;" /></p>
+<p><img src="/blog/2019-10-01-manipulating-colors-with-prismatic/index_files/figure-html/unnamed-chunk-11-1.png" width="700px" style="display: block; margin: auto;" /></p>
+<p><img src="/blog/2019-10-01-manipulating-colors-with-prismatic/index_files/figure-html/unnamed-chunk-12-1.png" width="700px" style="display: block; margin: auto;" /></p>
 </div>
 <div id="mixing" class="section level3">
 <h3>Mixing</h3>
@@ -100,9 +100,9 @@ library(magrittr) # for the glorious pipe</code></pre>
 <pre class="r"><code>rainbow(10) %&gt;%
   clr_mix(&quot;red&quot;) %&gt;%
   plot()</code></pre>
-<p><img src="/blog/2019-10-01-manipulating-colors-with-prismatic_files/figure-html/unnamed-chunk-12-1.png" width="700px" style="display: block; margin: auto;" /></p>
-<p><img src="/blog/2019-10-01-manipulating-colors-with-prismatic_files/figure-html/unnamed-chunk-13-1.png" width="700px" style="display: block; margin: auto;" /></p>
-<p><img src="/blog/2019-10-01-manipulating-colors-with-prismatic_files/figure-html/unnamed-chunk-14-1.png" width="700px" style="display: block; margin: auto;" /></p>
+<p><img src="/blog/2019-10-01-manipulating-colors-with-prismatic/index_files/figure-html/unnamed-chunk-13-1.png" width="700px" style="display: block; margin: auto;" /></p>
+<p><img src="/blog/2019-10-01-manipulating-colors-with-prismatic/index_files/figure-html/unnamed-chunk-14-1.png" width="700px" style="display: block; margin: auto;" /></p>
+<p><img src="/blog/2019-10-01-manipulating-colors-with-prismatic/index_files/figure-html/unnamed-chunk-15-1.png" width="700px" style="display: block; margin: auto;" /></p>
 </div>
 <div id="rotation" class="section level3">
 <h3>Rotation</h3>
@@ -110,8 +110,8 @@ library(magrittr) # for the glorious pipe</code></pre>
 <pre class="r"><code>terrain.colors(10) %&gt;%
   clr_rotate(90) %&gt;%
   plot()</code></pre>
-<p><img src="/blog/2019-10-01-manipulating-colors-with-prismatic_files/figure-html/unnamed-chunk-15-1.png" width="700px" style="display: block; margin: auto;" /></p>
-<p><img src="/blog/2019-10-01-manipulating-colors-with-prismatic_files/figure-html/unnamed-chunk-16-1.png" width="700px" style="display: block; margin: auto;" /></p>
+<p><img src="/blog/2019-10-01-manipulating-colors-with-prismatic/index_files/figure-html/unnamed-chunk-16-1.png" width="700px" style="display: block; margin: auto;" /></p>
+<p><img src="/blog/2019-10-01-manipulating-colors-with-prismatic/index_files/figure-html/unnamed-chunk-17-1.png" width="700px" style="display: block; margin: auto;" /></p>
 </div>
 <div id="color-blindness" class="section level3">
 <h3>Color blindness</h3>
@@ -119,10 +119,10 @@ library(magrittr) # for the glorious pipe</code></pre>
 <pre class="r"><code>hcl.colors(10) %&gt;%
   clr_deutan() %&gt;%
   plot()</code></pre>
-<p><img src="/blog/2019-10-01-manipulating-colors-with-prismatic_files/figure-html/unnamed-chunk-17-1.png" width="700px" style="display: block; margin: auto;" /></p>
-<p><img src="/blog/2019-10-01-manipulating-colors-with-prismatic_files/figure-html/unnamed-chunk-18-1.png" width="700px" style="display: block; margin: auto;" /></p>
-<p><img src="/blog/2019-10-01-manipulating-colors-with-prismatic_files/figure-html/unnamed-chunk-19-1.png" width="700px" style="display: block; margin: auto;" /></p>
-<p><img src="/blog/2019-10-01-manipulating-colors-with-prismatic_files/figure-html/unnamed-chunk-20-1.png" width="700px" style="display: block; margin: auto;" /></p>
+<p><img src="/blog/2019-10-01-manipulating-colors-with-prismatic/index_files/figure-html/unnamed-chunk-18-1.png" width="700px" style="display: block; margin: auto;" /></p>
+<p><img src="/blog/2019-10-01-manipulating-colors-with-prismatic/index_files/figure-html/unnamed-chunk-19-1.png" width="700px" style="display: block; margin: auto;" /></p>
+<p><img src="/blog/2019-10-01-manipulating-colors-with-prismatic/index_files/figure-html/unnamed-chunk-20-1.png" width="700px" style="display: block; margin: auto;" /></p>
+<p><img src="/blog/2019-10-01-manipulating-colors-with-prismatic/index_files/figure-html/unnamed-chunk-21-1.png" width="700px" style="display: block; margin: auto;" /></p>
 </div>
 <div id="light-and-darkness" class="section level3">
 <h3>Light and darkness</h3>
@@ -130,9 +130,9 @@ library(magrittr) # for the glorious pipe</code></pre>
 <pre class="r"><code>rainbow(10) %&gt;%
   clr_darken() %&gt;%
   plot()</code></pre>
-<p><img src="/blog/2019-10-01-manipulating-colors-with-prismatic_files/figure-html/unnamed-chunk-21-1.png" width="700px" style="display: block; margin: auto;" /></p>
-<p><img src="/blog/2019-10-01-manipulating-colors-with-prismatic_files/figure-html/unnamed-chunk-22-1.png" width="700px" style="display: block; margin: auto;" /></p>
-<p><img src="/blog/2019-10-01-manipulating-colors-with-prismatic_files/figure-html/unnamed-chunk-23-1.png" width="700px" style="display: block; margin: auto;" /></p>
+<p><img src="/blog/2019-10-01-manipulating-colors-with-prismatic/index_files/figure-html/unnamed-chunk-22-1.png" width="700px" style="display: block; margin: auto;" /></p>
+<p><img src="/blog/2019-10-01-manipulating-colors-with-prismatic/index_files/figure-html/unnamed-chunk-23-1.png" width="700px" style="display: block; margin: auto;" /></p>
+<p><img src="/blog/2019-10-01-manipulating-colors-with-prismatic/index_files/figure-html/unnamed-chunk-24-1.png" width="700px" style="display: block; margin: auto;" /></p>
 </div>
 </div>
 <div id="comparison-code" class="section level2">

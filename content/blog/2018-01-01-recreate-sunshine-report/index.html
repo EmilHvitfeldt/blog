@@ -33,7 +33,7 @@ output:
 <div id="the-goal---an-annual-sunshine-record-report" class="section level2">
 <h2>The goal - An annual sunshine record report</h2>
 <p>I have recently read <a href="https://www.edwardtufte.com/tufte/books_vdqi">The Visual Display of Quantitative Information</a> by Edward R Tufte, which I highly recommend. In the book the following chart was displayed which showed the sunshine record for each day day of the year.</p>
-<p><img src="/img/blog/recreate-sunshine-report/2018-01-01-13.53scan.jpg" width="100%" style="display: block; margin: auto;" /></p>
+<p><img src="2018-01-01-13.53scan.jpg" width="100%" style="display: block; margin: auto;" /></p>
 <p>F.J. Monkhouse and H.R. Wilkinson, <em>Maps and Diagrams</em> (London, third edition 1971), 242-243.</p>
 <p>The goal for the rest of this post is to create something similar. Since we don’t have direct access to the data, we will scrape some data for ourselves. All code will be shown together in the end of the post and in this <a href="https://gist.github.com/EmilHvitfeldt/53e5e33a0ebc5e084dcbcdefacb8ed9a">gist</a></p>
 </div>
@@ -195,12 +195,38 @@ names(y_axis) &lt;- str_c(c(12, rep(1:12, 2, length.out = 23)),
   ) +
   scale_x_continuous(breaks = x_axis, position = &quot;right&quot;) +
   scale_y_continuous(breaks = y_axis, limits = c(0, 24 * 60)) +
-  labs(x = NULL, y = NULL, title = &quot;Sunshine report of Los Angeles 2017&quot;)</code></pre>
-<p><img src="/blog/2018-01-01-recreate-sunshine-report_files/figure-html/unnamed-chunk-17-1.png" width="700px" style="display: block; margin: auto;" /></p>
+  labs(x = NULL, y = NULL, title = &quot;Sunshine report of Los Angeles 2017&quot;)
+## Warning: Position guide is perpendicular to the intended axis. Did you mean to
+## specify a different guide `position`?
+## Warning: guide_axis(): Discarding guide on merge. Do you have more than one
+## guide with the same position?
+
+## Warning: guide_axis(): Discarding guide on merge. Do you have more than one
+## guide with the same position?
+
+## Warning: guide_axis(): Discarding guide on merge. Do you have more than one
+## guide with the same position?
+
+## Warning: guide_axis(): Discarding guide on merge. Do you have more than one
+## guide with the same position?</code></pre>
+<p><img src="/blog/2018-01-01-recreate-sunshine-report/index_files/figure-html/unnamed-chunk-17-1.png" width="700px" style="display: block; margin: auto;" /></p>
 </div>
 <div id="extra" class="section level2">
 <h2>Extra</h2>
-<p><img src="/blog/2018-01-01-recreate-sunshine-report_files/figure-html/unnamed-chunk-18-1.png" width="700px" style="display: block; margin: auto;" /></p>
+<pre><code>## Warning: Position guide is perpendicular to the intended axis. Did you mean to
+## specify a different guide `position`?
+## Warning: guide_axis(): Discarding guide on merge. Do you have more than one
+## guide with the same position?
+
+## Warning: guide_axis(): Discarding guide on merge. Do you have more than one
+## guide with the same position?
+
+## Warning: guide_axis(): Discarding guide on merge. Do you have more than one
+## guide with the same position?
+
+## Warning: guide_axis(): Discarding guide on merge. Do you have more than one
+## guide with the same position?</code></pre>
+<p><img src="/blog/2018-01-01-recreate-sunshine-report/index_files/figure-html/unnamed-chunk-18-1.png" width="700px" style="display: block; margin: auto;" /></p>
 </div>
 <div id="code" class="section level2">
 <h2>Code</h2>

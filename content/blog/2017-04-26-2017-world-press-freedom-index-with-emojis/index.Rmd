@@ -67,7 +67,7 @@ To have something somehow meaningful to compare the freedom index to. I've found
 which we load in as normal.  
 
 ```{r, message=FALSE, warning=FALSE, include=FALSE}
-(gdp_pcap <- read_csv("~/Github/blog/static/data/API_NY.GDP.PCAP.CD_DS2_en_csv_v2.csv", skip = 2))
+(gdp_pcap <- read_csv("~/Github/blog/static/data/API_NY.GDP.PCAP.CD_DS2_en_csv_v2.csv", skip = 3))
 ```
 
 ```{r, message=FALSE, warning=FALSE, eval=FALSE}
@@ -184,4 +184,6 @@ left_join(freedom_index, gdp_pcap, by = c("ISO" = "Country Code")) %>%
        subtitle = "Visualized with emojis")
 ```
 
-![](/img/blog/2017-world-press-freedom-index-with-emojis/pic1.svg)
+```{r echo=FALSE, fig.align='center'}
+knitr::include_graphics("final.svg")
+```

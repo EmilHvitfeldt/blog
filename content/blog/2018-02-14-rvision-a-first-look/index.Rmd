@@ -49,7 +49,7 @@ library(dplyr)
 We will start by simply loading a picture of a parrot. This is done using the function `image`, which creates an object of class `Image`. `Image` objects are pointers toward C++ objects stored in memory and will therefore not work with some functions in base R such `sum`, `%%`, etc.
 
 ```{r include=FALSE}
-img <- image("~/Github/blog/static/img/blog/rvision-a-first-look/parrot.jpg")
+img <- image("parrot.jpg")
 ```
 
 ```{r eval=FALSE}
@@ -115,7 +115,7 @@ plot(img1)
 By now we looked at a bunch of different functions but all of them have been used separately. Now lets combine them to detect something inside the picture.
 
 ```{r include=FALSE}
-img <- image("~/Github/blog/static/img/blog/rvision-a-first-look/balls.jpg")
+img <- image("balls.jpg")
 plot(img)
 ```
 
@@ -136,20 +136,20 @@ colorspace(img)
 
 Which is different then the correctly commonly used RGB. In the following code I tried to find all the blue balls. For that I used the `split` function to split the `Image` object into 3, one for each color channel. Then I used a `do.call` to return a object where the blue channel is more the 200, and the red and green are less then 200, in the hope that it would be enough to identify the blue color without also finding bright areas. This being a logical expression gives us a image file that is white when true and black when it isn't. Lastly we used the `medianBlur` to remove any rough edges and flicker. (you can try comment out the  `medianBlur` and see what changes)
 
-```{r}
+```{r, eval=FALSE}
 img %>%
   split() %>%
-  do.call(function(b, g, r) b > 200 & g < 200 & r < 200, .) %>%
+  do.call(function(B, G, R) B > 200 & G < 200 & R < 200, .) %>%
   medianBlur() %>%
   plot()
 ```
 
 If we would like to highlight these balls on the original image we have to detect where these white blobs are and use the draw functions to draw on our original image. We use `simpleBlobDetector` and play around with the settings till be get something reasonable.
 
-```{r}
+```{r, eval=FALSE}
 blue_balls <- img %>%
   split() %>%
-  do.call(function(b, g, r) b > 200 & g < 200 & r < 200, .) %>%
+  do.call(function(B, G, R) B > 200 & G < 200 & R < 200, .) %>%
   medianBlur() %>%
   simpleBlobDetector(max_area = Inf, min_area = 10, blob_color = 255,
                      filter_by_convexity = FALSE, 
@@ -159,7 +159,7 @@ blue_balls
 
 We use the `cloneImage` as it creates a new `Image` object such that the drawing doesn't change the original `Image` object.
 
-```{r}
+```{r, eval=FALSE}
 img1 <- cloneImage(img)
 
 for (i in seq_len(nrow(blue_balls))) {
@@ -187,7 +187,7 @@ release(my_stream)
 ```
 
 ```{r include=FALSE}
-my_img <- image("~/Github/blog/static/img/blog/rvision-a-first-look/file45425287b9e9.png")
+my_img <- image("file45425287b9e9.png")
 ```
 
 Lets take a look at the image that was captured on my webcam.
@@ -227,19 +227,19 @@ multi_draw <- function(img, blobs) {
 Like before we found the blue balls by identifying the region in the BGR color space where its blue, we expand the same idea to the other colors. (I have not attempted brown as it is fairly similar in color to the table)
 
 ```{r}
-blue <- function(b, g, r) b > 150 & r < 200 & g < 200
-red <- function(b, g, r) r > 150 & b < 200 & g < 150
-green <- function(b, g, r) g > 150 & b < 200 & r < 200
-yellow <- function(b, g, r) g > 150 & b < 200 & b > 150 & r > 150
-orange <- function(b, g, r)  g > 150 & b < 150 & r > 150
+blue <-   function(B, G, R) B > 150 & R < 200 & G < 200
+red <-    function(B, G, R) R > 150 & B < 200 & G < 150
+green <-  function(B, G, R) G > 150 & B < 200 & R < 200
+yellow <- function(B, G, R) G > 150 & B < 200 & B > 150 & R > 150
+orange <- function(B, G, R) G > 150 & B < 150 & R > 150
 ```
 
 Now we just have to run our custom blob detection function and custom drawing function for each color and see the final result
 
 ```{r}
-blue_mms <- blob_fun(my_img, blue, "blue")
-red_mms <- blob_fun(my_img, red, "red")
-green_mms <- blob_fun(my_img, green, "green")
+blue_mms <-   blob_fun(my_img, blue, "blue")
+red_mms <-    blob_fun(my_img, red, "red")
+green_mms <-  blob_fun(my_img, green, "green")
 yellow_mms <- blob_fun(my_img, yellow, "yellow")
 orange_mms <- blob_fun(my_img, orange, "orange")
 
@@ -298,7 +298,9 @@ destroyDisplay("Live test")
 release(my_stream)
 ```
 
-![](/img/blog/rvision-a-first-look/Feb-15-2018 11-12-04.gif)
+```{r echo=FALSE, fig.align='center'}
+knitr::include_graphics("Feb-15-2018 11-12-04.gif")
+```
 
 Its a little choppy but that might be because of my now quite old Macbook.
 

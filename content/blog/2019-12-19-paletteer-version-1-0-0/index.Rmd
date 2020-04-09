@@ -76,7 +76,9 @@ All of this changes with version 1.0.0 `r emo::ji("tada")`!
 Simply starting by typing `paletteer_d()` or any of the other related functions and simply hit tab.
 This will prompt all the names of available palettes which you then can search through using fuzzy search.
 
-![](/img/blog/paletteer-version-1-0-0/complete1.gif)
+```{r echo=FALSE, fig.align='center'}
+knitr::include_graphics("complete1.gif")
+```
 
 This change is the single biggest improvement to this package.
 
@@ -86,7 +88,9 @@ This change is the single biggest improvement to this package.
 
 And yes, it also work with the `scale_*_paletteer()` functions `r emo::ji("raised_hands")`
 
-![](/img/blog/paletteer-version-1-0-0/complete2.gif)
+```{r echo=FALSE, fig.align='center'}
+knitr::include_graphics("complete2.gif")
+```
 
 ## Prismatic integration `r emo::ji("gem")`
 
@@ -97,7 +101,9 @@ This is great for when you want to take a quick look at the colors you are about
 Please note that the background can only take [256](https://github.com/r-lib/crayon#256-colors) different colors.
 Some palettes will fit nicely inside these 256 values and will display nicely (viridis::magma) below, while other palettes with a lot of value will show weird jumps in colors (gameofthrones::greyjoy)
 
-![](/img/blog/paletteer-version-1-0-0/prismatic1.png)
+```{r echo=FALSE, fig.align='center'}
+knitr::include_graphics("prismatic1.png")
+```
 
 If you want more accurate color depictions you can simply `plot()` the output to see the real colors
 

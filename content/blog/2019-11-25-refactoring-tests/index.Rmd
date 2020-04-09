@@ -114,7 +114,9 @@ Now we simply just need to add it once and it propagates to all the functions.
 The main benefit of this refactoring style is that when an error appears,
 It will denote the line where the test broke.
 
-![](/img/blog/refactoring-tests/style1-error.png)
+```{r echo=FALSE, fig.align='center'}
+knitr::include_graphics("style1-error.png")
+```
 
 ## Fix #2 - Less typing, worse error message
 
@@ -144,7 +146,9 @@ However, it comes with a downside.
 When an error appears **testthat** will give the location of the definition of the test-function,
 not the location from where it was called.
 
-![](/img/blog/refactoring-tests/style2-error.png)
+```{r echo=FALSE, fig.align='center'}
+knitr::include_graphics("style2-error.png")
+```
 We can still see that the error happens inside the "alpha" Context,
 but it is slightly harder to track down.
 
@@ -166,7 +170,9 @@ test_wrong_input <- function(clr_) {
 }
 ```
 
-![](/img/blog/refactoring-tests/style2.5-error.png)
+```{r echo=FALSE, fig.align='center'}
+knitr::include_graphics("style2.5-error.png")
+```
 
 It takes more work upfront when writing the test functions.
 But it gives a compromise between the brevity of test files and the clarity of the debugging page.

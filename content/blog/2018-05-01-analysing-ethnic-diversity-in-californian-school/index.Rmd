@@ -151,7 +151,9 @@ diversity_plot <- function(makeup, fix = 0.45) {
     c("diag" = "grey30",
       "other" = "grey70")
   
-  df1 <- crossing(df, df) %>%
+  df1 <- df %>%
+    mutate(new_df = map(seq_len(n()), ~ set_names(df, c("id1", "race1")))) %>%
+    unnest(c(new_df)) %>%
     mutate(fill = case_when(id == id1 ~ "diag",
                             race == race1 ~ as.character(race),
                             TRUE ~ "other")) 
@@ -173,7 +175,7 @@ diversity_plot <- function(makeup, fix = 0.45) {
 ```
 
 ```{r}
-diversity_plot(rep(5, 2))
+diversity_plot(makeup = rep(5, 2))
 ```
 
 (the code for `diversity_plot` is displayed in the end of the article for those interested.)
@@ -484,7 +486,9 @@ ggmap(LA_map) +
   labs(title = "Low diversity areas tends towards city centers \nin Greater Los Angeles Area")
 ```
 
-![](/img/blog/analysing-ethnic-diversity-in-californian-school/map.png)
+```{r echo=FALSE, fig.align='center'}
+knitr::include_graphics("map.png")
+```
 
 This maps shows much more interesting trends!! It appears that low diversity schools cluster together near city centers.
 
