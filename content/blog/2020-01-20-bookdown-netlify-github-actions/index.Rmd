@@ -68,122 +68,88 @@ I have it set up with Github for easier interaction.
 
 Once you have logged into Netlify go to your team page and to create a "New site from Git"
 
-```{r echo=FALSE, fig.align='center'}
-knitr::include_graphics("netlify-teams.png")
-```
+![](netlify-teams.png)
 
 Select Github for Continuous Deployment
 
-```{r echo=FALSE, fig.align='center'}
-knitr::include_graphics("create-new-site.png")
-```
+![](create-new-site.png)
 
 Now we need to select the GitHub repository.
 Depending on how many repositories you have you can find it in the list or search for it with the search bar.
 Once you have found it click the little arrow to the right of it.
 
-```{r echo=FALSE, fig.align='center'}
-knitr::include_graphics("pick-a-repository.png")
-```
+![](pick-a-repository.png)
 
 Don't touch any of the settings.
 
-```{r echo=FALSE, fig.align='center'}
-knitr::include_graphics("deploy-settings.png")
-```
+![](deploy-settings.png)
 
 And voila!
 Here is your new site, it is currently empty. 
 Now click on the "Site settings" button
 
-```{r echo=FALSE, fig.align='center'}
-knitr::include_graphics("new-site.png")
-```
+![](new-site.png)
 
 copy the API ID and save it, you will need it in a little bit.
 If you lose it you can always come back here and copy it again.
 
-```{r echo=FALSE, fig.align='center'}
-knitr::include_graphics("site-id.png")
-```
+![](site-id.png)
 
 You might have noticed that the website is completely random.
 If you click on the "Change site name" button you can set a new prefix name.
 
-```{r echo=FALSE, fig.align='center'}
-knitr::include_graphics("set-name.png")
-```
+![](set-name.png)
 
 Scroll down to get the Status Badge, you can copy this too and put it in the top of your README.md file if you want.
 
-```{r echo=FALSE, fig.align='center'}
-knitr::include_graphics("status-badge.png")
-```
+![](status-badge.png)
 
 ## Get a Netlify personal access token
 
 Scroll all the way up and click on your icon in the top right corner.
 Then go to "User settings"
 
-```{r echo=FALSE, fig.align='center'}
-knitr::include_graphics("icon.png")
-```
+![](icon.png)
 
 go to "Applications"
 
-```{r echo=FALSE, fig.align='center'}
-knitr::include_graphics("user-settings.png")
-```
+![](user-settings.png)
 
 And click on "New access token" to create a personal access token
 
-```{r echo=FALSE, fig.align='center'}
-knitr::include_graphics("personal-access-token.png")
-```
+![](personal-access-token.png)
 
 The description of your token isn't important but try to make it related to your book so you remember.
 Click "Generate token" when you are done.
 
-```{r echo=FALSE, fig.align='center'}
-knitr::include_graphics("generate-token.png")
-```
+![](generate-token.png)
 
 Here is your authentication token. 
 Copy it and don't lose it!
 Once you leave this site you can get it back.
 
-```{r echo=FALSE, fig.align='center'}
-knitr::include_graphics("created-token.png")
-```
+![](created-token.png)
 
 ## Store Your Secrets
 
 Now that you have the API ID and personal access token go back to your Github repository and go to "Settings"
 
-```{r echo=FALSE, fig.align='center'}
-knitr::include_graphics("github-settings.png")
-```
+![](github-settings.png)
 
 go to "Secrets"
 
-```{r echo=FALSE, fig.align='center'}
-knitr::include_graphics("github-secrets.png")
-```
+![](github-secrets.png)
 
 Click on "Add a new secret"
 
-```{r echo=FALSE, fig.align='center'}
-knitr::include_graphics("add-new-secret.png")
-```
+![](add-new-secret.png)
 
 You need to do this twice.
 
 - one named "NETLIFY_AUTH_TOKEN" where you put the personal access token as the value and,
 - one named "NETLIFY_SITE_ID" where you put the API ID as the value.
 
-```{r echo=FALSE, fig.align='center'}
-knitr::include_graphics("fill-in-secret.png")
-```
+![](fill-in-secret.png)
 
 ## Create Github workflow
 
